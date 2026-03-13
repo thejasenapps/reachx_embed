@@ -1,3 +1,4 @@
+import 'package:reachx_embed/core/global_passion.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/getFromFireStore.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/saveInFirestore.dart';
@@ -43,13 +44,26 @@ class TopicListRepoImpl implements TopicListRepo{
           TopicsModel topicsModel = await _getFromFirestore.getSearchTopics(type: type, searchQuery: each);
 
           if(topicsModel.topics.isNotEmpty) {
-            setTopicModel.addAll(topicsModel.topics as List<TopicModel>);
+
+            if(globalInstitutionId.value.isNotEmpty) {
+              final topics = topicsModel.topics.where((topic) => topic.institutionId == globalInstitutionId.value);
+              setTopicModel.addAll(topics as List<TopicModel>);
+            } else {
+              setTopicModel.addAll(topicsModel.topics as List<TopicModel>);
+            }
           }
         }
 
         fullTopicsModel.topics.addAll(setTopicModel);
       } else {
-        fullTopicsModel = await _getFromFirestore.getSearchTopics(type: type, searchQuery: '');
+
+        if(globalInstitutionId.value.isNotEmpty) {
+          final topics = await _getFromFirestore.getSearchTopics(type: type, searchQuery: '');
+          fullTopicsModel = topics.topics.where((topic) => topic.institutionId == globalInstitutionId.value) as TopicsModel;
+          setTopicModel.addAll(topics as List<TopicModel>);
+        } else {
+          fullTopicsModel = await _getFromFirestore.getSearchTopics(type: type, searchQuery: '');
+        }
       }
       // Map ExpertsModel to ExpertsListEntity
       List<TopicEntity> topicEntity = fullTopicsModel.topics.where((topic) => topic.status == "online" && topic.skillType == "professional").map((topic) {

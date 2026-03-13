@@ -42,6 +42,12 @@ void main() async {
     webProvider: ReCaptchaV3Provider('6LfYlRorAAAAAAQNjXgLqKTTyfcuCpOfmV_efEwS'),
   );
 
+  final uri = Uri.base;
+  final clientId = uri.queryParameters['clientId'];
+  debugPrint(clientId);
+
+  globalInstitutionId.value = clientId ?? '';
+
   if(!kIsWeb) {
     final siteKey = Platform.isAndroid
         ? '6LcS3NQrAAAAAM2hK8WddDUdx0TPPZ95hawAaaCZ'

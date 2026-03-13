@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
-              // height: MediaQuery.of(context).size.height * (isVisible ?  0.63 : 0.55),
+              height: MediaQuery.of(context).size.height * (isVisible ?  0.53 : 0.45),
               decoration: BoxDecoration(
                   color: HexColor(containerColor),
                   borderRadius: const BorderRadius.only(
@@ -114,9 +114,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     //   const SizedBox(
                     //     height: 10,
                     //   ),
-                    Image.asset(
-                        width: 130, 'lib/assets/images/reachX_homeLogo.png'),
+                    const Spacer(),
+                    globalInstitutionId.value.isNotEmpty
+                      ? Image.asset(
+                        width: 130,
+                        'lib/assets/images/reachX_homeLogo.png'
+                    )
+                      : Image.asset(
+                        width: 130,
+                        'lib/assets/images/reachX_homeLogo.png'
+                    ),
                     SearchWidget(homeScreenViewModel: homeScreenViewModel),
+                    const SizedBox()
                   ],
                 ),
               ),
@@ -129,6 +138,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollController: scrollController,
                 phoneHeight: phoneHeight!,
               ),
+            ),
+            Row(
+              mainAxisAlignment: .center,
+              spacing: 5,
+              children: [
+                Text(
+                  "Powered by",
+                  style: TextStyle(
+                    color: HexColor(logoColor1),
+                    fontSize: 18,
+                  ),
+                ),
+                Image.asset(
+                    width: 80,
+                    'lib/assets/images/reachX_homeLogo.png'
+                )
+              ],
             ),
             const SizedBox(
               height: 80,

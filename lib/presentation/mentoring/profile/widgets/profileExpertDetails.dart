@@ -15,7 +15,6 @@ import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRe
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistrationViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/homeScreen/homeScreenViewModel.dart';
 import 'package:get/get.dart';
-import 'package:reachx_embed/presentation/mentoring/wallet/walletScreen.dart';
 import 'dart:io' show Platform;
 import 'package:reachx_embed/presentation/mentoring/profile/profileViewModel.dart';
 

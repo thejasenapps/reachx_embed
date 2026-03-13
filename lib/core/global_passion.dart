@@ -47,3 +47,4 @@ RxBool globalLoggedIn = false.obs;
 Rxn<UserModel> userModel = Rxn<UserModel>();
 
 double? maxGlobalHeight;
+RxString globalInstitutionId = ''.obs;

@@ -26,6 +26,7 @@ class TopicEntity {
   String? meetingUrl;
   String? badgeId;
   DateTime? timestamp;
+  String? institutionId;
 
   TopicEntity({
     this.expertId,
@@ -53,7 +54,8 @@ class TopicEntity {
     this.keywordId,
     this.meetingUrl,
     this.badgeId,
-    this.timestamp
+    this.timestamp,
+    this.institutionId
   });
 }
 
