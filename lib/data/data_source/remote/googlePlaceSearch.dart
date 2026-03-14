@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
 class GooglePlaceSearch {
 
-  final apiKey = EnvConfig.googleMapsApiKey;
+  static const apiKey = String.fromEnvironment('GOOGLE_MAPS_API_KEY');
   final Uuid uuid = const Uuid();
   late String sessionToken;
 

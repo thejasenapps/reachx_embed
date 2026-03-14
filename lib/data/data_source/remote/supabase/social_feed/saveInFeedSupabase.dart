@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:reachx_embed/core/constants/apiConstants.dart';
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:reachx_embed/data/models/feedModel.dart';
 
@@ -8,7 +9,7 @@ import 'package:reachx_embed/data/models/feedModel.dart';
 class SaveInFeedSupabase {
 
   final Dio _dio = Dio();
-  final supabaseFeedApi = EnvConfig.supabaseFeedApi;
+  static const supabaseFeedApi = String.fromEnvironment('SUPABSE_FEED_API');
   String baseUrl = supabaseFeedUrl;
 
 

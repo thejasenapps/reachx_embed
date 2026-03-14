@@ -13,6 +13,7 @@ class UserModel extends UserEntity {
     super.fcmToken,
     var uniqueId,
     String? lastLogin,
+    super.institutionId
   }) : lastLogin = lastLogin ?? DateTime.now().toIso8601String();  // Initialize the base class with name and phoneNo
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -22,7 +23,8 @@ class UserModel extends UserEntity {
       phoneNo: json["phone"] ?? '',
       email: json["email"] ?? '',
       subscriptionStatus: json["subscriptionStatus"] ?? 'beginner',
-      uniqueId: json["uniqueId"] ?? ''
+      uniqueId: json["uniqueId"] ?? '',
+      institutionId: json["institutionId"] ?? ''
   );
 
   /// Converts the SignUpModel instance into a JSON object for API interaction
@@ -33,6 +35,7 @@ class UserModel extends UserEntity {
     'name': name,
     'email': email,
     'phone': phoneNo,
-    'subscriptionStatus': subscriptionStatus
+    'subscriptionStatus': subscriptionStatus,
+    'institutionId': institutionId
   };
 }

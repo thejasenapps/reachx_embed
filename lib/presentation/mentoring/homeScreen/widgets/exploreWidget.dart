@@ -95,65 +95,6 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                   );
                 }
               }),
-              SafeArea(
-                child: Column(
-                  spacing: 20,
-                  children: [
-                    Text(
-                      "Explore sessions on:",
-                      style: TextStyle(
-                        color: HexColor(secondaryTextColor),
-                      ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: SizedBox(
-                          height: 200 ,
-                          child: GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate: const CustomSilverDelegate(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 8,
-                                  crossAxisSpacing: 10
-                              ),
-                              itemCount: homeScreenModel.popularCategories!.categories.length,
-                              itemBuilder: (context, index) {
-                
-                                return GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(
-                                      TopicListScreen.route,
-                                      arguments: homeScreenModel.popularCategories!.categories[index],
-                                      id: NavIds.home,
-                                    );
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(
-                                            color: HexColor(containerBorderColor)
-                                        ),
-                                        color: Colors.white
-                                    ),
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      homeScreenModel.popularCategories!.categories[index],
-                                      style: TextStyle(
-                                        color: HexColor(secondaryTextColor),
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                );
-                              }
-                          ),
-                        )
-                    )
-                  ],
-                ),
-              )
 
             ],
           );

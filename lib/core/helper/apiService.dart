@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:reachx_embed/core/constants/apiConstants.dart';
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 
@@ -9,7 +10,7 @@ class ApiClient extends ChangeNotifier {
 
   ApiClient(this._dio);
 
-  final _apiKey = EnvConfig.apiKey;
+  static const _apiKey = String.fromEnvironment('API_KEY');
 
   /// Handles API requests (GET, POST)
   Future<Response> request({

@@ -20,3 +20,4 @@ const gatherNavBall = "#D6A6FB";
 const growNavBall = "#C0A1FF";
 const journalNavBall = "#7AA4DB";
 const discoverNavBall = "#7563C3";
+const logoColor1 = "#3535d8";

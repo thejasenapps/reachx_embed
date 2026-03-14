@@ -17,7 +17,6 @@ import 'package:reachx_embed/data/models/topicModel.dart';
 import 'package:reachx_embed/data/models/transactionModel.dart';
 import 'package:reachx_embed/data/models/userModel.dart';
 import 'package:reachx_embed/data/models/walletModel.dart';
-import 'package:reachx_embed/data/passionGenerator/passionGeneratorModel.dart';
 import 'package:reachx_embed/domain/entities/bookingEntity.dart';
 
 class GetFromFirestore {
@@ -647,20 +646,6 @@ class GetFromFirestore {
     }
   }
 
-  Future<Results> getPassionateQuestions() async {
-    CollectionReference collection =
-        FirebaseFirestore.instance.collection(FirebaseCollection.passionate_questions.name);
-    try {
-      QuerySnapshot snapshot = await collection.get();
-      if (snapshot.docs.isNotEmpty) {
-        return Results.success(PassionsModel.fromJson(snapshot.docs));
-      }
-      return Results.error("Data is empty");
-    } catch (e) {
-      print(e);
-      return Results.error("Error fetching data: $e");
-    }
-  }
 
   Future<Results> fetchStreaks(String passionId) async {
     try {

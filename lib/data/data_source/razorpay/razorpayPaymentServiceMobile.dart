@@ -3,15 +3,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:reachx_embed/core/helper/getCurrencyCode.dart';
 
 class RazorpayPaymentService {
   final Dio _dio = Dio();
   final Razorpay _razorpay = Razorpay();
-
-  final razorpayKey = EnvConfig.razorpayId;
-  final razorpaySecret = EnvConfig.razorpaySecret;
+  
+  static const razorpayKey = String.fromEnvironment('RAZORPAY_ID');
+  static const razorpaySecret = String.fromEnvironment('RAZORPAY_SECRET');
 
   final BuildContext context;
   Completer<Map<String, dynamic>>? _paymentCompleter;

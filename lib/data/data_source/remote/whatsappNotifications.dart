@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -9,8 +10,8 @@ class WhatsappNotifications {
 
   final Dio _dio = Dio();
 
-  final whatsappNumber = EnvConfig.whatsappNumber;
-  final whatsappToken = EnvConfig.whatsappAccessToken;
+  static const whatsappNumber = String.fromEnvironment('BUSINESS_WHATSAPP_NUMBER');
+  static const whatsappToken = String.fromEnvironment('WHATSAPP_ACCESS_TOKEN');
 
   Future<bool> sendBookingAlertToPassionate(Map<String, dynamic> data) async {
     try {

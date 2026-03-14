@@ -16,7 +16,6 @@ import 'package:reachx_embed/data/models/transactionModel.dart';
 import 'package:reachx_embed/data/models/userModel.dart';
 import 'package:reachx_embed/data/models/viewCountModel.dart';
 import 'package:reachx_embed/data/models/walletModel.dart';
-import 'package:reachx_embed/data/passionGenerator/passionGeneratorModel.dart';
 import 'package:uuid/uuid.dart';
 
 class SaveInFirestore {
@@ -246,17 +245,6 @@ class SaveInFirestore {
     } catch(e) {
       debugPrint(e.toString());
       return Results.error(e);
-    }
-  }
-
-  Future<bool> saveAnswers(String id, {required AnswerSheetModel answerSheetModel}) async {
-    try {
-      final CollectionReference collection = FirebaseFirestore.instance.collection(FirebaseCollection.answers.name);
-      await collection.doc(id).set(answerSheetModel.toJson());
-      return true;
-    } catch (e) {
-      print("Error saving answer data : $e");
-      return false;
     }
   }
 }

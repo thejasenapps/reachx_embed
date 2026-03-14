@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:reachx_embed/core/constants/apiConstants.dart';
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/data/models/badgeModel.dart';
@@ -11,7 +12,7 @@ import 'package:reachx_embed/data/models/toolsModel.dart';
 class GetFromSupabase {
 
   final Dio _dio = Dio();
-  final supabaseApi = EnvConfig.supabaseApi;
+  static const supabaseApi = String.fromEnvironment('SUPABSE_API');
   String baseUrl = supabaseBaseUrl;
 
 

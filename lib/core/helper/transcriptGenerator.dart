@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:http/http.dart' as http;
 
 class TranscriptGenerator {
-  final String apiKey = EnvConfig.groqApi;
+  static const apiKey = String.fromEnvironment('GROQ_API');
   final YoutubeExplode _youtubeExplode = YoutubeExplode();
 
 

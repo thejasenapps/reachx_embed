@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:reachx_embed/core/constants/apiConstants.dart';
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/data/models/roadMapModel.dart';
@@ -12,7 +13,7 @@ class SaveInSupabase {
 
   final Dio _dio = Dio();
 
-  String apiKey = EnvConfig.supabaseApi;
+  static const apiKey = String.fromEnvironment('SUPABASE_API');
   String baseUrl = supabaseBaseUrl;
 
 

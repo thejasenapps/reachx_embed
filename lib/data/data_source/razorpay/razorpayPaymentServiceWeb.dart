@@ -3,6 +3,7 @@ import 'dart:js_interop';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
+
 // Note: Only use razorpay_flutter for mobile logic; it may conflict on web
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:reachx_embed/core/helper/getCurrencyCode.dart';
@@ -28,7 +29,8 @@ class RazorpayPaymentService {
   final Dio _dio = Dio();
   final BuildContext context;
 
-  final razorpayKey = EnvConfig.razorpayId;
+  static const razorpayKey = String.fromEnvironment('RAZORPAY_ID');
+
 
   Completer<Map<String, dynamic>>? _paymentCompleter;
 

@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 
 class MailingClass {
   String smtpHost = 'reachx.pro';
   int smtpPort = 465;
-  String username = EnvConfig.companyMailUsername;
-  String password = EnvConfig.companyMailPassword;
+
+  static const username = String.fromEnvironment("WEBMAIL_USERNAME");
+  static const password = String.fromEnvironment("WEBMAIL_SECURITY");
 
 
   Future<Results> sendMail(String mail, String name) async {

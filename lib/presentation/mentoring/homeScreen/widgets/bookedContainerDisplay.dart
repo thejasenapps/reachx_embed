@@ -89,10 +89,10 @@ class _BookedContainerDisplayState extends State<BookedContainerDisplay> {
             Obx(() {
               if(globalTopics.isNotEmpty) {
                 return SizedBox(
-                  height: 560 + (10000/height),
+                  height: 300 + (10000/height),
                   child: TabBarView(
                       children: [
-                        ExploreWidget(homeScreenViewModel: widget.homeScreenViewModel,),
+                        // ExploreWidget(homeScreenViewModel: widget.homeScreenViewModel,),
                         Obx(() {
                           if(bookedViewModel.latestBooking.isNotEmpty) {
                             return bookingList(bookedViewModel.latestBooking);
@@ -150,7 +150,7 @@ class _BookedContainerDisplayState extends State<BookedContainerDisplay> {
                 );
               } else {
                 return SizedBox(
-                  height: 620 + (10000/height),
+                  height: 360 + (10000/height),
                   child: TabBarView(
                       children: [
                         ExploreWidget(homeScreenViewModel: widget.homeScreenViewModel,),

@@ -28,7 +28,8 @@ class TopicModel extends TopicEntity{
     required super.availability,
     super.meetingUrl,
     super.badgeId,
-    super.timestamp
+    super.timestamp,
+    super.institutionId
   });
 
 
@@ -61,7 +62,8 @@ class TopicModel extends TopicEntity{
     availability: json["availability"] ?? false,
     meetingUrl: json["meetingUrl"] ?? '',
     badgeId: json["badgeId"] ?? '',
-    timestamp: json["timestamp"] != null ? (json["timestamp"] as Timestamp).toDate() : null
+    timestamp: json["timestamp"] != null ? (json["timestamp"] as Timestamp).toDate() : null,
+    institutionId: json["institutionId"] ?? ''
   );
 
   Map<String, dynamic> toJson() => {
@@ -88,7 +90,8 @@ class TopicModel extends TopicEntity{
     "availability": availability,
     "meetingUrl": meetingUrl ?? '',
     "badgeId": badgeId ?? '',
-    "timestamp":timestamp
+    "timestamp":timestamp,
+    "institutionId":institutionId ?? ''
   };
 }
 

@@ -37,7 +37,7 @@ class ExpertEntity {
     this.isExpert,
     required this.achievements,
     this.badgeId,
-    this.timestamp
+    this.timestamp,
   });
 }
 

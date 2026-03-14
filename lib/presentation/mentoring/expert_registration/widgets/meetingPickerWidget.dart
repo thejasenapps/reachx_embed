@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistrationViewModel.dart';
 
@@ -15,7 +16,7 @@ class MeetingPickerWidget extends StatefulWidget {
 
 class _MeetingPickerWidgetState extends State<MeetingPickerWidget> {
 
-  final apiKey = EnvConfig.googleMapsApiKey;
+  static const apiKey = String.fromEnvironment('GOOGLE_MAPS_API_KEY');
 
   @override
   Widget build(BuildContext context) {

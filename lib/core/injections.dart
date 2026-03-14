@@ -7,14 +7,12 @@ import 'package:reachx_embed/data/expertDetail/expertDetailRepoImpl.dart';
 import 'package:reachx_embed/data/expertRegistration/expertRegistrationRepoImpl.dart';
 import 'package:reachx_embed/data/homescreen/homeScreenRepoImpl.dart';
 import 'package:reachx_embed/data/meetingSetup/meetingSetupRepoImpl.dart';
-import 'package:reachx_embed/data/passionGenerator/passionGeneratorRepoImpl.dart';
 import 'package:reachx_embed/data/profile/profileExpertRepoImpl.dart';
 import 'package:reachx_embed/data/sessionDetail/sessionDetailRepoImpl.dart';
 import 'package:reachx_embed/data/signUp/signUpRepoImpl.dart';
 import 'package:reachx_embed/data/splash/splashRepoImpl.dart';
 import 'package:reachx_embed/data/topicList/topicListRepoImpl.dart';
 import 'package:reachx_embed/data/topicUpload/topicUploadRepoImpl.dart';
-import 'package:reachx_embed/data/wallet/walletRepoImpl.dart';
 import 'package:reachx_embed/domain/booked/bookedRepo.dart';
 import 'package:reachx_embed/domain/booking/bookingRepo.dart';
 import 'package:reachx_embed/domain/checkLog/checkLogRepo.dart';
@@ -22,14 +20,12 @@ import 'package:reachx_embed/domain/expertDetail/expertDetailRepo.dart';
 import 'package:reachx_embed/domain/expertRegistration/expertRegistrationRepo.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenRepo.dart';
 import 'package:reachx_embed/domain/meetingSetup/meetingSetupRepo.dart';
-import 'package:reachx_embed/domain/passionGenerator/passionGeneratorRepo.dart';
 import 'package:reachx_embed/domain/profile/profileExpertRepo.dart';
 import 'package:reachx_embed/domain/sessionDetail/sessionDetailRepo.dart';
 import 'package:reachx_embed/domain/signUp/signUpRepo.dart';
 import 'package:reachx_embed/domain/splash/splashRepo.dart';
 import 'package:reachx_embed/domain/topicList/topicListRepo.dart';
 import 'package:reachx_embed/domain/topicUpload/topicUploadRepo.dart';
-import 'package:reachx_embed/domain/wallet/walletRepo.dart';
 import 'package:reachx_embed/presentation/mentoring/booked/bookedViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/booking/bookingViewModel.dart';
 import 'package:reachx_embed/presentation/commonWidgets/topicDisplayContainer.dart';
@@ -40,7 +36,6 @@ import 'package:reachx_embed/presentation/mentoring/meetingSetup/meetingSetupVie
 import 'package:reachx_embed/presentation/mentoring/profile/profileViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/sessionDetail/sessionDetailViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/signUp/signUpViewModel.dart';
-import 'package:reachx_embed/presentation/mentoring/wallet/walletViewModel.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -66,10 +61,7 @@ initInjection() {
   getIt.registerSingleton<MeetingSetupViewModel>(MeetingSetupViewModel());
   getIt.registerSingleton<HomeScreenViewModel>(HomeScreenViewModel());
   getIt.registerSingleton<AudioCoordinator>(AudioCoordinator());
-  getIt.registerSingleton<WalletRepo>(WalletRepoImpl());
   getIt.registerSingleton<TopicUploadRepo>(TopicUploadRepoImpl());
-  getIt.registerSingleton<WalletViewModel>(WalletViewModel());
-  getIt.registerSingleton<PassionGeneratorRepo>(PassionGeneratorRepoImpl());
   getIt.registerSingleton<SubscriptionController>(SubscriptionController());
   getIt.registerSingleton<SplashRepo>(SplashRepoImpl());
 }

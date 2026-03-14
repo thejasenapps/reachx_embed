@@ -23,7 +23,7 @@ class ExpertModel extends ExpertEntity {
     super.isExpert,
     required super.achievements,
     super.badgeId,
-    super.timestamp
+    super.timestamp,
   });  // Initialize the base class with name and phoneNo
 
   factory ExpertModel.fromJson(Map<String, dynamic> json) => ExpertModel(
@@ -44,7 +44,7 @@ class ExpertModel extends ExpertEntity {
       achievements: json["achievements"] != null ? List<String>.from(json["achievements"]) : [],
       isExpert: json["isExpert"] ?? true,
       badgeId: json["badgeId"] ?? '',
-      timestamp: json["timestamp"] != null ? (json["timestamp"] as Timestamp).toDate() : null
+      timestamp: json["timestamp"] != null ? (json["timestamp"] as Timestamp).toDate() : null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -62,7 +62,7 @@ class ExpertModel extends ExpertEntity {
     'isExpert': isExpert ?? false,
     'achievements': achievements ,
     'badgeId': badgeId ?? '',
-    'timestamp': timestamp
+    'timestamp': timestamp,
   };
 }
 

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:reachx_embed/core/global_passion.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/data/booked/bookedModel.dart';
 import 'package:reachx_embed/data/data_source/local/sharedPreferenceServices.dart';
@@ -60,28 +62,60 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
               (booking) => booking.topicId ?? ''
       ).toList();
 
-      List<TrendingProfilesEntity> profiles = topicsModel.topics
-          .where((topic) =>
-      topic.status == "online" && topic.skillType == "professional")
-          .map((topic) {
-        return TrendingProfilesEntity(
-            topicId: topic.topicId,
-            expertId: topic.expertId ?? '',
-            name: topic.name,
-            session: topic.session,
-            sessionType: topic.sessionType,
-            expertName: topic.expertName ?? '',
-            imageUrl: topic.imageUrl ?? '',
-            skillType: topic.skillType ?? 'professional',
-            languages: topic.languages!.isNotEmpty ? topic.languages! : [
-              'English'
-            ],
-            location: topic.location!.isNotEmpty
-                ? topic.location!
-                : "Loading...",
-            availability: topic.availability
-        );
-      }).toList();
+      List<TrendingProfilesEntity> profiles = [];
+
+      if(globalInstitutionId.value.isEmpty) {
+        profiles = topicsModel.topics
+            .where((topic) =>
+        topic.status == "online" && topic.skillType == "professional")
+            .map((topic) {
+          return TrendingProfilesEntity(
+              topicId: topic.topicId,
+              expertId: topic.expertId ?? '',
+              name: topic.name,
+              session: topic.session,
+              sessionType: topic.sessionType,
+              expertName: topic.expertName ?? '',
+              imageUrl: topic.imageUrl ?? '',
+              skillType: topic.skillType ?? 'professional',
+              languages: topic.languages!.isNotEmpty ? topic.languages! : [
+                'English'
+              ],
+              location: topic.location!.isNotEmpty
+                  ? topic.location!
+                  : "Loading...",
+              availability: topic.availability
+          );
+        }).toList();
+      } else {
+        profiles = topicsModel.topics
+            .where((topic) =>
+        topic.status == "online"
+            && topic.skillType == "professional"
+            && topic.institutionId!.isNotEmpty
+            && topic.institutionId! == globalInstitutionId.value
+        )
+            .map((topic) {
+          return TrendingProfilesEntity(
+              topicId: topic.topicId,
+              expertId: topic.expertId ?? '',
+              name: topic.name,
+              session: topic.session,
+              sessionType: topic.sessionType,
+              expertName: topic.expertName ?? '',
+              imageUrl: topic.imageUrl ?? '',
+              skillType: topic.skillType ?? 'professional',
+              languages: topic.languages!.isNotEmpty ? topic.languages! : [
+                'English'
+              ],
+              location: topic.location!.isNotEmpty
+                  ? topic.location!
+                  : "Loading...",
+              availability: topic.availability
+          );
+        }).toList();
+      }
+
 
       if (topicIds.isNotEmpty) {
         for (String id in topicIds) {

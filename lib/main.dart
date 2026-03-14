@@ -34,13 +34,18 @@ void main() async {
 
   await LocalUserDatabase.init();
 
-  final envLoad = EnvConfig.loadEnv();
 
   final appCheckActivate = FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.playIntegrity,
     appleProvider: AppleProvider.appAttestWithDeviceCheckFallback,
     webProvider: ReCaptchaV3Provider('6LfYlRorAAAAAAQNjXgLqKTTyfcuCpOfmV_efEwS'),
   );
+
+  final uri = Uri.base;
+  final clientId = uri.queryParameters['clientId'];
+  debugPrint(clientId);
+
+  globalInstitutionId.value = clientId ?? '';
 
   if(!kIsWeb) {
     final siteKey = Platform.isAndroid
@@ -59,7 +64,6 @@ void main() async {
 
 
   await Future.wait([
-    envLoad,
     appCheckActivate,
     initialMsgHandler
   ]);
