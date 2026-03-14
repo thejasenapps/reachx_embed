@@ -1,6 +1,6 @@
 (function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const institutionId = urlParams.get('instId') || 'default_institution';
+  const scriptTag = document.currentScript;
+  const institutionId = scriptTag.getAttribute('institution_id') || 'default_id';
 
   const GITHUB_URL = "https://thejasenapps.github.io/reachx_embed/";
 
