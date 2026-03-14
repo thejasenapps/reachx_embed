@@ -8,6 +8,7 @@ import 'package:reachx_embed/data/data_source/remote/firebase/firebaseAuthentica
 import 'package:reachx_embed/data/homescreen/homeScreenModel.dart';
 import 'package:reachx_embed/data/models/coinsModel.dart';
 import 'package:reachx_embed/data/models/expertsModel.dart';
+import 'package:reachx_embed/data/models/institutionModel.dart';
 import 'package:reachx_embed/data/models/momentModel.dart';
 import 'package:reachx_embed/data/models/requestModel.dart';
 import 'package:reachx_embed/data/models/sessionModel.dart';
@@ -743,6 +744,22 @@ class GetFromFirestore {
     } catch (e) {
       print("failed, $e");
       return Results.error("Unknown error: $e");
+    }
+  }
+
+
+  Future<Results> fetchInstitution(String institutionId) async {
+    CollectionReference collection =
+    FirebaseFirestore.instance.collection(FirebaseCollection.institutions.name);
+    try {
+      DocumentSnapshot snapshot = await collection.doc(institutionId).get();
+      if (snapshot.exists) {
+        return Results.success(InstitutionModel.fromJson(snapshot.data() as Map<String, dynamic>));
+      } else {
+        return Results.error("Not found");
+      }
+    } catch (e) {
+      return Results.error("Unknown error");
     }
   }
 }

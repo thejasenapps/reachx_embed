@@ -1,6 +1,7 @@
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/core/injections.dart';
 import 'package:reachx_embed/domain/entities/expertsEntity.dart';
+import 'package:reachx_embed/domain/entities/institutionEntity.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenEntity.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenRepo.dart';
 
@@ -40,6 +41,10 @@ class HomeScreenUsecase {
 
   void saveOnline(String storage, String status) {
     homeScreenRepo.saveOnline(storage, status);
+  }
+
+  Future<InstitutionEntity> getInstitution(String institutionId) {
+    return homeScreenRepo.getInstitution(institutionId);
   }
 
 }

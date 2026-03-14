@@ -16,6 +16,7 @@ import 'package:reachx_embed/presentation/mentoring/homeScreen/widgets/menuButto
 import 'package:reachx_embed/presentation/mentoring/profile/profileScreen.dart';
 import 'package:reachx_embed/presentation/mentoring/profile/profileViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/homeScreen/widgets/searchWidget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,6 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     homeScreenViewModel.getPopularCategories();
     bookedViewModel.getSessionsBookings();
+
+    if(globalInstitutionId.value.isNotEmpty) {
+      homeScreenViewModel.getInstitutionDetails(globalInstitutionId.value);
+    }
 
     if (globalUri.value != Uri()) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -115,15 +120,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     //     height: 10,
                     //   ),
                     const Spacer(),
-                    globalInstitutionId.value.isNotEmpty
-                      ? Image.asset(
-                        width: 130,
-                        'lib/assets/images/reachX_homeLogo.png'
-                    )
-                      : Image.asset(
-                        width: 130,
-                        'lib/assets/images/reachX_homeLogo.png'
-                    ),
+                    Obx(() {
+                      return Skeletonizer(
+                        enabled: homeScreenViewModel.isInstitutionLoading.value,
+                        child: homeScreenViewModel.institutionEntity != null && homeScreenViewModel.institutionEntity!.name.isNotEmpty
+                            ? Text(
+                          homeScreenViewModel.institutionEntity!.name,
+                          style: TextStyle(
+                              color: HexColor(specialColor),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24
+                          ),
+                        )
+                            : Text(
+                          "ReachX",
+                          style: TextStyle(
+                              color: HexColor(specialColor),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24
+                          ),
+                        ),
+                      );
+                    }),
+                    // globalInstitutionId.value.isNotEmpty
+                    //   ? Image.asset(
+                    //     width: 130,
+                    //     'lib/assets/images/reachX_homeLogo.png'
+                    // )
+                    //   : Image.asset(
+                    //     width: 130,
+                    //     'lib/assets/images/reachX_homeLogo.png'
+                    // ),
                     SearchWidget(homeScreenViewModel: homeScreenViewModel),
                     const SizedBox()
                   ],

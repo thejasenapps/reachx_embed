@@ -98,167 +98,175 @@ class TrendingCarousalWidget extends StatelessWidget {
 
             final TrendingProfilesListEntity profileList = snapshot.data as TrendingProfilesListEntity;
 
-            return CarouselSlider(
-                items: profileList.trendingProfilesList.map((profile) {
-                  return GestureDetector(
-                    onTap: () {
-                      Map<String, dynamic> arguments = {
-                        "uniqueId": profile.expertId,
-                        "topicId": profile.topicId
-                      };
+            if(profileList.trendingProfilesList.isNotEmpty) {
+              return CarouselSlider(
+                  items: profileList.trendingProfilesList.map((profile) {
+                    return GestureDetector(
+                      onTap: () {
+                        Map<String, dynamic> arguments = {
+                          "uniqueId": profile.expertId,
+                          "topicId": profile.topicId
+                        };
 
-                      Get.toNamed(
-                        ExpertDetailScreen.route, // Navigate to expert detail screen.
-                        arguments: arguments,
-                        id: NavIds.home,
-                      );
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.70,
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: HexColor(containerBorderColor)
-                          )
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: HexColor(containerBorderColor)
+                        Get.toNamed(
+                          ExpertDetailScreen.route, // Navigate to expert detail screen.
+                          arguments: arguments,
+                          id: NavIds.home,
+                        );
+                      },
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.70,
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                  color: HexColor(containerBorderColor)
+                              )
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: HexColor(containerBorderColor)
+                                    ),
+                                    shape: BoxShape.circle
                                 ),
-                                shape: BoxShape.circle
-                            ),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(60),
-                                child:  CachedNetworkImage(
-                                  imageUrl: profile.imageUrl,
-                                  width: 80,
-                                  height: 80,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) => const Center(
-                                    child: CustomPlaceHolderImage(),
-                                  ),
-                                  errorWidget: (context, url, error) => Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(60)
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(60),
+                                    child:  CachedNetworkImage(
+                                      imageUrl: profile.imageUrl,
+                                      width: 80,
+                                      height: 80,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) => const Center(
+                                        child: CustomPlaceHolderImage(),
                                       ),
-                                      child: const Icon(
-                                        Icons.person, size: 40, color: Colors.grey,
-                                      )
-                                  ),
-                                )
-                            ),
-                          ),
-                          const SizedBox(height: 4,),
-                          SizedBox(
-                            height: profile.name.length > 40 ? 40 : 20,
-                            child: Text(
-                                profile.name,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: profile.name.length > 40 ? 14 : 16
+                                      errorWidget: (context, url, error) => Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(60)
+                                          ),
+                                          child: const Icon(
+                                            Icons.person, size: 40, color: Colors.grey,
+                                          )
+                                      ),
+                                    )
+                                ),
                               ),
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          const SizedBox(height: 4,),
-                          Text(
-                              profile.expertName,
-                            style: TextStyle(
-                                color: HexColor(secondaryTextColor),
-                                fontWeight: FontWeight.w300,
-                                fontSize: 12
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 4,),
-                          Text(
-                            languageStringification(profile.languages),
-                            style: TextStyle(
-                                color: HexColor(lightBlue),
-                                fontWeight: FontWeight.w300,
-                                fontSize: 12
-                            ),
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 4,),
-                          profile.sessionType.toLowerCase() == "group"
-                            ? Text(
+                              const SizedBox(height: 4,),
+                              SizedBox(
+                                height: profile.name.length > 40 ? 40 : 20,
+                                child: Text(
+                                  profile.name,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: profile.name.length > 40 ? 14 : 16
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(height: 4,),
+                              Text(
+                                profile.expertName,
+                                style: TextStyle(
+                                    color: HexColor(secondaryTextColor),
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 12
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 4,),
+                              Text(
+                                languageStringification(profile.languages),
+                                style: TextStyle(
+                                    color: HexColor(lightBlue),
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 12
+                                ),
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 4,),
+                              profile.sessionType.toLowerCase() == "group"
+                                  ? Text(
                                 !profile.availability
-                                  ? "Request Slot"
+                                    ? "Request Slot"
                                     : profile.session.toLowerCase() == "online"
-                                      ? "Webinar"
-                                      : "Seminar",
+                                    ? "Webinar"
+                                    : "Seminar",
                                 style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 12
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 12
                                 ),
                                 textAlign: TextAlign.center,
                               )
-                            : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                profile.session.toLowerCase() == "online"
-                                    ? Iconsax.monitor
-                                    : Iconsax.location,
-                                color: HexColor(mainColor),
-                                size: 13,
-                              ),
-                              const SizedBox(width: 5,),
-                              Text(
-                                profile.session.toLowerCase() == "online"
-                                    ? "Online"
-                                    : getFilteredLocation(profile.location),
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 12
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(width: 20,),
-                              Text(
-                                sessionClassification(
-                                    profile.session,
-                                    profile.sessionType
-                                ),
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 12
-                                ),
-                                textAlign: TextAlign.center,
+                                  : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    profile.session.toLowerCase() == "online"
+                                        ? Iconsax.monitor
+                                        : Iconsax.location,
+                                    color: HexColor(mainColor),
+                                    size: 13,
+                                  ),
+                                  const SizedBox(width: 5,),
+                                  Text(
+                                    profile.session.toLowerCase() == "online"
+                                        ? "Online"
+                                        : getFilteredLocation(profile.location),
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 12
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(width: 20,),
+                                  Text(
+                                    sessionClassification(
+                                        profile.session,
+                                        profile.sessionType
+                                    ),
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 12
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
                             ],
-                          ),
-                        ],
-                      )
-                    ),
-                  );
-                }).toList(),
-                options: CarouselOptions(
+                          )
+                      ),
+                    );
+                  }).toList(),
+                  options: CarouselOptions(
                     height: 220,
                     viewportFraction: 0.8,
                     autoPlay: true,
                     enlargeCenterPage: true,
                     autoPlayInterval: const Duration(seconds: 2),
                     enlargeFactor: 0.2,
-                )
-            );
+                  )
+              );
+            } else {
+              return const Center(
+                child: Text(
+                  "Loading soon.."
+                ),
+              );
+            }
           }
         }
     );

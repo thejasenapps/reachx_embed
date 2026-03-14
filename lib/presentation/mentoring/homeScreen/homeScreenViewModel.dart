@@ -8,6 +8,7 @@ import 'package:reachx_embed/core/global_variables.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/core/injections.dart';
 import 'package:reachx_embed/domain/entities/expertsEntity.dart';
+import 'package:reachx_embed/domain/entities/institutionEntity.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenEntity.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenUsecase.dart';
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistration.dart';
@@ -31,10 +32,12 @@ class HomeScreenViewModel extends GetxController{
   int totalBanners = 0;
   int batchSize = 4;
   int len = 0;
+  InstitutionEntity? institutionEntity;
 
   RxBool isLoading = true.obs;
   RxBool result = false.obs;
   RxBool expert = false.obs;
+  RxBool isInstitutionLoading = false.obs;
 
 
   // Checks if the user is logged in and assigns their status accordingly.
@@ -191,4 +194,9 @@ class HomeScreenViewModel extends GetxController{
   }
 
 
+  Future<void> getInstitutionDetails(String institutionId) async {
+    isInstitutionLoading.value = true;
+    institutionEntity = await homeScreenUsecase.getInstitution(institutionId);
+    isInstitutionLoading.value = false;
+  }
 }

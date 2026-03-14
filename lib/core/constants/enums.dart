@@ -46,5 +46,6 @@ enum FirebaseCollection {
   users,
   wallet,
   subscriptionTest,
-  answers
+  answers,
+  institutions
 }

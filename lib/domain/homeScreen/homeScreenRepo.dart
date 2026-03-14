@@ -1,5 +1,6 @@
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/domain/entities/expertsEntity.dart';
+import 'package:reachx_embed/domain/entities/institutionEntity.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenEntity.dart';
 
 abstract class HomeScreenRepo {
@@ -11,4 +12,6 @@ abstract class HomeScreenRepo {
   void localLoginSave();
   Future<ExpertEntity> fetchExpertProfile();
   Future<void> saveOnline(String storage, String status);
+
+  Future<InstitutionEntity> getInstitution(String institutionId);
 }

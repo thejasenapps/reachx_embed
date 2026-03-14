@@ -7,8 +7,10 @@ import 'package:reachx_embed/data/data_source/local/sharedPreferenceServices.dar
 import 'package:reachx_embed/data/data_source/remote/firebase/firebaseAuthentication.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/getFromFireStore.dart';
 import 'package:reachx_embed/data/models/expertsModel.dart';
+import 'package:reachx_embed/data/models/institutionModel.dart';
 import 'package:reachx_embed/data/models/topicModel.dart';
 import 'package:reachx_embed/domain/entities/expertsEntity.dart';
+import 'package:reachx_embed/domain/entities/institutionEntity.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenEntity.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenRepo.dart';
 
@@ -189,6 +191,20 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
     } else {
       _sharedPreferenceServices.setValue(storage, true);
     }
+  }
+
+
+  @override
+  Future<InstitutionEntity> getInstitution(String institutionId) async {
+    final result = await _getFromFirestore.fetchInstitution(institutionId);
+
+    if(result is SuccessState) {
+      final institutionModel = result.value as InstitutionModel;
+
+      return institutionModel.toEntity();
+    }
+
+    return InstitutionEntity(id: '', name: '');
   }
 
 }

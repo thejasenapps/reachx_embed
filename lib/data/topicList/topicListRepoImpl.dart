@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:reachx_embed/core/global_passion.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/getFromFireStore.dart';
@@ -46,8 +47,11 @@ class TopicListRepoImpl implements TopicListRepo{
           if(topicsModel.topics.isNotEmpty) {
 
             if(globalInstitutionId.value.isNotEmpty) {
-              final topics = topicsModel.topics.where((topic) => topic.institutionId == globalInstitutionId.value);
-              setTopicModel.addAll(topics as List<TopicModel>);
+              final filteredTopics = topicsModel.topics
+                  .where((topic) => topic.institutionId == globalInstitutionId.value)
+                  .toList();
+
+              setTopicModel.addAll(filteredTopics as List<TopicModel>);
             } else {
               setTopicModel.addAll(topicsModel.topics as List<TopicModel>);
             }
@@ -59,8 +63,12 @@ class TopicListRepoImpl implements TopicListRepo{
 
         if(globalInstitutionId.value.isNotEmpty) {
           final topics = await _getFromFirestore.getSearchTopics(type: type, searchQuery: '');
-          fullTopicsModel = topics.topics.where((topic) => topic.institutionId == globalInstitutionId.value) as TopicsModel;
-          setTopicModel.addAll(topics as List<TopicModel>);
+          debugPrint(topics.topics.length.toString());
+          final filteredTopics = topics.topics
+              .where((topic) => topic.institutionId == globalInstitutionId.value)
+              .toList();
+
+          fullTopicsModel = TopicsModel(topics: filteredTopics);
         } else {
           fullTopicsModel = await _getFromFirestore.getSearchTopics(type: type, searchQuery: '');
         }
