@@ -17,7 +17,7 @@ jobs:
 
       - name: Build Web
         run: |
-          flutter build web --release --base-href "/gh-pages/" --dart-define=API_KEY=${{ secrets.API_KEY }} --dart-define=GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }} --dart-define=RAZORPAY_ID=${{ secrets.RAZORPAY_ID }} --dart-define=RAZORPAY_SECRET=${{ secrets.RAZORPAY_SECRET }} --dart-define=WEBMAIL_USERNAME=${{ secrets.WEBMAIL_USERNAME }} --dart-define=WEBMAIL_SECURITY=${{ secrets.WEBMAIL_SECURITY }} --dart-define=BUSINESS_WHATSAPP_NUMBER=${{ secrets.BUSINESS_WHATSAPP_NUMBER }} --dart-define=WHATSAPP_ACCESS_TOKEN=${{ secrets.WHATSAPP_ACCESS_TOKEN }} --dart-define=YOUTUBE_API=${{ secrets.YOUTUBE_API }} --dart-define=GROQ_API=${{ secrets.GROQ_API }} --dart-define=SUPABASE_API=${{ secrets.SUPABASE_API }} --dart-define=SUPABASE_FEED_API=${{ secrets.SUPABASE_FEED_API }} --no-tree-shake-icons
+          flutter build web --release --base-href "/reachx_embed/" --dart-define=API_KEY=${{ secrets.API_KEY }} --dart-define=GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }} --dart-define=RAZORPAY_ID=${{ secrets.RAZORPAY_ID }} --dart-define=RAZORPAY_SECRET=${{ secrets.RAZORPAY_SECRET }} --dart-define=WEBMAIL_USERNAME=${{ secrets.WEBMAIL_USERNAME }} --dart-define=WEBMAIL_SECURITY=${{ secrets.WEBMAIL_SECURITY }} --dart-define=BUSINESS_WHATSAPP_NUMBER=${{ secrets.BUSINESS_WHATSAPP_NUMBER }} --dart-define=WHATSAPP_ACCESS_TOKEN=${{ secrets.WHATSAPP_ACCESS_TOKEN }} --dart-define=YOUTUBE_API=${{ secrets.YOUTUBE_API }} --dart-define=GROQ_API=${{ secrets.GROQ_API }} --dart-define=SUPABASE_API=${{ secrets.SUPABASE_API }} --dart-define=SUPABASE_FEED_API=${{ secrets.SUPABASE_FEED_API }} --no-tree-shake-icons
           
 
       - name: Deploy to Github Pages
