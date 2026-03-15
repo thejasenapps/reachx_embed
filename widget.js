@@ -65,7 +65,7 @@
       #close {
         position: absolute;
         top: 12px;
-        right: 12px;
+        right: 16px;
         background: #fb4c4c;
         color: white;
         border: none;
@@ -113,9 +113,9 @@
     btn.style.height = "80px";
     btn.style.fontSize = "18px";
 
-    close.style.width = "50px";
-    close.style.height = "50px";
-    close.style.fontSize = "30px";
+    close.style.width = "60px";
+    close.style.height = "60px";
+    close.style.fontSize = "35px";
 
     container.style.width = "100vw";
     container.style.height = "100vh";
