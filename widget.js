@@ -115,7 +115,7 @@
 
     close.style.width = "50px";
     close.style.height = "50px";
-    close.style.fontSize = "20px";
+    close.style.fontSize = "30px";
 
     container.style.width = "100vw";
     container.style.height = "100vh";
