@@ -25,7 +25,8 @@ import 'package:recaptcha_enterprise_flutter/recaptcha.dart';
 import 'firebase_options.dart';
 import 'package:image_picker_android/image_picker_android.dart';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
-
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,11 +42,16 @@ void main() async {
     webProvider: ReCaptchaV3Provider('6LfYlRorAAAAAAQNjXgLqKTTyfcuCpOfmV_efEwS'),
   );
 
-  final uri = Uri.base;
-  final clientId = uri.queryParameters['clientId'];
-  debugPrint(clientId);
+  // final uri = Uri.base;
+  // final clientId = uri.queryParameters['clientId'];
+  // debugPrint(clientId);
+  //
+  // globalInstitutionId.value = clientId ?? '';
 
-  globalInstitutionId.value = clientId ?? '';
+  final id =  globalContext['REACHX_INST_ID'];
+  debugPrint("InstitutionId + $id");
+  globalInstitutionId.value = id?.toString() ?? '';
+  debugPrint("InstitutionId after + ${globalInstitutionId.value}");
 
   if(!kIsWeb) {
     final siteKey = Platform.isAndroid
