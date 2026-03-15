@@ -1,4 +1,4 @@
-function () {
+(function () {
   window.FlutterEmbed = {
     init: function (config) {
       const container = (typeof config.container === 'string') 
