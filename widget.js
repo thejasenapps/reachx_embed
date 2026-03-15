@@ -138,7 +138,7 @@
 
     if (!isMobile) return;
 
-    const baseWidth = 100; // typical mobile app width
+    const baseWidth = 500; // typical mobile app width
     const scale = window.innerWidth / baseWidth;
 
     target.style.transform = "scale(" + scale + ")";
