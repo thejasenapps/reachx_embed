@@ -5,7 +5,19 @@
   const currentScript = document.currentScript;
   const INSTITUTION_ID = currentScript?.getAttribute("data-institution-id") || "";
 
-  const isMobile = window.innerWidth <= 600;
+  /* ---------- RELIABLE MOBILE DETECTION ---------- */
+
+  function isMobileDevice() {
+    return (
+      /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent) ||
+      window.innerWidth < 768 ||
+      ("ontouchstart" in window && window.innerWidth < 1024)
+    );
+  }
+
+  const isMobile = isMobileDevice();
+
+  /* ---------- CREATE SHADOW ROOT ---------- */
 
   const host = document.createElement("div");
   const shadow = host.attachShadow({ mode: "open" });
@@ -13,6 +25,7 @@
 
   shadow.innerHTML = `
     <style>
+
       :host { all: initial; }
 
       #btn {
@@ -32,6 +45,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: transform .2s ease;
+      }
+
+      #btn:hover {
+        transform: scale(1.05);
       }
 
       #container {
@@ -39,13 +57,15 @@
         bottom: 110px;
         right: 30px;
         width: 380px;
-        height: 700px;
+        height: 720px;
+        max-height: 90vh;
         background: white;
         border-radius: 16px;
         display: none;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.35);
         z-index: 2147483647;
         overflow: hidden;
+        animation: fadeIn .25s ease;
       }
 
       #close {
@@ -56,8 +76,8 @@
         color: white;
         border: none;
         border-radius: 50%;
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
         cursor: pointer;
         z-index: 2;
       }
@@ -67,27 +87,10 @@
         height: 100%;
       }
 
-      // /* MOBILE RESPONSIVE */
-      // @media (max-width: 600px) {
-
-      //   #btn {
-      //     width: 80px;
-      //     height: 80px;
-      //     font-size: 20px;
-      //     bottom: 20px;
-      //     right: 20px;
-      //   }
-
-      //   #container {
-      //     width: 94vw;
-      //     height: 85vh;
-      //     right: 3vw;
-      //     bottom: 110px;
-      //     border-radius: 20px;
-      //   }
-
-      // }
-
+      @keyframes fadeIn {
+        from {opacity:0; transform:translateY(20px);}
+        to {opacity:1; transform:translateY(0);}
+      }
 
     </style>
 
@@ -104,27 +107,33 @@
   const close = shadow.getElementById("close");
   const target = shadow.getElementById("flutter-target");
 
-    if (isMobile) {
+  /* ---------- MOBILE FULLSCREEN MODE ---------- */
 
-    btn.style.width = "80px";
-    btn.style.height = "80px";
-    btn.style.fontSize = "20px";
+  if (isMobile) {
+
+    btn.style.width = "75px";
+    btn.style.height = "75px";
+    btn.style.fontSize = "18px";
     btn.style.bottom = "20px";
     btn.style.right = "20px";
 
-    container.style.width = "95vw";
-    container.style.height = "85vh";
-    container.style.right = "2.5vw";
-    container.style.bottom = "110px";
-    container.style.borderRadius = "20px";
+    container.style.width = "100vw";
+    container.style.height = "100vh";
+    container.style.bottom = "0";
+    container.style.right = "0";
+    container.style.borderRadius = "0";
 
   }
+
+  /* ---------- LOAD FLUTTER ---------- */
 
   let isLoaded = false;
 
   const script = document.createElement("script");
   script.src = GITHUB_URL + "flutter_embed.js";
   document.head.appendChild(script);
+
+  /* ---------- OPEN WIDGET ---------- */
 
   btn.onclick = () => {
 
@@ -143,6 +152,8 @@
       isLoaded = true;
     }
   };
+
+  /* ---------- CLOSE WIDGET ---------- */
 
   close.onclick = () => {
     container.style.display = "none";
