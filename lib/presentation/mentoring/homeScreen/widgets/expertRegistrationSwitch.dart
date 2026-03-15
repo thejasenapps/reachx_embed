@@ -41,7 +41,7 @@ class _ExpertRegistrationSwitchWidgetState extends State<ExpertRegistrationSwitc
             ),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: const Text(
-              "Be a Mentor & Inspire",
+              "Book a Mentor",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
