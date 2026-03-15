@@ -5,6 +5,8 @@
   const currentScript = document.currentScript;
   const INSTITUTION_ID = currentScript?.getAttribute("data-institution-id") || "";
 
+  const isMobile = window.innerWidth <= 600;
+
   const host = document.createElement("div");
   const shadow = host.attachShadow({ mode: "open" });
   document.body.appendChild(host);
@@ -65,37 +67,27 @@
         height: 100%;
       }
 
-      /* MOBILE RESPONSIVE */
-      @media (max-width: 600px) {
+      // /* MOBILE RESPONSIVE */
+      // @media (max-width: 600px) {
 
-        #btn {
-          width: 80px;
-          height: 80px;
-          font-size: 20px;
-          bottom: 20px;
-          right: 20px;
-        }
+      //   #btn {
+      //     width: 80px;
+      //     height: 80px;
+      //     font-size: 20px;
+      //     bottom: 20px;
+      //     right: 20px;
+      //   }
 
-        #container {
-          width: 94vw;
-          height: 85vh;
-          right: 3vw;
-          bottom: 110px;
-          border-radius: 20px;
-        }
+      //   #container {
+      //     width: 94vw;
+      //     height: 85vh;
+      //     right: 3vw;
+      //     bottom: 110px;
+      //     border-radius: 20px;
+      //   }
 
-      }
+      // }
 
-      /* VERY SMALL PHONES */
-      @media (max-width: 420px) {
-
-        #container {
-          width: 96vw;
-          height: 88vh;
-          right: 2vw;
-        }
-
-      }
 
     </style>
 
@@ -111,6 +103,22 @@
   const container = shadow.getElementById("container");
   const close = shadow.getElementById("close");
   const target = shadow.getElementById("flutter-target");
+
+    if (isMobile) {
+
+    btn.style.width = "80px";
+    btn.style.height = "80px";
+    btn.style.fontSize = "20px";
+    btn.style.bottom = "20px";
+    btn.style.right = "20px";
+
+    container.style.width = "95vw";
+    container.style.height = "85vh";
+    container.style.right = "2.5vw";
+    container.style.bottom = "110px";
+    container.style.borderRadius = "20px";
+
+  }
 
   let isLoaded = false;
 
