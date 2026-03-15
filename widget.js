@@ -19,7 +19,7 @@
         z-index: 2147483647; display: flex; align-items: center; justify-content: center;
       }
       #container {
-        position: fixed; bottom: 100px; right: 30px; width: 320px; height: 700px;
+        position: fixed; bottom: 100px; right: 30px; width: 350px; height: 1000px;
         background: white; border-radius: 15px; display: none;
         box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 2147483647; overflow: hidden;
       }
@@ -31,7 +31,7 @@
       #flutter-target { width: 100%; height: 100%; }
     </style>
 
-    <button id="btn">💬</button>
+    <button id="btn">Book</button>
 
     <div id="container">
       <button id="close">×</button>
