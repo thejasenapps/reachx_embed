@@ -19,7 +19,7 @@
         z-index: 2147483647; display: flex; align-items: center; justify-content: center;
       }
       #container {
-        position: fixed; bottom: 100px; right: 30px; width: 350px; height: 1000px;
+        position: fixed; bottom: 100px; right: 30px; width: 350px; height: 900px;
         background: white; border-radius: 15px; display: none;
         box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 2147483647; overflow: hidden;
       }
