@@ -90,7 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * (isVisible ?  0.53 : 0.45),
               decoration: BoxDecoration(
                   color: HexColor(containerColor),
                   borderRadius: const BorderRadius.only(
@@ -115,11 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.centerRight,
                       child: MenuButtonWidget(homeScreenViewModel: homeScreenViewModel)
                     ),
-                    // if (phoneHeight! > 700)
-                    //   const SizedBox(
-                    //     height: 10,
-                    //   ),
-                    const Spacer(),
+
                     Obx(() {
                       return Skeletonizer(
                         enabled: homeScreenViewModel.isInstitutionLoading.value,

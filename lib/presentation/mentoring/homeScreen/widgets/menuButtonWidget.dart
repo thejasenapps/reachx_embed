@@ -123,12 +123,12 @@ class _MenuButtonWidgetState extends State<MenuButtonWidget> {
               ),
             ),
           ),
-          PopupMenuItem(
+          const PopupMenuItem(
             value: 'logout',
             child: Text(
               'Logout',
               style: TextStyle(
-                  color: HexColor(lightBlue)
+                  color: Colors.redAccent
               ),
             ),
           ),
