@@ -15,7 +15,7 @@
       #btn {
         position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
         border-radius: 50%; background: #1976D2; color: white; cursor: pointer;
-        font-size: 28px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        font-size: 20px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         z-index: 2147483647; display: flex; align-items: center; justify-content: center;
       }
       #container {
