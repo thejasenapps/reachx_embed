@@ -2,7 +2,8 @@
 
   const GITHUB_URL = "https://thejasenapps.github.io/reachx_embed/";
 
-  const INSTITUTION_ID = 1234;
+  const currentScript = document.currentScript;
+  const INSTITUTION_ID = currentScript?.getAttribute("data-institution-id") || "";
 
   const host = document.createElement('div');
   const shadow = host.attachShadow({ mode: 'open' });
