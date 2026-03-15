@@ -5,11 +5,11 @@
   const currentScript = document.currentScript;
   const INSTITUTION_ID = currentScript?.getAttribute("data-institution-id") || "";
 
-  /* ---------- RELIABLE MOBILE DETECTION ---------- */
+  /* ---------- MOBILE DETECTION ---------- */
 
   function isMobileDevice() {
     return (
-      /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent) ||
+      /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent) ||
       window.innerWidth < 768 ||
       ("ontouchstart" in window && window.innerWidth < 1024)
     );
@@ -30,10 +30,10 @@
 
       #btn {
         position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 65px;
-        height: 65px;
+        bottom: 25px;
+        right: 25px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
         background: #1976D2;
         color: white;
@@ -45,11 +45,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: transform .2s ease;
-      }
-
-      #btn:hover {
-        transform: scale(1.05);
       }
 
       #container {
@@ -65,13 +60,12 @@
         box-shadow: 0 10px 40px rgba(0,0,0,0.35);
         z-index: 2147483647;
         overflow: hidden;
-        animation: fadeIn .25s ease;
       }
 
       #close {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 12px;
+        right: 12px;
         background: #fb4c4c;
         color: white;
         border: none;
@@ -79,17 +73,18 @@
         width: 30px;
         height: 30px;
         cursor: pointer;
-        z-index: 2;
+        z-index: 3;
+      }
+
+      #flutter-wrapper {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
       }
 
       #flutter-target {
         width: 100%;
         height: 100%;
-      }
-
-      @keyframes fadeIn {
-        from {opacity:0; transform:translateY(20px);}
-        to {opacity:1; transform:translateY(0);}
       }
 
     </style>
@@ -98,7 +93,9 @@
 
     <div id="container">
       <button id="close">×</button>
-      <div id="flutter-target"></div>
+      <div id="flutter-wrapper">
+        <div id="flutter-target"></div>
+      </div>
     </div>
   `;
 
@@ -106,19 +103,18 @@
   const container = shadow.getElementById("container");
   const close = shadow.getElementById("close");
   const target = shadow.getElementById("flutter-target");
+  const wrapper = shadow.getElementById("flutter-wrapper");
 
-  /* ---------- MOBILE FULLSCREEN MODE ---------- */
+  /* ---------- MOBILE FULLSCREEN ---------- */
 
   if (isMobile) {
 
-    btn.style.width = "75px";
-    btn.style.height = "75px";
+    btn.style.width = "80px";
+    btn.style.height = "80px";
     btn.style.fontSize = "18px";
-    btn.style.bottom = "20px";
-    btn.style.right = "20px";
 
     container.style.width = "100vw";
-    container.style.height = "90vh";
+    container.style.height = "100vh";
     container.style.bottom = "0";
     container.style.right = "0";
     container.style.borderRadius = "0";
@@ -133,7 +129,24 @@
   script.src = GITHUB_URL + "flutter_embed.js";
   document.head.appendChild(script);
 
-  /* ---------- OPEN WIDGET ---------- */
+  /* ---------- SCALE FLUTTER APP ---------- */
+
+  function scaleFlutter() {
+
+    if (!isMobile) return;
+
+    const baseWidth = 390; // typical mobile app width
+    const scale = window.innerWidth / baseWidth;
+
+    target.style.transform = "scale(" + scale + ")";
+    target.style.transformOrigin = "top left";
+    target.style.width = baseWidth + "px";
+    target.style.height = (window.innerHeight / scale) + "px";
+  }
+
+  window.addEventListener("resize", scaleFlutter);
+
+  /* ---------- OPEN ---------- */
 
   btn.onclick = () => {
 
@@ -150,10 +163,12 @@
       });
 
       isLoaded = true;
+
+      setTimeout(scaleFlutter, 500);
     }
   };
 
-  /* ---------- CLOSE WIDGET ---------- */
+  /* ---------- CLOSE ---------- */
 
   close.onclick = () => {
     container.style.display = "none";
