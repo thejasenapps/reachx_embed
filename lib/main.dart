@@ -90,14 +90,7 @@ void main() async {
   }
 
   runApp(
-    kIsWeb
-      ?  const Center(
-        child: SizedBox(
-          width: 400,
-          child: ReachEx(),
-        ),
-      )
-      : const ReachEx()
+      const ReachEx()
   );
 
   fetchData();
