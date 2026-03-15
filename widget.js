@@ -117,8 +117,8 @@
     btn.style.bottom = "20px";
     btn.style.right = "20px";
 
-    container.style.width = "100vw";
-    container.style.height = "100vh";
+    container.style.width = "90vw";
+    container.style.height = "85vh";
     container.style.bottom = "0";
     container.style.right = "0";
     container.style.borderRadius = "0";
