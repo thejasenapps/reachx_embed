@@ -28,7 +28,7 @@ function () {
             });
 
             // window.REACHX_INST_ID = args.institutionId;
-            window.REACHX_INST_ID = "abc";
+            window.REACHX_INST_ID = 1234;
 
             await appRunner.runApp();
           }
