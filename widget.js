@@ -13,11 +13,24 @@
     <style>
       :host { all: initial; } 
       #btn {
-        position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
-        border-radius: 50%; background: #1976D2; color: white; cursor: pointer;
-        font-size: 15px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        z-index: 2147483647; display: flex; align-items: center; justify-content: center;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #1976D2;
+        color: white;
+        cursor: pointer;
+        font-size: 15px;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 2147483647;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
+      
       #container {
         position: fixed; bottom: 100px; right: 30px; width: 380px; height: 800px;
         background: white; border-radius: 15px; display: none;
@@ -29,6 +42,25 @@
         cursor: pointer; z-index: 2;
       }
       #flutter-target { width: 100%; height: 100%; }
+
+      @media (max-width: 600px) {
+
+        #btn {
+          width: 75px;
+          height: 75px;
+          font-size: 24px;
+          bottom: 20px;
+          right: 20px;
+        }
+
+        #container {
+          width: 92vw;
+          height: 70vh;
+          right: 4vw;
+          bottom: 110px;
+          border-radius: 18px;
+        }
+      }
     </style>
 
     <button id="btn">Book</button>
