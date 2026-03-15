@@ -113,6 +113,9 @@
     btn.style.height = "80px";
     btn.style.fontSize = "18px";
 
+    close.style.width = "50px";
+    close.style.height = "50px";
+
     container.style.width = "100vw";
     container.style.height = "100vh";
     container.style.bottom = "0";
@@ -135,7 +138,7 @@
 
     if (!isMobile) return;
 
-    const baseWidth = 300; // typical mobile app width
+    const baseWidth = 100; // typical mobile app width
     const scale = window.innerWidth / baseWidth;
 
     target.style.transform = "scale(" + scale + ")";
