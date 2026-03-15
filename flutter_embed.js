@@ -27,6 +27,7 @@
               assetBase: appUrl,
             });
 
+            // 3. Store the ID globally so Flutter can grab it easily
             // window.REACHX_INST_ID = args.institutionId;
             window.REACHX_INST_ID = 1234;
 
