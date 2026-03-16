@@ -109,9 +109,9 @@
 
   if (isMobile) {
 
-    btn.style.width = "80px";
-    btn.style.height = "80px";
-    btn.style.fontSize = "18px";
+    btn.style.width = "100px";
+    btn.style.height = "100px";
+    btn.style.fontSize = "24px";
 
     close.style.width = "60px";
     close.style.height = "60px";
