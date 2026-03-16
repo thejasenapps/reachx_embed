@@ -170,7 +170,7 @@
       institutionId: INSTITUTION_ID
     });
 
-    iframe.src = GITHUB_URL + "flutter_embed_iframe.js"+ "?" + params.toString();
+    iframe.src = GITHUB_URL + "bridge.html"+ "?" + params.toString();
 
     iframe.onload = () => {
       loader.style.display = "none";
