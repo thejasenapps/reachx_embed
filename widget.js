@@ -207,7 +207,7 @@
       setTimeout(() => {
         scaleFlutter();
         loader.style.display = "none";
-      }, 2000); 
+      }, 5000); 
     } else {
       loader.style.display = "none";
     }
