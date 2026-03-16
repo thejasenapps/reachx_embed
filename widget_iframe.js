@@ -19,6 +19,18 @@
 
   const isMobile = isMobileDevice();
 
+    /* ---------- FORCE VIEWPORT ---------- */
+
+  if (isMobile) {
+    let meta = document.querySelector("meta[name=viewport]");
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "viewport";
+      meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
+      document.head.appendChild(meta);
+    }
+  }
+
   /* ---------- CREATE SHADOW ROOT ---------- */
 
   const host = document.createElement("div");
@@ -188,6 +200,10 @@
     container.style.display = "block";
     loader.style.display = "flex";
 
+    if (isMobile) {
+      document.body.style.overflow = "hidden";
+    }
+
     if (!isLoaded) {
       createIframe();
       isLoaded = true;
@@ -198,6 +214,10 @@
 
   close.onclick = () => {
     container.style.display = "none";
+
+     if (isMobile) {
+      document.body.style.overflow = "";
+    }
   };
 
 })();
