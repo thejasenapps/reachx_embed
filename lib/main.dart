@@ -42,16 +42,16 @@ void main() async {
     webProvider: ReCaptchaV3Provider('6LfYlRorAAAAAAQNjXgLqKTTyfcuCpOfmV_efEwS'),
   );
 
-  // final uri = Uri.base;
-  // final clientId = uri.queryParameters['clientId'];
-  // debugPrint(clientId);
-  //
-  // globalInstitutionId.value = clientId ?? '';
+  final uri = Uri.base;
+  final clientId = uri.queryParameters['institutionId'];
+  debugPrint(clientId);
 
-  final id =  globalContext['REACHX_INST_ID'];
-  debugPrint("InstitutionId + $id");
-  globalInstitutionId.value = id?.toString() ?? '';
-  debugPrint("InstitutionId after + ${globalInstitutionId.value}");
+  globalInstitutionId.value = clientId ?? '';
+
+  // final id =  globalContext['REACHX_INST_ID'];
+  // debugPrint("InstitutionId + $id");
+  // globalInstitutionId.value = id?.toString() ?? '';
+  // debugPrint("InstitutionId after + ${globalInstitutionId.value}");
 
   if(!kIsWeb) {
     final siteKey = Platform.isAndroid
