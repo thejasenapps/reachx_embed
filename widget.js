@@ -76,6 +76,25 @@
         z-index: 3;
       }
 
+      #loader{
+        position:absolute;
+        inset:0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:white;
+        z-index:2;
+      }
+
+      .spinner{
+        width:40px;
+        height:40px;
+        border:4px solid #e0e0e0;
+        border-top:4px solid #1976D2;
+        border-radius:50%;
+        animation:spin 1s linear infinite;
+      }
+
       #flutter-wrapper {
         width: 100%;
         height: 100%;
@@ -87,6 +106,11 @@
         height: 100%;
       }
 
+      @keyframes spin{
+        from{transform:rotate(0deg);}
+        to{transform:rotate(360deg);}
+      }
+
     </style>
 
     <button id="btn">Book</button>
@@ -94,6 +118,9 @@
     <div id="container">
       <button id="close">×</button>
       <div id="flutter-wrapper">
+        <div id="loader">
+          <div class="spinner"></div>
+        </div>
         <div id="flutter-target"></div>
       </div>
     </div>
@@ -104,16 +131,17 @@
   const close = shadow.getElementById("close");
   const target = shadow.getElementById("flutter-target");
   const wrapper = shadow.getElementById("flutter-wrapper");
+  const loader = shadow.getElementById("loader");
 
   /* ---------- MOBILE FULLSCREEN ---------- */
 
   if (isMobile) {
 
-    btn.style.width = "150px";
-    btn.style.height = "150px";
-    btn.style.fontSize = "24px";
-    btn.style.bottom = "35px";
-    btn.style.right = "35px";
+    btn.style.width = "120px";
+    btn.style.height = "120px";
+    btn.style.fontSize = "28px";
+    btn.style.bottom = "40px";
+    btn.style.right = "40px";
 
     close.style.width = "60px";
     close.style.height = "60px";
@@ -157,6 +185,7 @@
   btn.onclick = () => {
 
     container.style.display = "block";
+    loader.style.display = "flex";
 
     if (!isLoaded && window.FlutterEmbed) {
 
@@ -170,7 +199,12 @@
 
       isLoaded = true;
 
-      setTimeout(scaleFlutter, 500);
+      setTimeout(() => {
+        scaleFlutter();
+        loader.style.display = "none";
+      }, 2000); 
+    } else {
+      loader.style.display = "none";
     }
   };
 
