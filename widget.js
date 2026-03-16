@@ -132,6 +132,7 @@
   const target = shadow.getElementById("flutter-target");
   const wrapper = shadow.getElementById("flutter-wrapper");
   const loader = shadow.getElementById("loader");
+  const spinner = shadow.querySelector(".spinner");
 
   /* ---------- MOBILE FULLSCREEN ---------- */
 
@@ -152,6 +153,10 @@
     container.style.bottom = "0";
     container.style.right = "0";
     container.style.borderRadius = "0";
+
+    spinner.style.width = "80px";
+    spinner.style.height = "80px";
+    spinner.style.borderWidth = "6px";
 
   }
 
