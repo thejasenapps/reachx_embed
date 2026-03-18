@@ -152,8 +152,8 @@
     close.style.fontSize = "35px";
 
     container.style.width = "100vw";
-    container.style.height = "100vh";
-    container.style.maxWidth = "0";  
+    container.style.height = "90vh";
+    container.style.maxWidth = "100vw";  
     container.style.bottom = "0";
     container.style.right = "0";
     container.style.borderRadius = "0";
