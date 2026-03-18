@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:reachx_embed/assets/fonts/iconsax_icons.dart';
 import 'package:reachx_embed/core/constants/color.dart';
 import 'package:reachx_embed/core/constants/navId.dart';
+import 'package:reachx_embed/core/global_passion.dart';
 import 'package:reachx_embed/core/helper/hexColor.dart';
 import 'package:reachx_embed/presentation/commonWidgets/confirmationBox.dart';
+import 'package:reachx_embed/presentation/commonWidgets/customItems/customSnackBar.dart';
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistration.dart';
 import 'package:reachx_embed/presentation/mentoring/homeScreen/homeScreenViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/profile/profileScreen.dart';
@@ -45,18 +47,27 @@ class _MenuButtonWidgetState extends State<MenuButtonWidget> {
         ),
         onSelected: (value) async {
           if(value == 'logout') {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return ConfirmationBoxWidget(
-                      label: "Are you sure you want to logout?",
-                      functionality: () {
-                        Navigator.pop(context);
-                        widget.homeScreenViewModel.logOut();
-                      }
-                  );
-                }
-            );
+            if(globalUserId.value.isEmpty) {
+              CustomSnackBar().customAlertSnackBar(
+                  context,
+                  "No login details found",
+                  2,
+                  Colors.redAccent
+              );
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return ConfirmationBoxWidget(
+                        label: "Are you sure you want to logout?",
+                        functionality: () {
+                          Navigator.pop(context);
+                          widget.homeScreenViewModel.logOut();
+                        }
+                    );
+                  }
+              );
+            }
           } else if(value == 't&c') {
             final result = await widget.homeScreenViewModel.openUrl('https://www.enapps.in/');
 

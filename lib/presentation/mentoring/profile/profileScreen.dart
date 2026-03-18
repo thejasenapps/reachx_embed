@@ -5,7 +5,7 @@ import 'package:reachx_embed/core/global_variables.dart';
 import 'package:reachx_embed/core/helper/widgets/flagWavingGif.dart';
 import 'package:reachx_embed/core/injections.dart';
 import 'package:reachx_embed/presentation/mentoring/profile/profileViewModel.dart';
-import 'package:reachx_embed/presentation/mentoring/profile/widgets/emptyUserWidget.dart';
+import 'package:reachx_embed/presentation/commonWidgets/emptyUserWidget.dart';
 import 'package:reachx_embed/presentation/mentoring/profile/widgets/profileExpertDetails.dart';
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistrationViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/signUp/signUpViewModel.dart';
@@ -61,7 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         } else if(globalLoggedIn.value) {
           return ProfileExpertDetailsWidget(profileViewModel: profileViewModel);
         } else {
-          return EmptyUserWidget(profileViewModel: profileViewModel,);
+          return const EmptyUserWidget(isProfile: true,);
         }
       }),
     );

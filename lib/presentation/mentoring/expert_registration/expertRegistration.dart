@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:reachx_embed/presentation/mentoring/expert_registration/widgets/imageUploadWidget.dart';
 import 'package:reachx_embed/presentation/mentoring/homeScreen/homeScreen.dart';
 import 'package:reachx_embed/presentation/commonWidgets/backNavigationWidget.dart';
+import 'package:reachx_embed/presentation/commonWidgets/emptyUserWidget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 
@@ -104,17 +105,21 @@ class _ExpertRegistrationState extends State<ExpertRegistration> {
             children: [
               SingleChildScrollView(
                 child: Obx(() {
-                  return Skeletonizer(
-                      enabled: expertRegistrationViewModel.isLoading.value,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: 30,
-                        children: [
-                          Center(child: ImageUploadWidget(expertRegistrationViewModel: expertRegistrationViewModel)),
-                          BasicDetailWidget(expertRegistrationViewModel: expertRegistrationViewModel, isRegistration: widget.arguments["isRegistration"],),
-                        ],
-                      )
-                  );
+                  if(!widget.arguments["isRegistration"] && expertRegistrationViewModel.expertEntity.uniqueId.isEmpty && !expertRegistrationViewModel.isLoading.value) {
+                    return const EmptyUserWidget(isProfile: false,);
+                  } else {
+                    return Skeletonizer(
+                        enabled: expertRegistrationViewModel.isLoading.value,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 30,
+                          children: [
+                            Center(child: ImageUploadWidget(expertRegistrationViewModel: expertRegistrationViewModel)),
+                            BasicDetailWidget(expertRegistrationViewModel: expertRegistrationViewModel, isRegistration: widget.arguments["isRegistration"],),
+                          ],
+                        )
+                    );
+                  }
                 }),
               ),
             ],
