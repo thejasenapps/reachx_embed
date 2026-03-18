@@ -53,7 +53,8 @@
         right: 30px;
         width: 28vw;          
         height: 80vh;        
-        min-width: 320px;        
+        min-width: 320px;  
+        max-width: 420px; 
         min-height: 500px;
         max-height: 90vh;
         background: white;
@@ -152,6 +153,7 @@
 
     container.style.width = "100vw";
     container.style.height = "100vh";
+    container.style.maxWidth = "0";  
     container.style.bottom = "0";
     container.style.right = "0";
     container.style.borderRadius = "0";
@@ -190,6 +192,13 @@
   /* ---------- OPEN ---------- */
 
   btn.onclick = () => {
+
+    const isOpen = container.style.display === "block";
+
+    if(isOpen) {
+      container.style.display = "none";
+      return;
+    }
 
     container.style.display = "block";
     loader.style.display = "flex";
