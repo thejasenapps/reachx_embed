@@ -18,6 +18,7 @@ class ExpertEntity {
   List<String> achievements;
   String? badgeId;
   DateTime? timestamp;
+  String? institutionId;
 
   ExpertEntity({
     required this.uniqueId,
@@ -38,6 +39,7 @@ class ExpertEntity {
     required this.achievements,
     this.badgeId,
     this.timestamp,
+    this.institutionId
   });
 }
 

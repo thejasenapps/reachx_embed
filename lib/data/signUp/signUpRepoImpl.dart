@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:reachx_embed/core/global_passion.dart';
 import 'package:reachx_embed/data/data_source/local/sharedPreferenceServices.dart';
 import 'package:reachx_embed/data/data_source/remote/emailNotificationService.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/firebaseAuthentication.dart';
@@ -26,7 +27,14 @@ class SignUpRepoImpl implements SignUpRepo {
 
   @override
   Future<void> saveUserRemote(String name, String phoneNo, String email, String fcmToken) async {
-    userModel = UserModel(name: name, phoneNo: phoneNo, email: email, fcmToken: fcmToken, subscriptionStatus: 'beginner');
+    userModel = UserModel(
+        name: name,
+        phoneNo: phoneNo,
+        email: email,
+        fcmToken: fcmToken,
+        subscriptionStatus: 'beginner',
+        institutionId: globalInstitutionId.value,
+    );
     final response = await _saveInFirestore.saveUser(userModel);  // Save user data remotely
 
     if(response) {
@@ -79,7 +87,8 @@ class SignUpRepoImpl implements SignUpRepo {
       isExpert: false,
       status: "offline",
       achievements: [],
-      imageFile: ''
+      imageFile: '',
+      institutionId: globalInstitutionId.value,
     );
 
     return _saveInFirestore.saveExpertDetails(expertModel);
