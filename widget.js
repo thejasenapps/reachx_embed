@@ -51,8 +51,11 @@
         position: fixed;
         bottom: 110px;
         right: 30px;
-        width: 380px;
-        height: 720px;
+        width: 28vw;          
+        height: 80vh;        
+        min-width: 320px;     
+        max-width: 420px;    
+        min-height: 500px;
         max-height: 90vh;
         background: white;
         border-radius: 16px;
