@@ -53,8 +53,7 @@
         right: 30px;
         width: 28vw;          
         height: 80vh;        
-        min-width: 320px;     
-        max-width: 420px;    
+        min-width: 320px;        
         min-height: 500px;
         max-height: 90vh;
         background: white;
