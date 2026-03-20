@@ -15,6 +15,7 @@ import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRe
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistrationViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/profile/profileViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/booked/bookedViewModel.dart';
+import 'package:reachx_embed/presentation/mentoring/signUp/signUpScreen.dart';
 import 'package:reachx_embed/presentation/mentoring/topic_List/topicListScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,11 +49,12 @@ class HomeScreenViewModel extends GetxController{
       checkpoint = "homeScreen";
       if (!context.mounted) return;  // Ensures context is still mounted before navigation.
       Get.toNamed(
-        '/SignUpScreen',
+        SignUpScreen.route,
         arguments: {
           "type": AuthenticationType.login,
           "isHomeFlow": true,
         },
+        id: NavIds.home
       );
     }
   }

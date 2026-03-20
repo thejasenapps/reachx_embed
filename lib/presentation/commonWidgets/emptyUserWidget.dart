@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reachx_embed/core/constants/color.dart';
 import 'package:reachx_embed/core/constants/enums.dart';
+import 'package:reachx_embed/core/constants/navId.dart';
 import 'package:reachx_embed/core/global_variables.dart';
 import 'package:reachx_embed/core/helper/hexColor.dart';
 import 'package:reachx_embed/presentation/commonWidgets/backNavigationWidget.dart';
 import 'package:reachx_embed/presentation/commonWidgets/customItems/customElevatedButton.dart';
 import 'package:reachx_embed/presentation/mentoring/profile/profileViewModel.dart';
+import 'package:reachx_embed/presentation/mentoring/signUp/signUpScreen.dart';
 
 class EmptyUserWidget extends StatelessWidget {
 
@@ -21,11 +23,12 @@ class EmptyUserWidget extends StatelessWidget {
 
     Future.microtask(() {
       Get.toNamed(
-        '/SignUpScreen',
+        SignUpScreen.route,
         arguments: {
           "type": AuthenticationType.login,
           "isHomeFlow": true,
         },
+        id: NavIds.home
       );
     });
   }

@@ -46,15 +46,17 @@ class TopicListRepoImpl implements TopicListRepo{
 
           if(topicsModel.topics.isNotEmpty) {
 
-            if(globalInstitutionId.value.isNotEmpty) {
-              final filteredTopics = topicsModel.topics
-                  .where((topic) => topic.institutionId == globalInstitutionId.value)
-                  .toList();
+            setTopicModel.addAll(topicsModel.topics as List<TopicModel>);
 
-              setTopicModel.addAll(filteredTopics as List<TopicModel>);
-            } else {
-              setTopicModel.addAll(topicsModel.topics as List<TopicModel>);
-            }
+            // if(globalInstitutionId.value.isNotEmpty) {
+            //   final filteredTopics = topicsModel.topics
+            //       .where((topic) => topic.institutionId == globalInstitutionId.value)
+            //       .toList();
+            //
+            //   setTopicModel.addAll(filteredTopics as List<TopicModel>);
+            // } else {
+            //   setTopicModel.addAll(topicsModel.topics as List<TopicModel>);
+            // }
           }
         }
 

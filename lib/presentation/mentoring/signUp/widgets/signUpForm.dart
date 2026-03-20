@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 import 'package:reachx_embed/core/constants/color.dart';
 import 'package:reachx_embed/core/constants/enums.dart';
+import 'package:reachx_embed/core/constants/navId.dart';
 import 'package:reachx_embed/presentation/commonWidgets/customItems/customSnackBar.dart';
 import 'package:reachx_embed/core/helper/hexColor.dart';
 import 'package:reachx_embed/core/injections.dart';
@@ -262,7 +263,8 @@ class _SignUpFormState extends State<SignUpForm> {
                             arguments: {
                               "type": AuthenticationType.signup,
                               "isHomeFlow": widget.isHomeFlow
-                            }
+                            },
+                            id: NavIds.home
                         );
                       });
                   } else {
@@ -276,7 +278,8 @@ class _SignUpFormState extends State<SignUpForm> {
                          arguments: {
                            "type": AuthenticationType.login,
                            "isHomeFlow": widget.isHomeFlow
-                         }
+                         },
+                         id: NavIds.home
                      );
                    });
                   }

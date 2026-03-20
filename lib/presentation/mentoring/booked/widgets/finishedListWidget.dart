@@ -11,6 +11,7 @@ import 'package:reachx_embed/domain/entities/bookingEntity.dart';
 import 'package:reachx_embed/presentation/mentoring/booked/bookedViewModel.dart';
 import 'package:reachx_embed/presentation/commonWidgets/customItems/customElevatedButton.dart';
 import 'package:get/get.dart';
+import 'package:reachx_embed/presentation/mentoring/signUp/signUpScreen.dart';
 
 class FinishedListWidget extends StatefulWidget {
 
@@ -50,10 +51,11 @@ class _FinishedListWidgetState extends State<FinishedListWidget> {
                       NavigationController.to.changePage(NavIds.bookings);
                       checkpoint = "profile";
                       Get.toNamed(
-                        '/SignUpScreen',
+                        SignUpScreen.route,
                         arguments: {
                           "type": AuthenticationType.login
                         },
+                        id: NavIds.home
                       );
                     }
                 )

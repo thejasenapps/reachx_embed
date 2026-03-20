@@ -28,9 +28,11 @@ class _ExploreWidgetState extends State<ExploreWidget> {
 
   @override
   void initState() {
-    widget.homeScreenViewModel.getPopularCategories();
-    ever(expertRegistrationViewModel.saveResult, (bool isSaved) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.homeScreenViewModel.getPopularCategories();
+      ever(expertRegistrationViewModel.saveResult, (bool isSaved) {
+        widget.homeScreenViewModel.getPopularCategories();
+      });
     });
     super.initState();
   }
@@ -51,9 +53,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
         return const Padding(
           padding: EdgeInsets.symmetric(vertical: 30),
           child: Center(
-            child: FlagWavingGif(
-
-            ),
+            child: FlagWavingGif(),
           ),
         );
       } else {

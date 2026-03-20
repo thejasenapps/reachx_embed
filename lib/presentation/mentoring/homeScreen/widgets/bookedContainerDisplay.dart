@@ -35,11 +35,13 @@ class _BookedContainerDisplayState extends State<BookedContainerDisplay> {
   @override
   void initState() {
     super.initState();
-    if(bookedViewModel.latestBooking.isNotEmpty) {
-      setState(() {
-        initialIndex = 1;
-      });
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (bookedViewModel.latestBooking.isNotEmpty) {
+        setState(() {
+          initialIndex = 1;
+        });
+      }
+    });
   }
 
 
@@ -92,7 +94,7 @@ class _BookedContainerDisplayState extends State<BookedContainerDisplay> {
                   height: 300 + (10000/height),
                   child: TabBarView(
                       children: [
-                        // ExploreWidget(homeScreenViewModel: widget.homeScreenViewModel,),
+                        ExploreWidget(homeScreenViewModel: widget.homeScreenViewModel,),
                         Obx(() {
                           if(bookedViewModel.latestBooking.isNotEmpty) {
                             return bookingList(bookedViewModel.latestBooking);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class BackNavigationWidget extends StatelessWidget {
   final BuildContext context;
+
   const BackNavigationWidget({super.key, required this.context});
 
   @override

@@ -26,12 +26,6 @@ class _ExpertRegistrationSwitchWidgetState extends State<ExpertRegistrationSwitc
     return Center(
         child: GestureDetector(
           onTap: () {
-            // if(widget.isTopicList) {
-            //   Get.offNamed(
-            //       HomeScreen.route,
-            //       id: NavIds.home
-            //   );
-            // }
             widget.homeScreenViewModel.isLogged(context);
           },
           child: Container(

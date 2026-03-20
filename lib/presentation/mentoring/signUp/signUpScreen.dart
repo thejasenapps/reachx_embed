@@ -9,6 +9,7 @@ import 'package:reachx_embed/core/global_variables.dart';
 import 'package:reachx_embed/core/helper/hexColor.dart';
 import 'package:reachx_embed/core/injections.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/getFromFireStore.dart';
+import 'package:reachx_embed/presentation/commonWidgets/backNavigationWidget.dart';
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistration.dart';
 import 'package:reachx_embed/presentation/mentoring/homeScreen/homeScreen.dart';
 import 'package:reachx_embed/presentation/mentoring/signUp/bloc/signBloc.dart';
@@ -16,6 +17,7 @@ import 'package:reachx_embed/presentation/mentoring/signUp/bloc/signState.dart';
 import 'package:reachx_embed/presentation/mentoring/signUp/signUpViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/signUp/widgets/signUpForm.dart';
 import 'package:get/get.dart';
+import 'package:reachx_embed/presentation/mentoring/topic_List/topicListScreen.dart';
 
 
 
@@ -90,35 +92,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           setState(() {
             verificationId = state.verificationId;
             signUpViewModel.isLoading = false;
-            // nameController.clear();
-            // emailController.clear();
           });
         } else if(state is SignUpError) {
           if(state.message == "SignIn details not found") {
-
-            // if(widget.arguments["isHomeFlow"] != null && widget.arguments["isHomeFlow"] == true) {
-            //   setState(() {
-            //     widget.arguments["type"] = AuthenticationType.signup;
-            //   });
-            // } else {
-            //   // Get.offNamed(
-            //   //     HomeScreen.route,
-            //   //     id: NavIds.home
-            //   // );
-            //   if(widget.arguments["isHomeFlow"] == null) {
-            //     activatePopup.value = true;
-            //   }
-            //   Navigator.pop(context);
-            //
-            //   // Get.back();
-            //   // toDiscover.value = !toDiscover.value;
-            //
-            //   Get.toNamed(
-            //       preventDuplicates: true,
-            //       PassionQuestionnaireScreen.route,
-            //       id: NavIds.discover
-            //   );
-            // }
 
             setState(() {
               widget.arguments["type"] = AuthenticationType.signup;
@@ -139,6 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           String firebaseUid = state.uid;
           bool isExpert = docIds.contains(firebaseUid);
           globalUserId.value = state.uid;
+          globalLoggedIn.value = true;
 
           Navigator.pop(context);
           signal.value = true;
@@ -149,17 +126,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 HomeScreen.route,
                 id: NavIds.home
             );
-            if(!isExpert) {
-              Get.toNamed(
-                  ExpertRegistration.route,
-                  arguments: {
-                    "isRegistration": true,
-                  },
-                  id: NavIds.home
-              );
-            } else {
-              signUpViewModel.broadCastLogin();
-            }
+
+            Get.toNamed(
+              TopicListScreen.route,
+              arguments: null,
+              id: NavIds.home,
+            );
+
+            signUpViewModel.broadCastLogin();
+            // if(!isExpert) {
+            //   Get.toNamed(
+            //       ExpertRegistration.route,
+            //       arguments: {
+            //         "isRegistration": true,
+            //       },
+            //       id: NavIds.home
+            //   );
+            // } else {
+            //   signUpViewModel.broadCastLogin();
+            // }
           } else {
             // Broadcast login response if checkpoint is different.
             signUpViewModel.broadCastLogin();
@@ -178,17 +163,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 45, horizontal: 15),
-                  child: IconButton(
-                      onPressed: () {
-                        activatePopup.value = true;
-                        // Navigator.pop(context);
-                        Get.back();
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        size: 20,
-                      )
-                  ),
+                  child: BackNavigationWidget(context: context)
                 ),
               ),
               Expanded(

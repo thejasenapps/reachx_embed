@@ -113,7 +113,8 @@ class SessionDetailViewModel extends GetxController {
           arguments: {
             "type": AuthenticationType.login,
             "isHomeFlow": true
-          }
+          },
+          id: NavIds.home
       );
     } else {
       Get.toNamed(

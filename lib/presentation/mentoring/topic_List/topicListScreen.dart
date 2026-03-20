@@ -86,8 +86,12 @@ class _TopicListScreenState extends State<TopicListScreen>  with WidgetsBindingO
               padding:  EdgeInsets.only(top: baseHeight * 0.08, left: 20, right: 20),
               child: Row(
                 mainAxisAlignment: .spaceBetween,
+                crossAxisAlignment: .start,
                 children: [
-                  BackNavigationWidget(context: context),
+                  SizedBox(
+                      height: 60,
+                      child: BackNavigationWidget(context: context)
+                  ),
                   SearchWidget(topicListViewModel: topicListViewModel),
                   const SizedBox(width: 40,)
                 ],
@@ -104,13 +108,6 @@ class _TopicListScreenState extends State<TopicListScreen>  with WidgetsBindingO
                 )
             ),
           ),
-          Obx(() {
-            if(topicListViewModel.isKeyboardOpen.value) {
-              return const SizedBox.shrink();
-            } else {
-              return const SizedBox(height: 80,);
-            }
-          })
         ],
       ),
     );

@@ -136,22 +136,6 @@ class _ReachExState extends State<ReachEx> {
         theme: AppTheme.lightTheme,
         scaffoldMessengerKey: scaffoldMessengerKey,
         navigatorKey: globalNavigatorKey,
-        getPages: [
-          GetPage(
-            name: SignUpScreen.route,
-            page: () {
-              final AuthenticationType type = Get.arguments["type"] ?? AuthenticationType.signup;
-              final String name = Get.arguments["name"] ?? '';
-              bool? isHomeFlow = Get.arguments["isHomeFlow"];
-
-              return SignUpScreen(arguments: {
-               "type": type,
-               "name": name,
-               "isHomeFlow": isHomeFlow
-              });
-            },
-          ),
-        ],
       ),
     );
   }

@@ -66,57 +66,80 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
 
       List<TrendingProfilesEntity> profiles = [];
 
-      if(globalInstitutionId.value.isEmpty) {
-        profiles = topicsModel.topics
-            .where((topic) =>
-        topic.status == "online" && topic.skillType == "professional")
-            .map((topic) {
-          return TrendingProfilesEntity(
-              topicId: topic.topicId,
-              expertId: topic.expertId ?? '',
-              name: topic.name,
-              session: topic.session,
-              sessionType: topic.sessionType,
-              expertName: topic.expertName ?? '',
-              imageUrl: topic.imageUrl ?? '',
-              skillType: topic.skillType ?? 'professional',
-              languages: topic.languages!.isNotEmpty ? topic.languages! : [
-                'English'
-              ],
-              location: topic.location!.isNotEmpty
-                  ? topic.location!
-                  : "Loading...",
-              availability: topic.availability
-          );
-        }).toList();
-      } else {
-        profiles = topicsModel.topics
-            .where((topic) =>
-        topic.status == "online"
-            && topic.skillType == "professional"
-            && topic.institutionId!.isNotEmpty
-            && topic.institutionId! == globalInstitutionId.value
-        )
-            .map((topic) {
-          return TrendingProfilesEntity(
-              topicId: topic.topicId,
-              expertId: topic.expertId ?? '',
-              name: topic.name,
-              session: topic.session,
-              sessionType: topic.sessionType,
-              expertName: topic.expertName ?? '',
-              imageUrl: topic.imageUrl ?? '',
-              skillType: topic.skillType ?? 'professional',
-              languages: topic.languages!.isNotEmpty ? topic.languages! : [
-                'English'
-              ],
-              location: topic.location!.isNotEmpty
-                  ? topic.location!
-                  : "Loading...",
-              availability: topic.availability
-          );
-        }).toList();
-      }
+      profiles = topicsModel.topics
+          .where((topic) =>
+      topic.status == "online" && topic.skillType == "professional")
+          .map((topic) {
+        return TrendingProfilesEntity(
+            topicId: topic.topicId,
+            expertId: topic.expertId ?? '',
+            name: topic.name,
+            session: topic.session,
+            sessionType: topic.sessionType,
+            expertName: topic.expertName ?? '',
+            imageUrl: topic.imageUrl ?? '',
+            skillType: topic.skillType ?? 'professional',
+            languages: topic.languages!.isNotEmpty ? topic.languages! : [
+              'English'
+            ],
+            location: topic.location!.isNotEmpty
+                ? topic.location!
+                : "Loading...",
+            availability: topic.availability
+        );
+      }).toList();
+
+      // if(globalInstitutionId.value.isEmpty) {
+      //   profiles = topicsModel.topics
+      //       .where((topic) =>
+      //   topic.status == "online" && topic.skillType == "professional")
+      //       .map((topic) {
+      //     return TrendingProfilesEntity(
+      //         topicId: topic.topicId,
+      //         expertId: topic.expertId ?? '',
+      //         name: topic.name,
+      //         session: topic.session,
+      //         sessionType: topic.sessionType,
+      //         expertName: topic.expertName ?? '',
+      //         imageUrl: topic.imageUrl ?? '',
+      //         skillType: topic.skillType ?? 'professional',
+      //         languages: topic.languages!.isNotEmpty ? topic.languages! : [
+      //           'English'
+      //         ],
+      //         location: topic.location!.isNotEmpty
+      //             ? topic.location!
+      //             : "Loading...",
+      //         availability: topic.availability
+      //     );
+      //   }).toList();
+      // } else {
+      //   profiles = topicsModel.topics
+      //       .where((topic) =>
+      //   topic.status == "online"
+      //       && topic.skillType == "professional"
+      //       && topic.institutionId!.isNotEmpty
+      //       && topic.institutionId! == globalInstitutionId.value
+      //   )
+      //       .map((topic) {
+      //     return TrendingProfilesEntity(
+      //         topicId: topic.topicId,
+      //         expertId: topic.expertId ?? '',
+      //         name: topic.name,
+      //         session: topic.session,
+      //         sessionType: topic.sessionType,
+      //         expertName: topic.expertName ?? '',
+      //         imageUrl: topic.imageUrl ?? '',
+      //         skillType: topic.skillType ?? 'professional',
+      //         languages: topic.languages!.isNotEmpty ? topic.languages! : [
+      //           'English'
+      //         ],
+      //         location: topic.location!.isNotEmpty
+      //             ? topic.location!
+      //             : "Loading...",
+      //         availability: topic.availability
+      //     );
+      //   }).toList();
+      // }
 
 
       if (topicIds.isNotEmpty) {

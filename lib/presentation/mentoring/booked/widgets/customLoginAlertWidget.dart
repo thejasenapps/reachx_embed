@@ -5,6 +5,7 @@ import 'package:reachx_embed/core/constants/navId.dart';
 import 'package:reachx_embed/core/global_variables.dart';
 import 'package:reachx_embed/core/navigation/navigationController.dart';
 import 'package:reachx_embed/presentation/commonWidgets/customItems/customElevatedButton.dart';
+import 'package:reachx_embed/presentation/mentoring/signUp/signUpScreen.dart';
 
 class CustomLoginAlertWidget extends StatelessWidget {
   const CustomLoginAlertWidget({super.key});
@@ -30,10 +31,11 @@ class CustomLoginAlertWidget extends StatelessWidget {
                   NavigationController.to.changePage(NavIds.bookings);
                   checkpoint = "profile";
                   Get.toNamed(
-                    '/SignUpScreen',
+                    SignUpScreen.route,
                     arguments: {
                       "type": AuthenticationType.login
                     },
+                    id: NavIds.home
                   );
                 }
             )

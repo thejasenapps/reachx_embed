@@ -137,15 +137,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     }),
-                    // globalInstitutionId.value.isNotEmpty
-                    //   ? Image.asset(
-                    //     width: 130,
-                    //     'lib/assets/images/reachX_homeLogo.png'
-                    // )
-                    //   : Image.asset(
-                    //     width: 130,
-                    //     'lib/assets/images/reachX_homeLogo.png'
-                    // ),
                     SearchWidget(homeScreenViewModel: homeScreenViewModel),
                     const SizedBox()
                   ],

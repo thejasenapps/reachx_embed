@@ -10,6 +10,8 @@ class Booking {
   // Creates a new booking and returns the event ID if successful
   Future<Results> createBooking(BookingScheduleModel bookingModel) async {
 
+    final testBooking = bookingModel.toJson();
+
     try {
       var response = await _apiClient.request(
         requestType: RequestType.POST,
@@ -17,6 +19,8 @@ class Booking {
         version: '2024-08-13',
         data: bookingModel.toJson(),
       );
+
+
 
       if (response.statusCode == 201) {
         final bookingId = response.data["data"]["id"];

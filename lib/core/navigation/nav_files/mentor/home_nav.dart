@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reachx_embed/core/constants/navId.dart';
 import 'package:reachx_embed/presentation/mentoring/booked/bookedScheduleScreen.dart';
-import 'package:reachx_embed/presentation/mentoring/checkLog/checkingLog.dart';
 import 'package:reachx_embed/presentation/commonWidgets/editScreen.dart';
 import 'package:reachx_embed/presentation/commonWidgets/topicEditScreen.dart';
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistration.dart';
@@ -14,6 +13,7 @@ import 'package:reachx_embed/presentation/mentoring/meetingSetup/meetingSetupScr
 import 'package:reachx_embed/presentation/mentoring/profile/profileScreen.dart';
 import 'package:reachx_embed/presentation/mentoring/sessionDetail/SessionDetailScreen.dart';
 import 'package:reachx_embed/presentation/mentoring/shareTemplate/shareTemplateScreen.dart';
+import 'package:reachx_embed/presentation/mentoring/signUp/signUpScreen.dart';
 import 'package:reachx_embed/presentation/mentoring/topic_List/topicListScreen.dart';
 
 
@@ -25,12 +25,7 @@ class HomeNav extends StatelessWidget {
     return Navigator(
       key: Get.nestedKey(NavIds.home),
       onGenerateRoute: (settings) {
-        if(settings.name == '/CheckLog') {
-          return GetPageRoute(
-            settings: settings,
-            page: () => const CheckingLog(),
-          );
-        } else if(settings.name =='/ExpertDetail') {
+        if(settings.name =='/ExpertDetail') {
           return GetPageRoute(
               settings: settings,
               page: () => ExpertDetailScreen(
@@ -109,6 +104,13 @@ class HomeNav extends StatelessWidget {
           return GetPageRoute(
               settings: settings,
               page: () => ExpertRegistration(
+                arguments: settings.arguments as Map<String, dynamic>,
+              )
+          );
+        } if(settings.name ==SignUpScreen.route) {
+          return GetPageRoute(
+              settings: settings,
+              page: () => SignUpScreen(
                 arguments: settings.arguments as Map<String, dynamic>,
               )
           );
