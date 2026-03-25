@@ -227,7 +227,7 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
       return institutionModel.toEntity();
     }
 
-    return InstitutionEntity(id: '', name: '');
+    return InstitutionModel.empty();
   }
 
 }

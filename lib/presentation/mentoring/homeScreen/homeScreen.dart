@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:reachx_embed/assets/fonts/iconsax_icons.dart';
 import 'package:reachx_embed/core/constants/color.dart';
@@ -7,6 +8,7 @@ import 'package:reachx_embed/core/helper/hexColor.dart';
 import 'package:reachx_embed/core/injections.dart';
 import 'package:get/get.dart';
 import 'package:reachx_embed/presentation/commonWidgets/confirmationBox.dart';
+import 'package:reachx_embed/presentation/commonWidgets/customItems/customPlaceHolderImage.dart';
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistration.dart';
 import 'package:reachx_embed/presentation/mentoring/booked/bookedViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/expertDetail/expertDetailScreen.dart';
@@ -119,21 +121,51 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Skeletonizer(
                         enabled: homeScreenViewModel.isInstitutionLoading.value,
                         child: homeScreenViewModel.institutionEntity != null && homeScreenViewModel.institutionEntity!.name.isNotEmpty
-                            ? Text(
-                          homeScreenViewModel.institutionEntity!.name,
-                          style: TextStyle(
-                              color: HexColor(specialColor),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24
-                          ),
-                        )
-                            : Text(
-                          "ReachX",
-                          style: TextStyle(
-                              color: HexColor(specialColor),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24
-                          ),
+                            ? Column(
+                              mainAxisSize: .min,
+                              crossAxisAlignment: .center,
+                              spacing: 10,
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl: homeScreenViewModel.institutionEntity!.logo,
+                                  width: 180,
+                                  height: 180,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) =>  const Center(
+                                    child: CustomPlaceHolderImage(),
+                                  ),
+                                  errorWidget: (context, url, error) => Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: HexColor(containerBorderColor)),
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(60)
+                                      ),
+                                      child: const Icon(
+                                        Icons.person, size: 40, color: Colors.grey,
+                                      )
+                                  ),
+                                ),
+                                Text(
+                                  homeScreenViewModel.institutionEntity!.name,
+                                  style: TextStyle(
+                                      color: HexColor(specialColor),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24
+                                  ),
+                                ),
+                              ],
+                            )
+                            : Column(
+                          mainAxisSize: .min,
+                          crossAxisAlignment: .center,
+                          spacing: 10,
+                          children: [
+                            Image.asset(
+                              height: 180,
+                              width: 180,
+                              "lib/assets/images/splash_logo.png"
+                            ),
+                          ],
                         ),
                       );
                     }),

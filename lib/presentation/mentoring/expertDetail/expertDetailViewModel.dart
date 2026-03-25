@@ -150,8 +150,8 @@ class ExpertDetailViewModel extends GetxController {
           "sessionId": topic.sessionId,
           "session": "online",
           "sessionType": "group",
-          "meetingUrl": topic.meetingUrl,
-          "dateTime": sessionDetail!.dateTime,
+          "meetingUrl": sessionDetail!.link,
+          "dateTime": sessionDetail.dateTime,
           "selectedHours": sessionDetail.selectedHours,
           "groupSlotLeft": sessionDetail.groupSlotLeft
         };

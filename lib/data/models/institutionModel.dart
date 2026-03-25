@@ -4,12 +4,14 @@ class InstitutionModel extends InstitutionEntity {
   InstitutionModel({
     required super.id,
     required super.name,
+    required super.logo
   });
 
   factory InstitutionModel.fromJson(Map<String, dynamic> json) {
     return InstitutionModel(
       id: json['id'] ?? '',
       name: json['name'] ?? '',
+      logo: json["logo"] ?? '',
     );
   }
 
@@ -17,6 +19,7 @@ class InstitutionModel extends InstitutionEntity {
     return {
       'id': id,
       'name': name,
+      'logo': logo,
     };
   }
 
@@ -25,6 +28,7 @@ class InstitutionModel extends InstitutionEntity {
     return InstitutionModel(
       id: entity.id,
       name: entity.name,
+      logo: entity.logo
     );
   }
 
@@ -32,6 +36,7 @@ class InstitutionModel extends InstitutionEntity {
     return InstitutionEntity(
       id: id,
       name: name,
+      logo: logo
     );
   }
 
@@ -39,6 +44,7 @@ class InstitutionModel extends InstitutionEntity {
     return InstitutionModel(
       id: '',
       name: '',
+      logo: ''
     );
   }
 }

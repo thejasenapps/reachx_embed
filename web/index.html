@@ -38,7 +38,40 @@
 
 <body>
 
-<script src="flutter_bootstrap.js" async></script>
+    <style>
+        body {
+          margin: 0;
+          background-color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+        }
+
+        #splash {
+          text-align: center;
+        }
+
+        #splash p {
+          font-family: Arial, sans-serif;
+          margin-top: 120px;
+          color: #d835c2;
+        }
+    </style>
+
+    <div id="splash">
+        <p>Loading...</p>
+    </div>
+
+    <script>
+        window.addEventListener('flutter-first-frame', function () {
+            var splash = document.getElementById('splash');
+            if(splash) {
+                splash.remove();
+            }
+        });
+    </script>
+    <script src="flutter_bootstrap.js" async></script>
 
 </body>
 </html>
