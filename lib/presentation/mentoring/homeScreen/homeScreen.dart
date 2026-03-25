@@ -128,8 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 CachedNetworkImage(
                                   imageUrl: homeScreenViewModel.institutionEntity!.logo,
-                                  width: 180,
-                                  height: 180,
+                                  width: 160,
+                                  height: 160,
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) =>  const Center(
                                     child: CustomPlaceHolderImage(),
@@ -161,8 +161,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           spacing: 10,
                           children: [
                             Image.asset(
-                              height: 180,
-                              width: 180,
+                              height: 160,
+                              width: 160,
                               "lib/assets/images/splash_logo.png"
                             ),
                           ],

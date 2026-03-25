@@ -65,12 +65,12 @@ class TopicListRepoImpl implements TopicListRepo{
 
         if(globalInstitutionId.value.isNotEmpty) {
           final topics = await _getFromFirestore.getSearchTopics(type: type, searchQuery: '');
-          debugPrint(topics.topics.length.toString());
-          final filteredTopics = topics.topics
-              .where((topic) => topic.institutionId == globalInstitutionId.value)
-              .toList();
+          // debugPrint(topics.topics.length.toString());
+          // final filteredTopics = topics.topics
+          //     .where((topic) => topic.institutionId == globalInstitutionId.value)
+          //     .toList();
 
-          fullTopicsModel = TopicsModel(topics: filteredTopics);
+          fullTopicsModel = TopicsModel(topics: topics.topics);
         } else {
           fullTopicsModel = await _getFromFirestore.getSearchTopics(type: type, searchQuery: '');
         }
