@@ -18,7 +18,6 @@ import 'package:reachx_embed/core/navigation/navigationController.dart';
 import 'package:reachx_embed/data/data_source/local/hive/localuserDatabse.dart';
 import 'package:reachx_embed/domain/signUp/signUpUsecase.dart';
 import 'package:reachx_embed/presentation/mentoring/signUp/bloc/signBloc.dart';
-import 'package:reachx_embed/presentation/mentoring/signUp/signUpScreen.dart';
 import 'package:reachx_embed/presentation/splashScreen/splashScreen.dart';
 import 'package:reachx_embed/theme/theme.dart';
 import 'package:recaptcha_enterprise_flutter/recaptcha.dart';
