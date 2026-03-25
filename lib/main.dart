@@ -42,11 +42,6 @@ void main() async {
     webProvider: ReCaptchaV3Provider('6LfYlRorAAAAAAQNjXgLqKTTyfcuCpOfmV_efEwS'),
   );
 
-  // final uri = Uri.base;
-  // final clientId = uri.queryParameters['institutionId'];
-  // debugPrint(clientId);
-  //
-  // globalInstitutionId.value = clientId ?? '';
 
   final id =  globalContext['REACHX_INST_ID'];
   debugPrint("InstitutionId + $id");
