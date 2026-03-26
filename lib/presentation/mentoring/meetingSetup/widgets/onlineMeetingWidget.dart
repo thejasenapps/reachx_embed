@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:reachx_embed/core/constants/color.dart';
 import 'package:reachx_embed/core/helper/hexColor.dart';
+import 'package:reachx_embed/core/helper/widgets/customDottedDividerWidget.dart';
 import 'package:reachx_embed/domain/entities/bookingEntity.dart';
 import 'package:reachx_embed/presentation/commonWidgets/customItems/customElevatedButton.dart';
 import 'package:reachx_embed/presentation/mentoring/meetingSetup/meetingSetupViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/meetingSetup/widgets/detailsWidget.dart';
+import 'package:reachx_embed/presentation/mentoring/meetingSetup/widgets/guidelinesWidget.dart';
 import 'package:reachx_embed/presentation/mentoring/meetingSetup/widgets/meetingLinkGiverWidget.dart';
 import 'package:reachx_embed/presentation/mentoring/meetingSetup/widgets/rescheduleAndCancelWidget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class OnlineMeetingWidget extends StatefulWidget {
 
@@ -27,6 +31,16 @@ class _OnlineMeetingWidgetState extends State<OnlineMeetingWidget> {
   List<int> bookingIds = [];
 
   @override
+  void initState() {
+    if(widget.bookingEntity.sessionType!.toLowerCase() == "group") {
+      widget.meetingSetupViewModel.getBookingGuidelines("online-group");
+    } else {
+      widget.meetingSetupViewModel.getBookingGuidelines("online-onetoone");
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     DateTime activeTime =  widget.meetingSetupViewModel.activeTiming(widget.bookingEntity.start);
@@ -41,14 +55,15 @@ class _OnlineMeetingWidgetState extends State<OnlineMeetingWidget> {
       }
     }
 
+
     return Column(
       spacing: 20,
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: HexColor(containerBorderColor)),
-            color: Colors.white
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: HexColor(containerBorderColor)),
+              color: Colors.white
           ),
           margin: const EdgeInsets.all(10),
           child: Column(
@@ -57,12 +72,6 @@ class _OnlineMeetingWidgetState extends State<OnlineMeetingWidget> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: DetailsWidget(bookingEntity: widget.bookingEntity, groupEntity: widget.groupEntity, isExpert: widget.expert,),
-              ),
-              RescheduleAndCancelWidget(
-                bookingEntity: widget.bookingEntity,
-                meetingSetupViewModel: widget.meetingSetupViewModel,
-                bookingIds: bookingIds.isEmpty ? [widget.bookingEntity.bookingId!] : bookingIds,
-                bookingUniqueIds: bookingUniqueIds.isEmpty ? [widget.bookingEntity.bookingUniqueId!] : bookingUniqueIds,
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -83,39 +92,89 @@ class _OnlineMeetingWidgetState extends State<OnlineMeetingWidget> {
                   )
                       :  RichText(
                       text: TextSpan(
-                        style: const TextStyle(fontSize: 15),
-                        children: [
-                          const TextSpan(
-                            text: "Meeting Link: ",
-                            style: TextStyle(color: Colors.black)
-                          ),
-                          TextSpan(
-                              text: widget.meetingSetupViewModel.meetUrl,
-                              style: TextStyle(color: HexColor(lightBlue))
-                          ),
-                        ]
+                          style: const TextStyle(fontSize: 15),
+                          children: [
+                            const TextSpan(
+                                text: "Meeting Link: ",
+                                style: TextStyle(color: Colors.black)
+                            ),
+                            TextSpan(
+                                text: activeTime.isBefore(DateTime.now()) ? widget.meetingSetupViewModel.meetUrl : "https://***************",
+                                style: TextStyle(color: HexColor(lightBlue))
+                            ),
+                          ]
                       )
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: CustomElevatedButton(
+                    label: "Join Meeting",
+                    onTap: () {
+                      if(activeTime.isBefore(DateTime.now())) {
+                        widget.meetingSetupViewModel.beginMeeting(bookingUniqueIds.isNotEmpty ? bookingUniqueIds : [widget.bookingEntity.bookingUniqueId!], widget.meetingSetupViewModel.meetUrl);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Scheduled meeting is yet to commence"),
+                              duration: Duration(seconds: 2),
+                            )
+                        );
+                      }
+                    }
                 ),
               ),
             ],
           ),
         ),
-        CustomElevatedButton(
-            label: "Join Meeting",
-            onTap: () {
-              if(activeTime.isBefore(DateTime.now())) {
-                widget.meetingSetupViewModel.beginMeeting(bookingUniqueIds.isNotEmpty ? bookingUniqueIds : [widget.bookingEntity.bookingUniqueId!], widget.meetingSetupViewModel.meetUrl);
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Scheduled meeting is yet to commence"),
-                      duration: Duration(seconds: 2),
-                    )
-                );
-              }
-            }
-        ),
+        Obx(() {
+          return Skeletonizer(
+              enabled: widget.meetingSetupViewModel.isGuidelinesLoading.value,
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: HexColor(containerBorderColor)),
+                    color: Colors.white
+                ),
+                margin: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 10,
+                  children: [
+                    const SizedBox(height: 10,),
+                    Center(
+                      child: Text(
+                        "Guidelines",
+                        style: TextStyle(
+                            color: HexColor(lightBlue),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                    CustomPaint(
+                      painter: DottedDividerPainter(
+                          lineColor: HexColor(containerBorderColor),
+                          dotColor: HexColor(containerBorderColor)
+                      ),
+                    ),
+                    GuidelinesWidget(
+                        meetingSetupViewModel: widget.meetingSetupViewModel
+                    ),
+                    RescheduleAndCancelWidget(
+                      bookingEntity: widget.bookingEntity,
+                      meetingSetupViewModel: widget.meetingSetupViewModel,
+                      bookingIds: bookingIds.isEmpty ? [widget.bookingEntity.bookingId!] : bookingIds,
+                      bookingUniqueIds: bookingUniqueIds.isEmpty ? [widget.bookingEntity.bookingUniqueId!] : bookingUniqueIds,
+                    ),
+                    const SizedBox(height: 20,)
+                  ],
+                ),
+              )
+          );
+        }),
+        const SizedBox(height: 60,),
       ],
     );
   }

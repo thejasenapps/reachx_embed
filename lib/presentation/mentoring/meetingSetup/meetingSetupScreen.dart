@@ -28,15 +28,18 @@ class MeetingSetupScreen extends StatefulWidget {
 class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
   MeetingSetupViewModel meetingSetupViewModel = getIt();
 
-  late BookingEntity bookingEntity;
-  late List<BookingEntity> groupEntities;
-
 
   @override
   void initState() {
     BackButtonInterceptor.add(interceptor);
-    bookingEntity = widget.arguments["booking"];
-    groupEntities = widget.arguments["groupBooking"] ?? [];
+
+    if(widget.arguments["bookingId"] != null) {
+      meetingSetupViewModel.getBookingDetails(widget.arguments["bookingId"]);
+    } else {
+      meetingSetupViewModel.bookingEntity = widget.arguments["booking"];
+      meetingSetupViewModel.groupEntities = widget.arguments["groupBooking"] ?? [];
+      meetingSetupViewModel.isExpert = widget.arguments["isExpert"] ?? false;
+    }
     super.initState();
 
 
@@ -49,11 +52,11 @@ class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
         );
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(
-              meetingSetupViewModel.userId == bookingEntity.expertId
-                ? "Reschedule in Progress"
-                : "Reschedule confirmed"
-          ))
+            SnackBar(content: Text(
+                meetingSetupViewModel.userId == meetingSetupViewModel.bookingEntity!.expertId
+                    ? "Reschedule in Progress"
+                    : "Reschedule confirmed"
+            ))
         );
       }
     });
@@ -84,7 +87,7 @@ class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: PreferredSize(
+        appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: AppBar(
             automaticallyImplyLeading: false,
@@ -99,15 +102,38 @@ class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Obx(() {
-            return Skeletonizer(
-                enabled: meetingSetupViewModel.isLoading.value,
-                child: bookingEntity.session == "online"
-                  ? OnlineMeetingWidget(bookingEntity: bookingEntity, expert: widget.arguments["isExpert"], meetingSetupViewModel: meetingSetupViewModel, groupEntity: groupEntities,)
-                  : OnsiteMeetingWidget(bookingEntity: bookingEntity, expert: widget.arguments["isExpert"], meetingSetupViewModel: meetingSetupViewModel, groupEntity: groupEntities,)
-            );
-          }),
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: SingleChildScrollView(
+            child: Obx(() {
+              return Skeletonizer(
+                  enabled: meetingSetupViewModel.isLoading.value,
+                  child: meetingSetupViewModel.bookingEntity != null
+                      ? meetingSetupViewModel.bookingEntity!.session == "online"
+                      ? OnlineMeetingWidget(
+                    bookingEntity: meetingSetupViewModel.bookingEntity!,
+                    expert: meetingSetupViewModel.isExpert,
+                    meetingSetupViewModel: meetingSetupViewModel,
+                    groupEntity: meetingSetupViewModel.groupEntities,
+                  )
+                      : OnsiteMeetingWidget(
+                    bookingEntity: meetingSetupViewModel.bookingEntity!,
+                    expert: meetingSetupViewModel.isExpert,
+                    meetingSetupViewModel: meetingSetupViewModel,
+                    groupEntity: meetingSetupViewModel.groupEntities,
+                  )
+                      : Center(
+                    child: Text(
+                      "No data found",
+                      style: TextStyle(
+                          color: HexColor(lightBlue),
+                          fontSize: 14
+                      ),
+                    ),
+                  )
+              );
+            }),
+          ),
         )
     );
   }

@@ -1,5 +1,6 @@
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/domain/booked/bookedEntity.dart';
+import 'package:reachx_embed/domain/entities/bookingEntity.dart';
 import 'package:reachx_embed/domain/entities/slotEntity.dart';
 import 'package:reachx_embed/domain/meetingSetup/meetingSetupEntity.dart';
 
@@ -16,4 +17,6 @@ abstract class MeetingSetupRepo {
   Future<bool> updateStatus(String status, String bookingUniqueId, {String id = 'nil'});
   Future<bool> sendRescheduleNotification(String expertId, String attendeeId, String status, String bookingName);
   Future<bool> sendDeleteNotification(String expertId, String attendeeId, String bookingName);
+  Future<BookingEntity> getBookingDetails(String bookingId);
+  Future<List<dynamic>> getBookingGuidelines(String type);
 }

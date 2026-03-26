@@ -51,155 +51,155 @@ class _RescheduleAndCancelWidgetState extends State<RescheduleAndCancelWidget> {
 
     return widget.bookingEntity.rescheduleStatus == RescheduleStatus.started
         ? widget.meetingSetupViewModel.userId != widget.bookingEntity.expertId
-          ?  Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: HexColor(containerBorderColor))
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              spacing: 5,
-              children: [
-                Text(
-                  "Reschedule Alert",
+        ?  Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: HexColor(containerBorderColor))
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            spacing: 5,
+            children: [
+              Text(
+                "Reschedule Alert",
+                style: TextStyle(
+                    color: HexColor(black),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              const SizedBox(height: 10,),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Passionate has requested for a reschedule",
                   style: TextStyle(
                       color: HexColor(black),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-                const SizedBox(height: 10,),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Passionate has requested for a reschedule",
-                    style: TextStyle(
-                        color: HexColor(black),
-                        fontSize: 16
-                    ),
-                  ),
-                ),
-                const Text(
-                  "*This booking will be automatically cancelled if no action is performed",
-                  style: TextStyle(
-                      color: Colors.redAccent,
-                      fontSize: 10
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    if(widget.bookingEntity.sessionType != "group")
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: ElevatedButton(
-                          onPressed: () => showDialog(
-                              context: context,
-                              builder: (context) => AvailableSlotsWidget(
-                                eventId: widget.bookingEntity.eventId!,
-                                minutes: widget.bookingEntity.lengthInMinutes!,
-                                bookingEntity: widget.bookingEntity,
-                              )
-                          ),
-                          style: ButtonStyle(
-                            shape: WidgetStateProperty.all(
-                                RoundedRectangleBorder(
-                                    side: BorderSide(color: HexColor(containerBorderColor)),
-                                    borderRadius: BorderRadius.circular(20)
-                                )
-                            ),
-                            backgroundColor: WidgetStateProperty.all(Colors.grey[100]),
-                          ),
-                          child: Text(
-                            "Reschedule Session",
-                            style: TextStyle(color: HexColor(lightBlue), fontSize: 12),
-                          ),
-                        ),
-                      ),
-                    // Cancel button
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: customDeleteButton()
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      )
-        :  Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: HexColor(containerBorderColor))
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              spacing: 5,
-              children: [
-                Text(
-                  "Reschedule Alert",
-                  style: TextStyle(
-                      color: HexColor(black),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-                const SizedBox(height: 10,),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Waiting for the reschedule confirmation from client",
-                    style: TextStyle(
-                        color: HexColor(black),
-                        fontSize: 16
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      )
-        :  widget.bookingEntity.expertId == widget.meetingSetupViewModel.userId
-          ? Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            if(widget.bookingEntity.sessionType != "group")
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: ElevatedButton(
-                  onPressed: () => widget.meetingSetupViewModel.onTapped(widget.bookingEntity),
-                  style: ButtonStyle(
-                    shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(
-                            side: BorderSide(color: HexColor(containerBorderColor)),
-                            borderRadius: BorderRadius.circular(20)
-                        )
-                    ),
-                    backgroundColor: WidgetStateProperty.all(Colors.grey[100]),
-                  ),
-                  child: Text(
-                    "Reschedule Session",
-                    style: TextStyle(color: HexColor(lightBlue), fontSize: 12),
+                      fontSize: 16
                   ),
                 ),
               ),
-            // Cancel button
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: customDeleteButton()
+              const Text(
+                "*This booking will be automatically cancelled if no action is performed",
+                style: TextStyle(
+                    color: Colors.redAccent,
+                    fontSize: 10
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if(widget.bookingEntity.sessionType != "group")
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: ElevatedButton(
+                        onPressed: () => showDialog(
+                            context: context,
+                            builder: (context) => AvailableSlotsWidget(
+                              eventId: widget.bookingEntity.eventId!,
+                              minutes: widget.bookingEntity.lengthInMinutes!,
+                              bookingEntity: widget.bookingEntity,
+                            )
+                        ),
+                        style: ButtonStyle(
+                          shape: WidgetStateProperty.all(
+                              RoundedRectangleBorder(
+                                  side: BorderSide(color: HexColor(containerBorderColor)),
+                                  borderRadius: BorderRadius.circular(20)
+                              )
+                          ),
+                          backgroundColor: WidgetStateProperty.all(Colors.grey[100]),
+                        ),
+                        child: Text(
+                          "Reschedule Session",
+                          style: TextStyle(color: HexColor(lightBlue), fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  // Cancel button
+                  Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: customDeleteButton()
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    )
+        :  Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: HexColor(containerBorderColor))
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            spacing: 5,
+            children: [
+              Text(
+                "Reschedule Alert",
+                style: TextStyle(
+                    color: HexColor(black),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              const SizedBox(height: 10,),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Waiting for the reschedule confirmation from client",
+                  style: TextStyle(
+                      color: HexColor(black),
+                      fontSize: 16
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    )
+        :  widget.bookingEntity.expertId == widget.meetingSetupViewModel.userId
+        ? Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        if(widget.bookingEntity.sessionType != "group")
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: ElevatedButton(
+              onPressed: () => widget.meetingSetupViewModel.onTapped(widget.bookingEntity),
+              style: ButtonStyle(
+                shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                        side: BorderSide(color: HexColor(containerBorderColor)),
+                        borderRadius: BorderRadius.circular(20)
+                    )
+                ),
+                backgroundColor: WidgetStateProperty.all(Colors.grey[100]),
+              ),
+              child: Text(
+                "Reschedule Session",
+                style: TextStyle(color: HexColor(lightBlue), fontSize: 12),
+              ),
             ),
-          ],
-        )
-          : Row(
+          ),
+        // Cancel button
+        Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: customDeleteButton()
+        ),
+      ],
+    )
+        : Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         if(widget.bookingEntity.sessionType != "group")
@@ -259,12 +259,12 @@ class _RescheduleAndCancelWidgetState extends State<RescheduleAndCancelWidget> {
           context: context,
           builder: (context) => ConfirmationBoxWidget(
               label: widget.meetingSetupViewModel.userId != widget.bookingEntity.attendeeId
-                ? "Are you sure you want to cancel?\nCancelling might lead to user "
+                  ? "Are you sure you want to cancel?\nCancelling might lead to user "
                   "dissatisfaction among those who booked you.\nWe recommend taking"
                   " a moment to reconsider before proceeding\n\nTo avoid confusion "
                   "and prevent others from booking the same date, you should reschedule"
                   " your availability from the Profile Edit section."
-              : "Are you sure you want to cancel?\nWe recommend taking"
+                  : "Are you sure you want to cancel?\nWe recommend taking"
                   " a moment to reconsider before proceeding.",
               functionality: () async {
                 if(DateTime.parse(widget.bookingEntity.start).difference(DateTime.now()) > const Duration(minutes: 60)) {

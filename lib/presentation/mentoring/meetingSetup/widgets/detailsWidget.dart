@@ -93,8 +93,8 @@ class DetailsWidget extends StatelessWidget {
         Row(
           children: [
             bookingEntity.sessionType!.toLowerCase() == "group"
-            ? sessionContainer("Webinar")
-            : sessionContainer("Online 1:1"),
+                ? sessionContainer("Webinar")
+                : sessionContainer("Online 1:1"),
           ] ,
         ),
         if(bookingEntity.sessionType!.toLowerCase() == "group" && groupEntity.isNotEmpty && isExpert)
@@ -110,14 +110,14 @@ class DetailsWidget extends StatelessWidget {
                   child: Column(
                     children: groupEntity.where((groupBooking) => groupBooking.topicId == bookingEntity.topicId)
                         .map((groupEntity) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            spacing: 10,
-                            children: [
-                              Text("${index++}"),
-                              Text(groupEntity.attendee.name)
-                            ],
-                          );
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        spacing: 10,
+                        children: [
+                          Text("${index++}"),
+                          Text(groupEntity.attendee.name)
+                        ],
+                      );
                     }).toList(),
                   ),
                 ),
@@ -134,19 +134,19 @@ class DetailsWidget extends StatelessWidget {
       child: Text(
         bookingEntity.eventName!,
         style: TextStyle(
-          fontSize: 22,
-          color: HexColor(lightBlue)
+            fontSize: 22,
+            color: HexColor(lightBlue)
         ),
       ),
     );
   }
-  
-  
+
+
   Widget sessionContainer(String text) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(),
-        borderRadius: BorderRadius.circular(10)
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(10)
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -178,8 +178,8 @@ class DetailsWidget extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-            fontSize: 15,
-            color: HexColor(black)
+              fontSize: 15,
+              color: HexColor(black)
           ),
         ),
         Text(
@@ -193,3 +193,4 @@ class DetailsWidget extends StatelessWidget {
     );
   }
 }
+

@@ -26,17 +26,21 @@ class MeetingSetupViewModel {
   List<TimeOfDay> selectedTime = [];
   String meetUrl = '';
   String? userId;
+  BookingEntity? bookingEntity;
+  List<BookingEntity> groupEntities = [];
+  bool isExpert = false;
+  List<String> guidelines = [];
 
   RxBool isAvailable = false.obs;
   RxBool rescheduleNotify = false.obs;
   RxBool cancelled = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isGuidelinesLoading = false.obs;
   RxList<String> passingDeleteIds = <String>[].obs;
 
   TextEditingController meetingUrlController = TextEditingController();
 
 
-  // This method subtracts 10 minutes from the scheduled start time.
   DateTime activeTiming(String start) {
     DateTime dateTime = DateTime.parse(start).toUtc();
     DateTime activeTime = dateTime.subtract(const Duration(minutes: 10));
@@ -44,21 +48,18 @@ class MeetingSetupViewModel {
     return activeTime;
   }
 
-  // Marks the meeting as initiated and launches the meeting URL.
   void beginMeeting(List<String> bookingIds, String meetingUrl) {
     _meetingSetupUsecase.meetingInitiated(MeetingTypes.finished, bookingIds, meetingUrl);
     launchMeet(meetingUrl);
   }
 
 
-  // Opens the provided meeting URL in an external application.
   void launchMeet(String url) async {
     final uri = Uri.parse(url);
     await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 
 
-  // Saves the provided meeting URL for a booking and returns a success or failure message.
   Future<String> saveUrl(List<String> bookingIds, String meetingUrl, String topicId, String sessionType) async {
 
     String finalUrl = _stringEditors.httpsAdder(meetingUrl);
@@ -86,10 +87,10 @@ class MeetingSetupViewModel {
 
     if (userId != null) {
       RescheduleEntity rescheduleEntity = RescheduleEntity(
-        rescheduleProgress: RescheduleStatus.started,
-        bookingId: booking.bookingUniqueId!,
-        rescheduleInitiatorId: userId!,
-        timestamp: DateTime.now()
+          rescheduleProgress: RescheduleStatus.started,
+          bookingId: booking.bookingUniqueId!,
+          rescheduleInitiatorId: userId!,
+          timestamp: DateTime.now()
       );
 
       bool result = await _meetingSetupUsecase.rescheduleStatusChange(rescheduleEntity);
@@ -108,17 +109,16 @@ class MeetingSetupViewModel {
     }
   }
 
-  /// Confirms the new rescheduled date and updates the booking.
   Future<void> rescheduleConfirmation(DateTime date, BookingEntity bookingEntity, String rescheduleStatus) async {
     isLoading.value = true;
     userId = await FirebaseAuthentication().getFirebaseUid();
 
     if (userId != null) {
       RescheduleEntity rescheduleEntity = RescheduleEntity(
-        rescheduleProgress: RescheduleStatus.activated,
-        bookingId: bookingEntity.bookingUniqueId!,
-        rescheduleInitiatorId: userId!,
-        timestamp: DateTime.now()
+          rescheduleProgress: RescheduleStatus.activated,
+          bookingId: bookingEntity.bookingUniqueId!,
+          rescheduleInitiatorId: userId!,
+          timestamp: DateTime.now()
       );
 
       final response = await Future.wait([
@@ -177,7 +177,6 @@ class MeetingSetupViewModel {
     return false;
   }
 
-  /// Retrieves available slots for a given event and converts them into calendar appointments.
   void getSlots(int eventTypeId, int minutes) async {
     isAvailable.value = false;
     SlotEntity slotEntity = await _meetingSetupUsecase.getSlots(eventTypeId);
@@ -198,8 +197,21 @@ class MeetingSetupViewModel {
     isAvailable.value = true;
   }
 
-  /// Converts the list of appointments into a format usable by the Syncfusion calendar.
   AppointmentDataSource getSlotSource() {
     return AppointmentDataSource(appointments);
+  }
+
+
+  Future<void> getBookingDetails(String bookingId) async {
+    isLoading.value = true;
+    bookingEntity = await _meetingSetupUsecase.getBookingDetails(bookingId);
+    isLoading.value = false;
+  }
+
+  Future<void> getBookingGuidelines(String type) async {
+    isGuidelinesLoading.value = true;
+    final result = await _meetingSetupUsecase.getBookingGuidelines(type);
+    guidelines = result.map((each) => each as String).toList();
+    isGuidelinesLoading.value = false;
   }
 }

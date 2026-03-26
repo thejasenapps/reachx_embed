@@ -762,4 +762,18 @@ class GetFromFirestore {
       return Results.error("Unknown error");
     }
   }
+  Future<List<dynamic>> getBookingGuidelines(String type) async {
+    CollectionReference users = FirebaseFirestore.instance.collection(FirebaseCollection.app_inputs.name);
+    try {
+      DocumentSnapshot snapshot = await users.doc("booking_guidelines").get();
+      if (snapshot.exists) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        return data[type] as List<dynamic>;
+      }
+      return [];
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
 }

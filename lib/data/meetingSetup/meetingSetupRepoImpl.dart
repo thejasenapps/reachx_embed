@@ -12,6 +12,7 @@ import 'package:reachx_embed/data/data_source/remote/firebase/updateInFireStore.
 import 'package:reachx_embed/data/meetingSetup/meetingSetupModel.dart';
 import 'package:reachx_embed/data/models/userModel.dart';
 import 'package:reachx_embed/domain/booked/bookedEntity.dart';
+import 'package:reachx_embed/domain/entities/bookingEntity.dart';
 import 'package:reachx_embed/domain/entities/slotEntity.dart';
 import 'package:reachx_embed/domain/meetingSetup/meetingSetupEntity.dart';
 import 'package:reachx_embed/domain/meetingSetup/meetingSetupRepo.dart';
@@ -96,10 +97,10 @@ class MeetingSetupRepoImpl implements MeetingSetupRepo {
   @override
   Future<bool> rescheduleConfirmation(RescheduleEntity rescheduleEntity) async {
     RescheduleModel model = RescheduleModel(
-      rescheduleProgress: rescheduleEntity.rescheduleProgress,
-      rescheduleInitiatorId: rescheduleEntity.rescheduleInitiatorId,
-      bookingId: rescheduleEntity.bookingId,
-      timestamp: rescheduleEntity.timestamp
+        rescheduleProgress: rescheduleEntity.rescheduleProgress,
+        rescheduleInitiatorId: rescheduleEntity.rescheduleInitiatorId,
+        bookingId: rescheduleEntity.bookingId,
+        timestamp: rescheduleEntity.timestamp
     );
 
     String id = await _saveInFirestore.saveRescheduleDetails(rescheduleModel: model);
@@ -173,7 +174,6 @@ class MeetingSetupRepoImpl implements MeetingSetupRepo {
     return _notifications.sendPushNotifications([userModel.fcmToken!], title, content, data);
   }
 
-  /// Updates reschedule status in booking
   @override
   Future<bool> updateStatus(String status, String bookingUniqueId, {String id = 'nil'}) async {
     if (status == RescheduleStatus.rejected && id != "nil") {
@@ -188,7 +188,6 @@ class MeetingSetupRepoImpl implements MeetingSetupRepo {
     return _updateInFirestore.updateBooking(bookingUniqueId, data);
   }
 
-  /// Saves initial meeting setup data
   @override
   void saveMeetingData(MeetingSetupEntity meetingSetupEntity) async {
     MeetingSetupModel model = MeetingSetupModel(
@@ -212,5 +211,60 @@ class MeetingSetupRepoImpl implements MeetingSetupRepo {
     List<bool> results = await Future.wait(futures);
 
     return !results.contains(false);
+  }
+
+  @override
+  Future<BookingEntity> getBookingDetails(String bookingId) async {
+    final bookingData = await _getFromFirestore.getMeetingDetails(bookingId);
+
+    BookingEntity bookingEntity = BookingEntity(
+      start: bookingData.start,
+      lengthInMinutes: bookingData.lengthInMinutes,
+      topicId: bookingData.topicId,
+      eventId: bookingData.eventId,
+      bookingId: bookingData.bookingId,
+      bookingUniqueId: bookingData.bookingUniqueId,
+      attendee: Attendee(
+        name: bookingData.attendee.name,
+        timeZone: bookingData.attendee.timeZone,
+        email: bookingData.attendee.email,
+        phoneNumber: bookingData.attendee.phoneNumber,
+        language: bookingData.attendee.language,
+      ),
+      guests: bookingData.guests,
+      location: bookingData.location,
+      meetingUrl: bookingData.meetingUrl,
+      eventName: bookingData.eventName,
+      selectedDate: bookingData.selectedDate,
+      description: bookingData.description,
+      rate: bookingData.rate,
+      status: bookingData.status,
+      attendeeId: bookingData.attendeeId,
+      expertName: bookingData.expertName,
+      expertId: bookingData.expertId,
+      fcmToken: bookingData.fcmToken,
+      meetingStatus: bookingData.meetingStatus,
+      rescheduleId: bookingData.rescheduleId,
+      rescheduleStatus: bookingData.rescheduleStatus,
+      rescheduleInitiator: bookingData.rescheduleInitiator,
+      rescheduleDate: bookingData.rescheduleDate,
+      sessionType: bookingData.sessionType,
+      imageUrl: bookingData.imageUrl,
+      session: bookingData.session,
+      groupHours: bookingData.groupHours,
+      groupSlots: bookingData.groupSlots,
+      sessionId: bookingData.sessionId,
+      notificationSent: bookingData.notificationSent,
+      notificationSentInOneHour: bookingData.notificationSentInOneHour,
+      reviewRating: bookingData.reviewRating,
+      groupIds: bookingData.groupIds,
+    );
+
+    return bookingEntity;
+  }
+
+  @override
+  Future<List<dynamic>> getBookingGuidelines(String type) {
+    return _getFromFirestore.getBookingGuidelines(type);
   }
 }

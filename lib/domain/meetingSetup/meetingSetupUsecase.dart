@@ -1,6 +1,7 @@
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/core/injections.dart';
 import 'package:reachx_embed/domain/booked/bookedEntity.dart';
+import 'package:reachx_embed/domain/entities/bookingEntity.dart';
 import 'package:reachx_embed/domain/entities/slotEntity.dart';
 import 'package:reachx_embed/domain/meetingSetup/meetingSetupRepo.dart';
 
@@ -37,7 +38,6 @@ class MeetingSetupUsecase {
     return results[0];
   }
 
-  // Reschedules a booking by providing a new date and the booking's unique ID
   Future<Results> rescheduleBooking(String selectedDate, String bookingUniqueId) {
     return meetingSetupRepo.rescheduleBooking(bookingUniqueId, selectedDate);
   }
@@ -61,11 +61,18 @@ class MeetingSetupUsecase {
     return meetingSetupRepo.sendDeleteNotification(expertId, attendeeId, bookingName);
   }
 
-  // Retrieves available slots for the next 60 days for a given event type ID
   Future<SlotEntity> getSlots(int eventTypeId) {
     DateTime start = DateTime.now();
     DateTime end = start.add(const Duration(days: 60));
 
     return meetingSetupRepo.getSlots(start.toUtc().toIso8601String(), end.toUtc().toIso8601String(), eventTypeId);
+  }
+
+  Future<BookingEntity> getBookingDetails(String bookingId) {
+    return meetingSetupRepo.getBookingDetails(bookingId);
+  }
+
+  Future<List<dynamic>> getBookingGuidelines(String type) {
+    return meetingSetupRepo.getBookingGuidelines(type);
   }
 }
