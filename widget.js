@@ -61,6 +61,7 @@
         box-shadow: 0 10px 40px rgba(0,0,0,0.35);
         z-index: 2147483647;
         overflow: hidden;
+        overscroll-behavior: contain;
       }
 
       #close {
@@ -100,6 +101,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
+        overscroll-behavior: contain;
       }
 
       #flutter-target {
