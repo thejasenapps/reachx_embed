@@ -75,11 +75,11 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
           openBottomSheet(context);
         });
       }
+    } else {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        openBottomSheet(context);
+      });
     }
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      openBottomSheet(context);
-    });
   }
 
   void navigateToExpert() {

@@ -202,6 +202,8 @@ class HomeScreenViewModel extends GetxController{
     isInstitutionLoading.value = false;
 
     if(institutionEntity != null) {
+      print(institutionEntity!.subscriptionStatus);
+
       return institutionEntity!.subscriptionStatus;
     }
     return false;
