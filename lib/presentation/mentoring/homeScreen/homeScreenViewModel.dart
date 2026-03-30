@@ -196,9 +196,14 @@ class HomeScreenViewModel extends GetxController{
   }
 
 
-  Future<void> getInstitutionDetails(String institutionId) async {
+  Future<bool> getInstitutionDetails(String institutionId) async {
     isInstitutionLoading.value = true;
     institutionEntity = await homeScreenUsecase.getInstitution(institutionId);
     isInstitutionLoading.value = false;
+
+    if(institutionEntity != null) {
+      return institutionEntity!.subscriptionStatus;
+    }
+    return false;
   }
 }

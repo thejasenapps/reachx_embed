@@ -46,10 +46,12 @@ class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
 
     ever(meetingSetupViewModel.rescheduleNotify, (bool notify) {
       if(mounted) {
-        Get.offAllNamed(
-          BookedScheduleScreen.route,
-          id: NavIds.bookings,
-        );
+        // Get.offAllNamed(
+        //   BookedScheduleScreen.route,
+        //   id: NavIds.bookings,
+        // );
+
+        Navigator.pop(context);
 
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(
@@ -73,6 +75,7 @@ class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
   }
 
   bool interceptor( bool stopDefaultEvent, RouteInfo info) {
+    FocusScope.of(context).unfocus();
     Navigator.pop(context);
     return true;
   }

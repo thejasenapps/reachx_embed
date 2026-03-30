@@ -4,7 +4,9 @@ class InstitutionModel extends InstitutionEntity {
   InstitutionModel({
     required super.id,
     required super.name,
-    required super.logo
+    required super.logo,
+    required super.subscriptionId,
+    required super.subscriptionStatus
   });
 
   factory InstitutionModel.fromJson(Map<String, dynamic> json) {
@@ -12,6 +14,8 @@ class InstitutionModel extends InstitutionEntity {
       id: json['id'] ?? '',
       name: json['name'] ?? '',
       logo: json["logo"] ?? '',
+      subscriptionStatus: json['subscriptionStatus'] ?? false,
+      subscriptionId: json["subscriptionId"] ?? ''
     );
   }
 
@@ -20,6 +24,8 @@ class InstitutionModel extends InstitutionEntity {
       'id': id,
       'name': name,
       'logo': logo,
+      'subscriptionStatus': subscriptionStatus,
+      'subscriptionId': subscriptionId
     };
   }
 
@@ -28,7 +34,9 @@ class InstitutionModel extends InstitutionEntity {
     return InstitutionModel(
       id: entity.id,
       name: entity.name,
-      logo: entity.logo
+      logo: entity.logo,
+      subscriptionId: entity.subscriptionId,
+      subscriptionStatus: entity.subscriptionStatus
     );
   }
 
@@ -36,7 +44,9 @@ class InstitutionModel extends InstitutionEntity {
     return InstitutionEntity(
       id: id,
       name: name,
-      logo: logo
+      logo: logo,
+      subscriptionId: subscriptionId,
+      subscriptionStatus: subscriptionStatus
     );
   }
 
@@ -44,7 +54,9 @@ class InstitutionModel extends InstitutionEntity {
     return InstitutionModel(
       id: '',
       name: '',
-      logo: ''
+      logo: '',
+      subscriptionStatus: false,
+      subscriptionId: ''
     );
   }
 }

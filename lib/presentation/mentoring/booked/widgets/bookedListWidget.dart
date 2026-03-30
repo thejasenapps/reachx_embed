@@ -80,20 +80,22 @@ class _BookedListWidgetState extends State<BookedListWidget> {
     RxBool loader = widget.bookedViewModel.isLoading;
 
     return Obx(() {
-      return Skeletonizer(
-          enabled: loader.value,
-          child: widget.bookedViewModel.userId == null
-              ? const CustomLoginAlertWidget()
-              : widget.bookedViewModel.combinedEntity!.isNotEmpty
-              ? BookingsWidget(
-              bookingsList: widget.bookedViewModel.combinedEntity!,
-              bookedViewModel: widget.bookedViewModel
-          )
-              : const Center(
-            child: Text(
-                "No Bookings Yet"
-            ),
-          )
+      return Expanded(
+        child: Skeletonizer(
+            enabled: loader.value,
+            child: widget.bookedViewModel.userId == null
+                ? const CustomLoginAlertWidget()
+                : widget.bookedViewModel.combinedEntity!.isNotEmpty
+                ? BookingsWidget(
+                bookingsList: widget.bookedViewModel.combinedEntity!,
+                bookedViewModel: widget.bookedViewModel
+            )
+                : const Center(
+              child: Text(
+                  "No Bookings Yet"
+              ),
+            )
+        ),
       );
     });
   }

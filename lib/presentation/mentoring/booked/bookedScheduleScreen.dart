@@ -8,6 +8,7 @@ import 'package:reachx_embed/presentation/mentoring/booked/bookedViewModel.dart'
 import 'package:reachx_embed/presentation/mentoring/booked/widgets/bookedListWidget.dart';
 import 'package:reachx_embed/presentation/mentoring/booked/widgets/finishedListWidget.dart';
 import 'package:reachx_embed/presentation/mentoring/expert_registration/expertRegistrationViewModel.dart';
+import 'package:reachx_embed/presentation/mentoring/meetingSetup/meetingSetupViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/signUp/signUpViewModel.dart';
 
 class BookedScheduleScreen extends StatefulWidget {
@@ -27,6 +28,7 @@ class _BookedScheduleScreenState extends State<BookedScheduleScreen>
 
   SignUpViewModel signUpViewModel = getIt();
   ExpertRegistrationViewModel expertRegistrationViewModel= getIt();
+  MeetingSetupViewModel meetingSetupViewModel = getIt();
 
   @override
   void initState() {
@@ -40,6 +42,12 @@ class _BookedScheduleScreenState extends State<BookedScheduleScreen>
     });
 
     ever(expertRegistrationViewModel.saveResult, (bool isSaved) {
+      if(mounted) {
+        resetTabs(refresh: true);
+      }
+    });
+
+    ever(meetingSetupViewModel.rescheduleNotify, (bool isSaved) {
       if(mounted) {
         resetTabs(refresh: true);
       }

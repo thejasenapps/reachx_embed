@@ -107,7 +107,7 @@ class _SearchWidgetState extends State<SearchWidget> {
           controller: _searchController,
           onSubmitted: (text) {
             selectedItem = text;
-            if (selectedItem != null) {
+            if (selectedItem != null && !widget.homeScreenViewModel.isInstitutionLoading.value) {
               Get.toNamed(
                 TopicListScreen.route,
                 arguments: selectedItem,

@@ -96,14 +96,16 @@ class _RescheduleAndCancelWidgetState extends State<RescheduleAndCancelWidget> {
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: ElevatedButton(
-                        onPressed: () => showDialog(
-                            context: context,
-                            builder: (context) => AvailableSlotsWidget(
-                              eventId: widget.bookingEntity.eventId!,
-                              minutes: widget.bookingEntity.lengthInMinutes!,
-                              bookingEntity: widget.bookingEntity,
-                            )
-                        ),
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AvailableSlotsWidget(
+                                eventId: widget.bookingEntity.eventId!,
+                                minutes: widget.bookingEntity.lengthInMinutes!,
+                                bookingEntity: widget.bookingEntity,
+                              )
+                          );
+                        },
                         style: ButtonStyle(
                           shape: WidgetStateProperty.all(
                               RoundedRectangleBorder(
@@ -176,7 +178,16 @@ class _RescheduleAndCancelWidgetState extends State<RescheduleAndCancelWidget> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: ElevatedButton(
-              onPressed: () => widget.meetingSetupViewModel.onTapped(widget.bookingEntity),
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => ConfirmationBoxWidget(
+                      functionality: () {
+                        Navigator.pop(context);
+                        widget.meetingSetupViewModel.onTapped(widget.bookingEntity);
+                      },
+                      label: "Are you sure you want to reschedule ?"
+                  )
+              ),
               style: ButtonStyle(
                 shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(
@@ -206,23 +217,32 @@ class _RescheduleAndCancelWidgetState extends State<RescheduleAndCancelWidget> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: ElevatedButton(
-              onPressed: () {
-                if(DateTime.parse(widget.bookingEntity.start).difference(DateTime.now()) > const Duration(minutes: 60)) {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AvailableSlotsWidget(
-                        eventId: widget.bookingEntity.eventId!,
-                        minutes: widget.bookingEntity.lengthInMinutes!,
-                        bookingEntity: widget.bookingEntity,
-                      )
-                  );
-                } else {
-                  showDialog(
-                      context: context,
-                      builder: (context) => const SimpleDialogBoxWidget(label: "Rescheduling is not allowed after the last 60 minutes")
-                  );
-                }
-              },
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => ConfirmationBoxWidget(
+                      functionality: () {
+
+                        Navigator.pop(context);
+
+                        if(DateTime.parse(widget.bookingEntity.start).difference(DateTime.now()) > const Duration(minutes: 60)) {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AvailableSlotsWidget(
+                                eventId: widget.bookingEntity.eventId!,
+                                minutes: widget.bookingEntity.lengthInMinutes!,
+                                bookingEntity: widget.bookingEntity,
+                              )
+                          );
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) => const SimpleDialogBoxWidget(label: "Rescheduling is not allowed after the last 60 minutes")
+                          );
+                        }
+                      },
+                      label: "Are you sure you want to reschedule ?"
+                  )
+              ),
               style: ButtonStyle(
                 shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(

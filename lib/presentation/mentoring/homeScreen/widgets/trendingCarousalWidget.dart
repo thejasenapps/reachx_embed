@@ -108,11 +108,13 @@ class TrendingCarousalWidget extends StatelessWidget {
                           "topicId": profile.topicId
                         };
 
-                        Get.toNamed(
-                          ExpertDetailScreen.route, // Navigate to expert detail screen.
-                          arguments: arguments,
-                          id: NavIds.home,
-                        );
+                        if(!homeScreenViewModel.isInstitutionLoading.value) {
+                          Get.toNamed(
+                            ExpertDetailScreen.route, // Navigate to expert detail screen.
+                            arguments: arguments,
+                            id: NavIds.home,
+                          );
+                        }
                       },
                       child: Container(
                           width: MediaQuery.of(context).size.width * 0.70,

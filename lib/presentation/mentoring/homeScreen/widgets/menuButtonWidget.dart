@@ -46,55 +46,57 @@ class _MenuButtonWidgetState extends State<MenuButtonWidget> {
           ),
         ),
         onSelected: (value) async {
-          if(value == 'logout') {
-            if(globalUserId.value.isEmpty) {
-              CustomSnackBar().customAlertSnackBar(
-                  context,
-                  "No login details found",
-                  2,
-                  Colors.redAccent
-              );
-            } else {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return ConfirmationBoxWidget(
-                        label: "Are you sure you want to logout?",
-                        functionality: () {
-                          Navigator.pop(context);
-                          widget.homeScreenViewModel.logOut();
-                        }
-                    );
-                  }
-              );
-            }
-          } else if(value == 't&c') {
-            final result = await widget.homeScreenViewModel.openUrl('https://www.enapps.in/');
+          if(!widget.homeScreenViewModel.isInstitutionLoading.value) {
+            if(value == 'logout') {
+              if(globalUserId.value.isEmpty) {
+                CustomSnackBar().customAlertSnackBar(
+                    context,
+                    "No login details found",
+                    2,
+                    Colors.redAccent
+                );
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return ConfirmationBoxWidget(
+                          label: "Are you sure you want to logout?",
+                          functionality: () {
+                            Navigator.pop(context);
+                            widget.homeScreenViewModel.logOut();
+                          }
+                      );
+                    }
+                );
+              }
+            } else if(value == 't&c') {
+              final result = await widget.homeScreenViewModel.openUrl('https://www.enapps.in/');
 
-            if(!result) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Unable to open now. Try later"))
-              );
+              if(!result) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Unable to open now. Try later"))
+                );
+              }
+            } else if(value == "profile") {
+              if(mounted) {
+                Get.toNamed(
+                  ProfileScreen.route,
+                  id: NavIds.home,
+                );
+              }
+            } else if(value == "profile_edit") {
+              if(mounted) {
+                Get.toNamed(
+                  ExpertRegistration.route,
+                  arguments: {
+                    "isRegistration": false,
+                  },
+                  id: NavIds.home,
+                );
+              }
+            }  else if(value == "support") {
+              widget.homeScreenViewModel.openWhatsApp("support");
             }
-          } else if(value == "profile") {
-            if(mounted) {
-              Get.toNamed(
-                ProfileScreen.route,
-                id: NavIds.home,
-              );
-            }
-          } else if(value == "profile_edit") {
-            if(mounted) {
-              Get.toNamed(
-                ExpertRegistration.route,
-                arguments: {
-                  "isRegistration": false,
-                },
-                id: NavIds.home,
-              );
-            }
-          }  else if(value == "support") {
-            widget.homeScreenViewModel.openWhatsApp("support");
           }
         },
         itemBuilder: (context) => [

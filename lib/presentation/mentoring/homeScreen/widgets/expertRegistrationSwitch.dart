@@ -26,7 +26,9 @@ class _ExpertRegistrationSwitchWidgetState extends State<ExpertRegistrationSwitc
     return Center(
         child: GestureDetector(
           onTap: () {
-            widget.homeScreenViewModel.isLogged(context);
+            if(!widget.homeScreenViewModel.isInstitutionLoading.value) {
+              widget.homeScreenViewModel.isLogged(context);
+            }
           },
           child: Container(
             decoration: BoxDecoration(

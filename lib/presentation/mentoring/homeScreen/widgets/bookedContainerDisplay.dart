@@ -114,10 +114,12 @@ class _BookedContainerDisplayState extends State<BookedContainerDisplay> {
                                   ),
                                   OutlinedButton(
                                       onPressed: () {
-                                        Get.toNamed(
-                                          BookedScheduleScreen.route,
-                                          id: NavIds.home,
-                                        );
+                                        if(!widget.homeScreenViewModel.isInstitutionLoading.value) {
+                                          Get.toNamed(
+                                            BookedScheduleScreen.route,
+                                            id: NavIds.home,
+                                          );
+                                        }
                                       },
                                       style: OutlinedButton.styleFrom(
                                         side: BorderSide(
@@ -168,10 +170,12 @@ class _BookedContainerDisplayState extends State<BookedContainerDisplay> {
                                 ),
                                 OutlinedButton(
                                     onPressed: () {
-                                      Get.toNamed(
-                                        BookedScheduleScreen.route,
-                                        id: NavIds.home,
-                                      );
+                                      if(!widget.homeScreenViewModel.isInstitutionLoading.value) {
+                                        Get.toNamed(
+                                          BookedScheduleScreen.route,
+                                          id: NavIds.home,
+                                        );
+                                      }
                                     },
                                     style: OutlinedButton.styleFrom(
                                         side: BorderSide(
@@ -218,10 +222,12 @@ class _BookedContainerDisplayState extends State<BookedContainerDisplay> {
           padding: const EdgeInsets.all(20),
           child: GestureDetector(
             onTap: () {
-              Get.toNamed(
-                BookedScheduleScreen.route,
-                id: NavIds.home,
-              );
+              if(!widget.homeScreenViewModel.isInstitutionLoading.value) {
+                Get.toNamed(
+                  BookedScheduleScreen.route,
+                  id: NavIds.home,
+                );
+              }
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,

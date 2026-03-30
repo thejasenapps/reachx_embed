@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:reachx_embed/assets/fonts/iconsax_icons.dart';
 import 'package:reachx_embed/core/constants/color.dart';
 import 'package:reachx_embed/core/constants/navId.dart';
@@ -15,6 +16,7 @@ import 'package:reachx_embed/presentation/mentoring/expertDetail/expertDetailScr
 import 'package:reachx_embed/presentation/mentoring/homeScreen/homeScreenViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/homeScreen/widgets/bookedContainerDisplay.dart';
 import 'package:reachx_embed/presentation/mentoring/homeScreen/widgets/menuButtonWidget.dart';
+import 'package:reachx_embed/presentation/mentoring/homeScreen/widgets/noSubscriptionAlertWidget.dart';
 import 'package:reachx_embed/presentation/mentoring/profile/profileScreen.dart';
 import 'package:reachx_embed/presentation/mentoring/profile/profileViewModel.dart';
 import 'package:reachx_embed/presentation/mentoring/homeScreen/widgets/searchWidget.dart';
@@ -30,7 +32,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin {
   HomeScreenViewModel homeScreenViewModel = getIt();
   ProfileViewModel profileViewModel = getIt();
   BookedViewModel bookedViewModel = getIt();
@@ -43,9 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     homeScreenViewModel.getPopularCategories();
     bookedViewModel.getSessionsBookings();
 
-    if(globalInstitutionId.value.isNotEmpty) {
-      homeScreenViewModel.getInstitutionDetails(globalInstitutionId.value);
-    }
+    checkForInstitution();
 
     if (globalUri.value != Uri()) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -65,6 +65,23 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void checkForInstitution() async {
+    if(globalInstitutionId.value.isNotEmpty) {
+      final result = await homeScreenViewModel.getInstitutionDetails(
+          globalInstitutionId.value);
+
+      if (!result) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          openBottomSheet(context);
+        });
+      }
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      openBottomSheet(context);
+    });
+  }
+
   void navigateToExpert() {
     final expertId = globalUri.value.queryParameters['expertId'];
     final topicId = globalUri.value.queryParameters['passion'];
@@ -76,6 +93,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
       globalUri.value = Uri();
     }
+  }
+
+  void openBottomSheet(BuildContext context) {
+
+    final AnimationController controller = BottomSheet.createAnimationController(this);
+    controller.duration = const Duration(milliseconds: 1000);
+
+
+    showModalBottomSheet(
+        context: context,
+        isDismissible: false,
+        enableDrag: false,
+        isScrollControlled: true,
+        barrierColor: Colors.black.withOpacity(0.1),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(20)
+          ),
+        ),
+        transitionAnimationController: controller,
+        builder: (context) {
+          return const NoSubscriptionAlertWidget();
+        }
+    );
+
   }
 
   double? phoneHeight;

@@ -14,36 +14,34 @@ class BookingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-          itemCount: bookingsList.length,
-          itemBuilder: (context, index) {
-            // Convert UTC date-time to local date and time
-            var booking = bookingsList[index];
+    return ListView.builder(
+        itemCount: bookingsList.length,
+        itemBuilder: (context, index) {
+          // Convert UTC date-time to local date and time
+          var booking = bookingsList[index];
 
-            final isExpert = bookedViewModel.userId == booking.expertId;
-            final bookingName = isExpert? booking.attendee.name : booking.expertName;
+          final isExpert = bookedViewModel.userId == booking.expertId;
+          final bookingName = isExpert? booking.attendee.name : booking.expertName;
 
-            if(booking.sessionType!.toLowerCase() == "group" && booking.session!.toLowerCase() == "online") {
-              sessionDetail = "webinar";
-            } else if(booking.sessionType!.toLowerCase() == "group" && booking.session!.toLowerCase() == "onsite") {
-              sessionDetail = "seminar";
-            } else if(booking.session!.toLowerCase() == "online") {
-              sessionDetail = "Online";
-            } else {
-              sessionDetail = "Offline";
-            }
-
-            return BookedCardWidget(
-                bookedViewModel: bookedViewModel,
-                booking: booking,
-                isExpert: isExpert,
-                bookingName: bookingName ?? '',
-                sessionDetail: sessionDetail
-            );
-
+          if(booking.sessionType!.toLowerCase() == "group" && booking.session!.toLowerCase() == "online") {
+            sessionDetail = "webinar";
+          } else if(booking.sessionType!.toLowerCase() == "group" && booking.session!.toLowerCase() == "onsite") {
+            sessionDetail = "seminar";
+          } else if(booking.session!.toLowerCase() == "online") {
+            sessionDetail = "Online";
+          } else {
+            sessionDetail = "Offline";
           }
-      ),
+
+          return BookedCardWidget(
+              bookedViewModel: bookedViewModel,
+              booking: booking,
+              isExpert: isExpert,
+              bookingName: bookingName ?? '',
+              sessionDetail: sessionDetail
+          );
+
+        }
     );
   }
 }
