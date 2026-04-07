@@ -209,7 +209,9 @@
         container: target,
         appUrl: GITHUB_URL,
         initialArgs: {
-          institutionId: INSTITUTION_ID
+          institutionId: INSTITUTION_ID,
+          referrerUrl: window.location.href,
+          referrerOrigin: window.location.origin
         }
       });
 
