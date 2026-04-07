@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
     homeScreenViewModel.getPopularCategories();
     bookedViewModel.getSessionsBookings();
 
-    checkForInstitution();
+    // checkForInstitution();
 
     if (globalUri.value != Uri()) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

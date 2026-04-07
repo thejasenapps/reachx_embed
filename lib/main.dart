@@ -46,6 +46,9 @@ void main() async {
   debugPrint("InstitutionId + $id");
   globalInstitutionId.value = id?.toString() ?? '';
   debugPrint("InstitutionId after + ${globalInstitutionId.value}");
+  final url = globalContext['DOMAIN_URL'];
+  print(url);
+  debugPrint(url.toString());
 
   if(!kIsWeb) {
     final siteKey = Platform.isAndroid
