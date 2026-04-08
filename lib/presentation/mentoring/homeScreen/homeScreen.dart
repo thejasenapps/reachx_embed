@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
     homeScreenViewModel.getPopularCategories();
     bookedViewModel.getSessionsBookings();
 
-    // checkForInstitution();
+    checkForInstitution();
 
     if (globalUri.value != Uri()) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -66,20 +66,13 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
   }
 
   void checkForInstitution() async {
-    if(globalInstitutionId.value.isNotEmpty) {
-      debugPrint("Loading");
+    debugPrint("Loading");
 
-      final result = await homeScreenViewModel.getInstitutionDetails();
+    final result = await homeScreenViewModel.getInstitutionDetails();
 
-      debugPrint("Loaded result: $result");
+    debugPrint("Loaded result: $result");
 
-      if (!result) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          openBottomSheet(context);
-        });
-      }
-    } else {
-      debugPrint("Global Institution is  empty and need to show blocked page");
+    if (!result) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         openBottomSheet(context);
       });
