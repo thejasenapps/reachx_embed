@@ -4,11 +4,13 @@ import 'package:reachx_embed/core/global_passion.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/data/booked/bookedModel.dart';
 import 'package:reachx_embed/data/data_source/local/sharedPreferenceServices.dart';
+import 'package:reachx_embed/data/data_source/remote/emailNotificationService.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/firebaseAuthentication.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/getFromFireStore.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/saveInFirestore.dart';
 import 'package:reachx_embed/data/models/expertsModel.dart';
 import 'package:reachx_embed/data/models/institutionModel.dart';
+import 'package:reachx_embed/data/models/subscriptionMailModel.dart';
 import 'package:reachx_embed/data/models/topicModel.dart';
 import 'package:reachx_embed/domain/entities/expertsEntity.dart';
 import 'package:reachx_embed/domain/entities/institutionEntity.dart';
@@ -22,6 +24,7 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
   final SaveInFirestore _saveInFirestore = SaveInFirestore();
   final FirebaseAuthentication _firebaseAuthentication = FirebaseAuthentication();
   final SharedPreferenceServices _sharedPreferenceServices = SharedPreferenceServices();
+  final EmailNotificationService _emailNotificationService = EmailNotificationService();
 
   @override
   Future<HomeScreenEntity> fetchTutorials() async {
@@ -257,6 +260,18 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
 
         if(result is SuccessState) {
           debugPrint(result.value.toString());
+
+          final subscriptionMailModel = SubscriptionMailModel(
+              id: "no-id",
+              event: "institution-login",
+              level: "free-trial",
+              section: "institution",
+              currentLevel: "free-trial"
+          );
+
+          final emailResult = await _emailNotificationService.sendEmail(subscriptionMailModel.toJson());
+
+          debugPrint(emailResult.toString());
         } else if(result is ErrorState ){
           debugPrint(result.msg);
         }

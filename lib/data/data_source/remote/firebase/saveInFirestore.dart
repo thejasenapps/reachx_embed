@@ -251,7 +251,7 @@ class SaveInFirestore {
 
   Future<Results> saveInstitution(InstitutionModel institutionModel) async {
     try {
-      final CollectionReference collection = FirebaseFirestore.instance.collection(FirebaseCollection.passion_streak.name);
+      final CollectionReference collection = FirebaseFirestore.instance.collection(FirebaseCollection.institutions.name);
       await collection.doc(institutionModel.id).set(institutionModel.toJson());
       return Results.success("Successfully saved");
 
