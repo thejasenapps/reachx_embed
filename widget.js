@@ -29,7 +29,7 @@
       #btn {
         position: fixed;
         bottom: 25px;
-        right: 25px;
+        left: 25px;
         width: 70px;
         height: 70px;
         border-radius: 50%;
@@ -48,7 +48,7 @@
       #container {
         position: fixed;
         bottom: 110px;
-        right: 30px;
+        left: 30px;
         width: 28vw;
         height: 80vh;
         min-width: 320px;
