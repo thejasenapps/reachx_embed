@@ -4,6 +4,7 @@ import 'package:reachx_embed/core/constants/enums.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/data/booked/bookedModel.dart';
 import 'package:reachx_embed/data/meetingSetup/meetingSetupModel.dart';
+import 'package:reachx_embed/data/models/institutionModel.dart';
 import 'package:reachx_embed/data/models/ratingModel.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/firebaseAuthentication.dart';
 import 'package:reachx_embed/data/models/expertsModel.dart';
@@ -240,6 +241,18 @@ class SaveInFirestore {
     try {
       final CollectionReference collection = FirebaseFirestore.instance.collection(FirebaseCollection.passion_streak.name);
       await collection.doc(streakModel.passionId).set(streakModel.toJson());
+      return Results.success("Successfully saved");
+
+    } catch(e) {
+      debugPrint(e.toString());
+      return Results.error(e);
+    }
+  }
+
+  Future<Results> saveInstitution(InstitutionModel institutionModel) async {
+    try {
+      final CollectionReference collection = FirebaseFirestore.instance.collection(FirebaseCollection.passion_streak.name);
+      await collection.doc(institutionModel.id).set(institutionModel.toJson());
       return Results.success("Successfully saved");
 
     } catch(e) {

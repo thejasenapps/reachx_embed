@@ -14,4 +14,6 @@ abstract class HomeScreenRepo {
   Future<void> saveOnline(String storage, String status);
 
   Future<InstitutionEntity> getInstitution(String institutionId);
+
+  Future<InstitutionEntity> getInstitutionByUrl(String domainUrl);
 }

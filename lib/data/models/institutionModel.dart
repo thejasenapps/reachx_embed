@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reachx_embed/domain/entities/institutionEntity.dart';
 
 class InstitutionModel extends InstitutionEntity {
@@ -6,7 +7,10 @@ class InstitutionModel extends InstitutionEntity {
     required super.name,
     required super.logo,
     required super.subscriptionId,
-    required super.subscriptionStatus
+    required super.subscriptionStatus,
+    required super.domainUrl,
+    super.startDate,
+    super.trialLimit
   });
 
   factory InstitutionModel.fromJson(Map<String, dynamic> json) {
@@ -15,7 +19,12 @@ class InstitutionModel extends InstitutionEntity {
       name: json['name'] ?? '',
       logo: json["logo"] ?? '',
       subscriptionStatus: json['subscriptionStatus'] ?? false,
-      subscriptionId: json["subscriptionId"] ?? ''
+      subscriptionId: json["subscriptionId"] ?? '',
+      domainUrl: json["domainUrl"] ?? '',
+      trialLimit: json["trialLimit"] ?? 7,
+      startDate: json['startDate'] != null
+          ? (json['startDate'] as Timestamp).toDate()
+          : null,
     );
   }
 
@@ -25,7 +34,10 @@ class InstitutionModel extends InstitutionEntity {
       'name': name,
       'logo': logo,
       'subscriptionStatus': subscriptionStatus,
-      'subscriptionId': subscriptionId
+      'subscriptionId': subscriptionId,
+      'startDate': startDate,
+      'domainUrl': domainUrl,
+      'trialLimit': trialLimit ?? 7
     };
   }
 
@@ -36,7 +48,10 @@ class InstitutionModel extends InstitutionEntity {
       name: entity.name,
       logo: entity.logo,
       subscriptionId: entity.subscriptionId,
-      subscriptionStatus: entity.subscriptionStatus
+      subscriptionStatus: entity.subscriptionStatus,
+      startDate: entity.startDate,
+      domainUrl: entity.domainUrl,
+      trialLimit: entity.trialLimit
     );
   }
 
@@ -46,7 +61,10 @@ class InstitutionModel extends InstitutionEntity {
       name: name,
       logo: logo,
       subscriptionId: subscriptionId,
-      subscriptionStatus: subscriptionStatus
+      subscriptionStatus: subscriptionStatus,
+      domainUrl: domainUrl,
+      startDate: startDate,
+      trialLimit: trialLimit
     );
   }
 
@@ -56,7 +74,9 @@ class InstitutionModel extends InstitutionEntity {
       name: '',
       logo: '',
       subscriptionStatus: false,
-      subscriptionId: ''
+      subscriptionId: '',
+      domainUrl: '',
+      trialLimit: 7
     );
   }
 }

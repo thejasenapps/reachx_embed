@@ -6,6 +6,7 @@ import 'package:reachx_embed/data/booked/bookedModel.dart';
 import 'package:reachx_embed/data/data_source/local/sharedPreferenceServices.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/firebaseAuthentication.dart';
 import 'package:reachx_embed/data/data_source/remote/firebase/getFromFireStore.dart';
+import 'package:reachx_embed/data/data_source/remote/firebase/saveInFirestore.dart';
 import 'package:reachx_embed/data/models/expertsModel.dart';
 import 'package:reachx_embed/data/models/institutionModel.dart';
 import 'package:reachx_embed/data/models/topicModel.dart';
@@ -13,10 +14,12 @@ import 'package:reachx_embed/domain/entities/expertsEntity.dart';
 import 'package:reachx_embed/domain/entities/institutionEntity.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenEntity.dart';
 import 'package:reachx_embed/domain/homeScreen/homeScreenRepo.dart';
+import 'package:uuid/uuid.dart';
 
 class HomeScreenRepoImpl implements HomeScreenRepo {
 
   final GetFromFirestore _getFromFirestore = GetFromFirestore();
+  final SaveInFirestore _saveInFirestore = SaveInFirestore();
   final FirebaseAuthentication _firebaseAuthentication = FirebaseAuthentication();
   final SharedPreferenceServices _sharedPreferenceServices = SharedPreferenceServices();
 
@@ -225,6 +228,35 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
       final institutionModel = result.value as InstitutionModel;
 
       return institutionModel.toEntity();
+    }
+
+    return InstitutionModel.empty();
+  }
+
+  @override
+  Future<InstitutionEntity> getInstitutionByUrl(String domainUrl) async {
+    final result = await _getFromFirestore.fetchInstitutionByUrl(domainUrl);
+
+    if(result is SuccessState) {
+      final institutionModel = result.value as InstitutionModel;
+
+      return institutionModel.toEntity();
+    } else if(result is ErrorState) {
+      if(result.msg == "Empty") {
+        InstitutionModel institutionModel = InstitutionModel(
+            id: const Uuid().v4(),
+            name: "Free Trial",
+            logo: '',
+            subscriptionId: '',
+            subscriptionStatus: false,
+            domainUrl: domainUrl,
+            startDate: DateTime.now()
+        );
+
+        _saveInFirestore.saveInstitution(institutionModel);
+
+        return institutionModel.toEntity();
+      }
     }
 
     return InstitutionModel.empty();

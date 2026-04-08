@@ -67,8 +67,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
 
   void checkForInstitution() async {
     if(globalInstitutionId.value.isNotEmpty) {
-      final result = await homeScreenViewModel.getInstitutionDetails(
-          globalInstitutionId.value);
+      final result = await homeScreenViewModel.getInstitutionDetails();
 
       if (!result) {
         WidgetsBinding.instance.addPostFrameCallback((_) {

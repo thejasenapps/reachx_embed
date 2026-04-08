@@ -5,6 +5,7 @@ import 'package:reachx_embed/core/constants/enums.dart';
 import 'package:reachx_embed/core/constants/navId.dart';
 import 'package:reachx_embed/core/global_passion.dart';
 import 'package:reachx_embed/core/global_variables.dart';
+import 'package:reachx_embed/core/helper/checkTrialLimit.dart';
 import 'package:reachx_embed/core/helper/requestUtils.dart';
 import 'package:reachx_embed/core/injections.dart';
 import 'package:reachx_embed/domain/entities/expertsEntity.dart';
@@ -196,15 +197,21 @@ class HomeScreenViewModel extends GetxController{
   }
 
 
-  Future<bool> getInstitutionDetails(String institutionId) async {
+  Future<bool> getInstitutionDetails() async {
     isInstitutionLoading.value = true;
-    institutionEntity = await homeScreenUsecase.getInstitution(institutionId);
+    institutionEntity = await homeScreenUsecase.getInstitutionByUrl(domainUrl);
     isInstitutionLoading.value = false;
 
     if(institutionEntity != null) {
-      print(institutionEntity!.subscriptionStatus);
+      debugPrint(institutionEntity!.subscriptionStatus.toString());
 
-      return institutionEntity!.subscriptionStatus;
+      if(institutionEntity!.subscriptionStatus) {
+        return true;
+      } else if(CheckTrial().trialLimitFunction(institutionEntity!.startDate!, institutionEntity!.trialLimit ?? 7)) {
+        return true;
+      }
+
+      return false;
     }
     return false;
   }

@@ -47,4 +47,8 @@ class HomeScreenUsecase {
     return homeScreenRepo.getInstitution(institutionId);
   }
 
+  Future<InstitutionEntity> getInstitutionByUrl(String domainUrl) {
+    return homeScreenRepo.getInstitutionByUrl(domainUrl);
+  }
+
 }
