@@ -199,6 +199,7 @@ class HomeScreenViewModel extends GetxController{
 
   Future<bool> getInstitutionDetails() async {
     isInstitutionLoading.value = true;
+    debugPrint(domainUrl.toString());
     institutionEntity = await homeScreenUsecase.getInstitutionByUrl(domainUrl);
     isInstitutionLoading.value = false;
 

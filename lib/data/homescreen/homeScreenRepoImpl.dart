@@ -253,7 +253,13 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
             startDate: DateTime.now()
         );
 
-        _saveInFirestore.saveInstitution(institutionModel);
+        final result = await _saveInFirestore.saveInstitution(institutionModel);
+
+        if(result is SuccessState) {
+          debugPrint(result.value.toString());
+        } else if(result is ErrorState ){
+          debugPrint(result.msg);
+        }
 
         return institutionModel.toEntity();
       }
