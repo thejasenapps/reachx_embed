@@ -67,7 +67,11 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
 
   void checkForInstitution() async {
     if(globalInstitutionId.value.isNotEmpty) {
+      debugPrint("Loading");
+
       final result = await homeScreenViewModel.getInstitutionDetails();
+
+      debugPrint("Loaded result: $result");
 
       if (!result) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -75,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
         });
       }
     } else {
+      debugPrint("Global Institution is  empty and need to show blocked page");
       WidgetsBinding.instance.addPostFrameCallback((_) {
         openBottomSheet(context);
       });
