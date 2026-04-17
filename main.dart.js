@@ -40385,7 +40385,7 @@ _.Q=j},
 aRI:function aRI(a,b){this.a=a
 this.b=b},
 bu5(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,a0,a1,a2,a3,a4,a5,a6){var s=null
-return new A.rH(i,g,e,a1,a5,l,a6,f,c,d,a,s,o,m,s,s,p,s,b,h,s,n,r,q,s,s,a4,s,a2,j,k,a3,s,s,a0,s)},
+return new A.rH(i,g,e,a1,a5,l,a6,f,c,d,a,s,o,m,s,s,p,s,b,h,s,n,r,q,s,s,a4,s,a2,j,k,a3,s,s,a0,s,s)},
 bu6(b0){var s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9=b0.h(0,"expertName")
 if(a9==null)a9="not-given"
 s=b0.h(0,"eventName")
@@ -40446,7 +40446,7 @@ _.d=d
 _.e=e},
 aS4:function aS4(a){this.a=a},
 az2:function az2(a){this.a=a},
-rH:function rH(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6){var _=this
+rH:function rH(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7){var _=this
 _.a=a
 _.b=b
 _.c=c
@@ -40482,8 +40482,9 @@ _.k4=b2
 _.ok=b3
 _.p1=b4
 _.p2=b5
-_.p3=b6},
-abF:function abF(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6){var _=this
+_.p3=b6
+_.p4=b7},
+abF:function abF(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7){var _=this
 _.a=a
 _.b=b
 _.c=c
@@ -40519,8 +40520,9 @@ _.k4=b2
 _.ok=b3
 _.p1=b4
 _.p2=b5
-_.p3=b6},
-abE:function abE(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6){var _=this
+_.p3=b6
+_.p4=b7},
+abE:function abE(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7){var _=this
 _.a=a
 _.b=b
 _.c=c
@@ -40556,8 +40558,9 @@ _.k4=b2
 _.ok=b3
 _.p1=b4
 _.p2=b5
-_.p3=b6},
-abz:function abz(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6){var _=this
+_.p3=b6
+_.p4=b7},
+abz:function abz(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7){var _=this
 _.a=a
 _.b=b
 _.c=c
@@ -40593,8 +40596,9 @@ _.k4=b2
 _.ok=b3
 _.p1=b4
 _.p2=b5
-_.p3=b6},
-aby:function aby(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6){var _=this
+_.p3=b6
+_.p4=b7},
+aby:function aby(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7){var _=this
 _.a=a
 _.b=b
 _.c=c
@@ -40630,8 +40634,9 @@ _.k4=b2
 _.ok=b3
 _.p1=b4
 _.p2=b5
-_.p3=b6},
-a4y:function a4y(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6){var _=this
+_.p3=b6
+_.p4=b7},
+a4y:function a4y(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7){var _=this
 _.a=a
 _.b=b
 _.c=c
@@ -40667,7 +40672,8 @@ _.k4=b2
 _.ok=b3
 _.p1=b4
 _.p2=b5
-_.p3=b6},
+_.p3=b6
+_.p4=b7},
 Gr(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s){return new A.PB(s,m,k,d,l,r,h,p,j,e,f,i,a,b,q,g)},
 bD1(a3){var s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b="languages",a="achievements",a0="timestamp",a1=J.P(a3),a2=a1.h(a3,"uniqueId")
 if(a2==null)a2=""
@@ -40985,8 +40991,8 @@ _.c=c
 _.d=d},
 ayW:function ayW(a){this.a=a},
 az3:function az3(a){this.a=a},
-bu4(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6){return new A.fm(j,h,f,b0,b4,q,b6,g,d,e,a,o,a0,r,a1,c,a4,b5,b,i,k,s,a8,a6,a7,a5,b3,p,b1,l,n,b2,a2,a3,a9,m)},
-fm:function fm(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6){var _=this
+bu4(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7){return new A.fm(j,h,f,b1,b5,r,b7,g,d,e,a,o,a1,s,a2,c,a5,b6,b,i,k,a0,a9,a7,a8,a6,b4,p,b2,l,n,b3,a3,a4,b0,m,q)},
+fm:function fm(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7){var _=this
 _.a=a
 _.b=b
 _.c=c
@@ -41022,7 +41028,8 @@ _.k4=b2
 _.ok=b3
 _.p1=b4
 _.p2=b5
-_.p3=b6},
+_.p3=b6
+_.p4=b7},
 aS3:function aS3(){},
 az1:function az1(){},
 yX:function yX(a,b,c,d,e){var _=this
@@ -50402,7 +50409,7 @@ $S:4}
 A.bpC.prototype={
 $1(a){var s=A.h3().b
 s=s==null?null:s.canvasKitBaseUrl
-return(s==null?"https://www.gstatic.com/flutter-canvaskit/425cfb54d01a9472b3e81d9e76fd63a4a44cfbcb/":s)+a},
+return(s==null?"https://www.gstatic.com/flutter-canvaskit/59aa584fdf100e6c78c785d8a5b565d1de4b48ab/":s)+a},
 $S:40}
 A.aaC.prototype={
 gq(a){var s=this.a
@@ -150709,7 +150716,7 @@ s=5
 return A.h(p.b.a.D6(o),$async$$1)
 case 5:if(c.b===p.c)p.a.a=!0
 case 4:o=a.z
-q=A.bu4(new A.pQ(o.a,null,o.c,null,null),a.cx,null,a.x,a.y,a.c,a.w,a.b,a.cy,a.a,null,null,null,null,null,null,a.f,a.at,a.dx,a.as,null,null,null,a.ch,p.d,a.fr,p.a.a,n,a.p2,null,a.k1,null,a.go,a.e,null,a.r)
+q=A.bu4(new A.pQ(o.a,null,o.c,null,null),a.cx,null,a.x,a.y,a.c,a.w,a.b,a.cy,a.a,null,null,null,null,null,null,null,a.f,a.at,a.dx,a.as,null,null,null,a.ch,p.d,a.fr,p.a.a,n,a.p2,null,a.k1,null,a.go,a.e,null,a.r)
 s=1
 break
 case 1:return A.k(q,r)}})
@@ -150724,10 +150731,10 @@ atE(a){var s=0,r=A.m(t.y),q,p=this,o,n
 var $async$De=A.i(function(b,c){if(b===1)return A.j(c,r)
 for(;;)switch(s){case 0:o=B.cv.nM()
 n=a.k1
-if(n.toLowerCase()==="online"&&a.go==="oneToOne")p.x=new A.abF(a.a,a.b,a.c,a.d,a.e,a.f,a.r,a.w,p.y,p.z,a.z,null,p.Q,null,null,null,a.ch,null,a.cx,a.cy,null,a.dx,a.dy,a.fr,null,null,a.go,null,n,null,null,a.k4,a.ok,null,null,null)
-else if(n.toLowerCase()==="online"&&a.go==="group")p.x=new A.abE(a.a,a.b,a.c,a.d,a.e,a.f,a.r,null,null,o,a.z,null,a.as,null,null,null,a.ch,null,a.cx,a.cy,null,a.dx,a.dy,a.fr,null,null,a.go,null,n,null,a.k3,a.k4,a.ok,null,null,null)
-else if(n.toLowerCase()==="onsite"&&a.go==="oneToOne")p.x=new A.abz(a.a,a.b,a.c,a.d,a.e,a.f,a.r,a.w,p.y,p.z,a.z,null,null,a.at,null,null,a.ch,null,a.cx,a.cy,null,a.dx,a.dy,a.fr,null,null,a.go,null,n,null,null,a.k4,a.ok,null,null,null)
-else if(n.toLowerCase()==="onsite"&&a.go==="group")p.x=new A.aby(a.a,a.b,a.c,a.d,a.e,a.f,a.r,null,null,o,a.z,null,null,a.at,null,null,a.ch,null,a.cx,a.cy,null,a.dx,a.dy,a.fr,null,null,a.go,null,n,null,a.k3,a.k4,a.ok,null,null,null)
+if(n.toLowerCase()==="online"&&a.go==="oneToOne")p.x=new A.abF(a.a,a.b,a.c,a.d,a.e,a.f,a.r,a.w,p.y,p.z,a.z,null,p.Q,null,null,null,a.ch,null,a.cx,a.cy,null,a.dx,a.dy,a.fr,null,null,a.go,null,n,null,null,a.k4,a.ok,null,null,null,a.p4)
+else if(n.toLowerCase()==="online"&&a.go==="group")p.x=new A.abE(a.a,a.b,a.c,a.d,a.e,a.f,a.r,null,null,o,a.z,null,a.as,null,null,null,a.ch,null,a.cx,a.cy,null,a.dx,a.dy,a.fr,null,null,a.go,null,n,null,a.k3,a.k4,a.ok,null,null,null,a.p4)
+else if(n.toLowerCase()==="onsite"&&a.go==="oneToOne")p.x=new A.abz(a.a,a.b,a.c,a.d,a.e,a.f,a.r,a.w,p.y,p.z,a.z,null,null,a.at,null,null,a.ch,null,a.cx,a.cy,null,a.dx,a.dy,a.fr,null,null,a.go,null,n,null,null,a.k4,a.ok,null,null,null,a.p4)
+else if(n.toLowerCase()==="onsite"&&a.go==="group")p.x=new A.aby(a.a,a.b,a.c,a.d,a.e,a.f,a.r,null,null,o,a.z,null,null,a.at,null,null,a.ch,null,a.cx,a.cy,null,a.dx,a.dy,a.fr,null,null,a.go,null,n,null,a.k3,a.k4,a.ok,null,null,null,a.p4)
 s=3
 return A.h(p.c.JJ(o,p.x),$async$De)
 case 3:q=c
@@ -150757,7 +150764,7 @@ i=i!=null?new A.aS4(i.a):null
 h=a.ay
 h=h!=null?new A.az2(h.a):null
 s=3
-return A.h(p.e.OL(new A.a4y(null,null,null,null,a.e,m,null,a.w,null,null,new A.pQ(f.a,e,f.c,n,o),l,j,k,i,h,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)),$async$JW)
+return A.h(p.e.OL(new A.a4y(null,null,null,null,a.e,m,null,a.w,null,null,new A.pQ(f.a,e,f.c,n,o),l,j,k,i,h,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)),$async$JW)
 case 3:g=c
 if(g instanceof A.dY){f=g.a
 e=J.P(f)
@@ -154183,7 +154190,7 @@ b5=o.k4
 b6=o.ok
 b7=o.p1
 b8=o.p2
-q=A.bu4(new A.yX(h.a,h.b,h.c,h.d,h.e),a1,null,j,i,b,k,d,a3,a2,a4,b3,o.p3,b4,g,b1,m,f,a5,e,null,b6,b7,a,a9,a6,a8,a7,b8,c,b2,b5,b0,n,a0,l)
+q=A.bu4(new A.yX(h.a,h.b,h.c,h.d,h.e),a1,null,j,i,b,k,d,a3,a2,a4,b3,o.p3,b4,g,b1,null,m,f,a5,e,null,b6,b7,a,a9,a6,a8,a7,b8,c,b2,b5,b0,n,a0,l)
 s=1
 break
 case 1:return A.k(q,r)}})
@@ -154201,111 +154208,168 @@ A.az2.prototype={
 bG(){return A.I(["customField",this.a],t.N,t.z)}}
 A.rH.prototype={}
 A.abF.prototype={
-bG(){var s,r,q,p,o,n,m,l,k,j,i,h=this,g=h.d,f=h.x
-if(f==null)f=0
-s=h.y
-if(s==null)s=""
-r=h.z
-r=new A.pQ(r.a,r.b,r.c,r.d,r.e).bG()
-q=h.f
-if(q==null)q=60
-p=h.as
-if(p==null)p=""
-o=h.dx
-if(o==null)o=""
-n=h.cy
-if(n==null)n=""
-m=h.dy
-if(m==null)m="idle"
-l=h.fr
-if(l==null)l="nil"
-k=h.p2
-if(k==null)k=0
-j=h.k1
-if(j==null)j=""
-i=h.k4
-if(i==null)i=""
-return A.I(["expertName",h.a,"eventName",h.b,"description",h.c,"selectedDate",g,"rate",h.ch,"start",h.e,"topicId",h.r,"eventId",h.w,"bookingId",f,"bookingUniqueId",s,"attendeeId",h.cx,"attendee",r,"lengthInMinutes",q,"meetingUrl",p,"meetingStatus",o,"expertId",n,"rescheduleStatus",m,"rescheduleId",l,"sessionType",h.go,"reviewRating",k,"session",j,"sessionId",i,"notificationSent",!1,"notificationSentInOneHour",!1],t.N,t.z)}}
+bG(){var s,r=this,q=A.B(t.N,t.z)
+q.l(0,"expertName",r.a)
+q.l(0,"eventName",r.b)
+q.l(0,"description",r.c)
+q.l(0,"selectedDate",r.d)
+q.l(0,"rate",r.ch)
+q.l(0,"start",r.e)
+q.l(0,"topicId",r.r)
+q.l(0,"eventId",r.w)
+s=r.x
+q.l(0,"bookingId",s==null?0:s)
+s=r.y
+q.l(0,"bookingUniqueId",s==null?"":s)
+q.l(0,"attendeeId",r.cx)
+s=r.z
+q.l(0,"attendee",new A.pQ(s.a,s.b,s.c,s.d,s.e).bG())
+s=r.f
+q.l(0,"lengthInMinutes",s==null?60:s)
+s=r.as
+q.l(0,"meetingUrl",s==null?"":s)
+s=r.dx
+q.l(0,"meetingStatus",s==null?"":s)
+s=r.cy
+q.l(0,"expertId",s==null?"":s)
+s=r.dy
+q.l(0,"rescheduleStatus",s==null?"idle":s)
+s=r.fr
+q.l(0,"rescheduleId",s==null?"nil":s)
+q.l(0,"sessionType",r.go)
+s=r.p2
+q.l(0,"reviewRating",s==null?0:s)
+s=r.k1
+q.l(0,"session",s==null?"":s)
+s=r.k4
+q.l(0,"sessionId",s==null?"":s)
+q.l(0,"notificationSent",!1)
+q.l(0,"notificationSentInOneHour",!1)
+s=r.p4
+if(s!=null)q.l(0,"institutionId",s)
+return q}}
 A.abE.prototype={
-bG(){var s,r,q,p,o,n,m,l,k,j,i,h=this,g=h.f
-if(g==null)g=60
-s=h.as
-if(s==null)s=""
-r=h.dx
-if(r==null)r=""
-q=h.cy
-if(q==null)q=""
-p=h.y
-if(p==null)p=""
-o=h.dy
-if(o==null)o="idle"
-n=h.fr
-if(n==null)n="nil"
-m=h.p2
-if(m==null)m=0
-l=h.k1
-if(l==null)l=""
-k=h.k3
-if(k==null)k=0
-j=h.z
-j=new A.pQ(j.a,j.b,j.c,j.d,j.e).bG()
-i=h.k4
-if(i==null)i=""
-return A.I(["expertName",h.a,"topicId",h.r,"eventName",h.b,"description",h.c,"rate",h.ch,"start",h.e,"lengthInMinutes",g,"meetingUrl",s,"meetingStatus",r,"expertId",q,"bookingUniqueId",p,"rescheduleStatus",o,"rescheduleId",n,"sessionType",h.go,"reviewRating",m,"session",l,"groupSlots",k,"attendeeId",h.cx,"attendee",j,"sessionId",i,"notificationSent",!1,"notificationSentInOneHour",!1],t.N,t.z)}}
+bG(){var s,r=this,q=A.B(t.N,t.z)
+q.l(0,"expertName",r.a)
+q.l(0,"topicId",r.r)
+q.l(0,"eventName",r.b)
+q.l(0,"description",r.c)
+q.l(0,"rate",r.ch)
+q.l(0,"start",r.e)
+s=r.f
+q.l(0,"lengthInMinutes",s==null?60:s)
+s=r.as
+q.l(0,"meetingUrl",s==null?"":s)
+s=r.dx
+q.l(0,"meetingStatus",s==null?"":s)
+s=r.cy
+q.l(0,"expertId",s==null?"":s)
+s=r.y
+q.l(0,"bookingUniqueId",s==null?"":s)
+s=r.dy
+q.l(0,"rescheduleStatus",s==null?"idle":s)
+s=r.fr
+q.l(0,"rescheduleId",s==null?"nil":s)
+q.l(0,"sessionType",r.go)
+s=r.p2
+q.l(0,"reviewRating",s==null?0:s)
+s=r.k1
+q.l(0,"session",s==null?"":s)
+s=r.k3
+q.l(0,"groupSlots",s==null?0:s)
+q.l(0,"attendeeId",r.cx)
+s=r.z
+q.l(0,"attendee",new A.pQ(s.a,s.b,s.c,s.d,s.e).bG())
+s=r.k4
+q.l(0,"sessionId",s==null?"":s)
+q.l(0,"notificationSent",!1)
+q.l(0,"notificationSentInOneHour",!1)
+s=r.p4
+if(s!=null)q.l(0,"institutionId",s)
+return q}}
 A.abz.prototype={
-bG(){var s,r,q,p,o,n,m,l,k,j,i,h=this,g=h.d,f=h.x
-if(f==null)f=0
-s=h.y
-if(s==null)s=""
-r=h.z
-r=new A.pQ(r.a,r.b,r.c,r.d,r.e).bG()
-q=h.f
-if(q==null)q=60
-p=h.at
-if(p==null)p=""
-o=h.dx
-if(o==null)o=""
-n=h.cy
-if(n==null)n=""
-m=h.dy
-if(m==null)m="idle"
-l=h.fr
-if(l==null)l="nil"
-k=h.p2
-if(k==null)k=0
-j=h.k1
-if(j==null)j=""
-i=h.k4
-if(i==null)i=""
-return A.I(["expertName",h.a,"eventName",h.b,"description",h.c,"date",g,"rate",h.ch,"start",h.e,"topicId",h.r,"eventId",h.w,"bookingId",f,"bookingUniqueId",s,"attendeeId",h.cx,"attendee",r,"lengthInMinutes",q,"location",p,"meetingStatus",o,"expertId",n,"rescheduleStatus",m,"rescheduleId",l,"sessionType",h.go,"reviewRating",k,"session",j,"sessionId",i,"notificationSent",!1,"notificationSentInOneHour",!1],t.N,t.z)}}
+bG(){var s,r=this,q=A.B(t.N,t.z)
+q.l(0,"expertName",r.a)
+q.l(0,"eventName",r.b)
+q.l(0,"description",r.c)
+q.l(0,"date",r.d)
+q.l(0,"rate",r.ch)
+q.l(0,"start",r.e)
+q.l(0,"topicId",r.r)
+q.l(0,"eventId",r.w)
+s=r.x
+q.l(0,"bookingId",s==null?0:s)
+s=r.y
+q.l(0,"bookingUniqueId",s==null?"":s)
+q.l(0,"attendeeId",r.cx)
+s=r.z
+q.l(0,"attendee",new A.pQ(s.a,s.b,s.c,s.d,s.e).bG())
+s=r.f
+q.l(0,"lengthInMinutes",s==null?60:s)
+s=r.at
+q.l(0,"location",s==null?"":s)
+s=r.dx
+q.l(0,"meetingStatus",s==null?"":s)
+s=r.cy
+q.l(0,"expertId",s==null?"":s)
+s=r.dy
+q.l(0,"rescheduleStatus",s==null?"idle":s)
+s=r.fr
+q.l(0,"rescheduleId",s==null?"nil":s)
+q.l(0,"sessionType",r.go)
+s=r.p2
+q.l(0,"reviewRating",s==null?0:s)
+s=r.k1
+q.l(0,"session",s==null?"":s)
+s=r.k4
+q.l(0,"sessionId",s==null?"":s)
+q.l(0,"notificationSent",!1)
+q.l(0,"notificationSentInOneHour",!1)
+s=r.p4
+if(s!=null)q.l(0,"institutionId",s)
+return q}}
 A.aby.prototype={
-bG(){var s,r,q,p,o,n,m,l,k,j,i,h,g=this,f=g.d,e=g.x
-if(e==null)e=0
-s=g.y
-if(s==null)s=""
-r=g.f
-if(r==null)r=60
-q=g.dx
-if(q==null)q=""
-p=g.cy
-if(p==null)p=""
-o=g.dy
-if(o==null)o="idle"
-n=g.fr
-if(n==null)n="nil"
-m=g.at
-if(m==null)m=""
-l=g.p2
-if(l==null)l=0
-k=g.k1
-if(k==null)k=""
-j=g.k3
-if(j==null)j=0
-i=g.z
-i=new A.pQ(i.a,i.b,i.c,i.d,i.e).bG()
-h=g.k4
-if(h==null)h=""
-return A.I(["expertName",g.a,"topicId",g.r,"eventName",g.b,"description",g.c,"date",f,"rate",g.ch,"start",g.e,"bookingId",e,"bookingUniqueId",s,"lengthInMinutes",r,"meetingStatus",q,"expertId",p,"rescheduleStatus",o,"rescheduleId",n,"sessionType",g.go,"location",m,"reviewRating",l,"session",k,"groupSlots",j,"attendeeId",g.cx,"attendee",i,"sessionId",h,"notificationSent",!1,"notificationSentInOneHour",!1],t.N,t.z)}}
+bG(){var s,r=this,q=A.B(t.N,t.z)
+q.l(0,"expertName",r.a)
+q.l(0,"topicId",r.r)
+q.l(0,"eventName",r.b)
+q.l(0,"description",r.c)
+q.l(0,"date",r.d)
+q.l(0,"rate",r.ch)
+q.l(0,"start",r.e)
+s=r.x
+q.l(0,"bookingId",s==null?0:s)
+s=r.y
+q.l(0,"bookingUniqueId",s==null?"":s)
+s=r.f
+q.l(0,"lengthInMinutes",s==null?60:s)
+s=r.dx
+q.l(0,"meetingStatus",s==null?"":s)
+s=r.cy
+q.l(0,"expertId",s==null?"":s)
+s=r.dy
+q.l(0,"rescheduleStatus",s==null?"idle":s)
+s=r.fr
+q.l(0,"rescheduleId",s==null?"nil":s)
+q.l(0,"sessionType",r.go)
+s=r.at
+q.l(0,"location",s==null?"":s)
+s=r.p2
+q.l(0,"reviewRating",s==null?0:s)
+s=r.k1
+q.l(0,"session",s==null?"":s)
+s=r.k3
+q.l(0,"groupSlots",s==null?0:s)
+q.l(0,"attendeeId",r.cx)
+s=r.z
+q.l(0,"attendee",new A.pQ(s.a,s.b,s.c,s.d,s.e).bG())
+s=r.k4
+q.l(0,"sessionId",s==null?"":s)
+q.l(0,"notificationSent",!1)
+q.l(0,"notificationSentInOneHour",!1)
+s=r.p4
+if(s!=null)q.l(0,"institutionId",s)
+return q}}
 A.a4y.prototype={
 bG(){var s,r=this,q=t.N,p=t.z,o=A.B(q,p)
 o.l(0,"start",r.e)
@@ -154708,7 +154772,7 @@ $1(a){return a.at==="online"&&a.ax==="professional"},
 $S:178}
 A.b3M.prototype={
 $1(a){var s=null
-return A.WQ(a.ch,s,a.dx,s,a.as,a.cy,a.e,a.a,a.d,a.y,a.ay,s,s,a.cx,a.Q,a.fr,a.db,a.b,a.z,a.w,a.r,a.x,a.ax,a.at,s,a.c,a.f)},
+return A.WQ(a.ch,s,a.dx,s,a.as,a.cy,a.e,a.a,a.d,a.y,a.ay,a.go,s,a.cx,a.Q,a.fr,a.db,a.b,a.z,a.w,a.r,a.x,a.ax,a.at,s,a.c,a.f)},
 $S:891}
 A.ah9.prototype={
 nS(a){return this.atS(a)},
@@ -154879,75 +154943,78 @@ A.Cj.prototype={}
 A.ayW.prototype={}
 A.az3.prototype={
 xX(a,b,c,d){return this.b2Z(a,b,c,d)},
-b2Z(a9,b0,b1,b2){var s=0,r=A.m(t.y),q,p=this,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1,a2,a3,a4,a5,a6,a7,a8
-var $async$xX=A.i(function(b3,b4){if(b3===1)return A.j(b4,r)
-for(;;)switch(s){case 0:a5=$.b6().$1$0(t.u1)
-a6=$.Z
-a7=(a6==null?$.Z=$.aT():a6).aS("[DEFAULT]")
-A.au(a7,$.bD(),!0)
+b2Z(b2,b3,b4,b5){var s=0,r=A.m(t.y),q,p=this,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1
+var $async$xX=A.i(function(b6,b7){if(b6===1)return A.j(b7,r)
+for(;;)switch(s){case 0:a8=$.b6().$1$0(t.u1)
+a9=$.Z
+b0=(a9==null?$.Z=$.aT():a9).aS("[DEFAULT]")
+A.au(b0,$.bD(),!0)
 s=3
-return A.h(new A.cA(a5,A.cG(new A.aN(a7))).ed(),$async$xX)
-case 3:o=b4
-a5=J.P(a9)
-if(!J.f(a5.h(a9,"sessionType"),"group")){a6=J.bF(a5.h(a9,"selectedDate"))
-n=J.o(a5.h(a9,"selectedTime"),0)
-m=A.fU(a6)
-l=A.aC(A.eg(m),A.ez(m),A.ey(m),n.a,n.b,0,0).kY().tR()}else l=A.fU(a5.h(a9,"dateTime")).kY().tR()
-a6=a5.h(a9,"topicId")
-n=a5.h(a9,"eventId")
-k=a5.h(a9,"expertName")
+return A.h(new A.cA(a8,A.cG(new A.aN(b0))).ed(),$async$xX)
+case 3:o=b7
+a8=J.P(b2)
+if(!J.f(a8.h(b2,"sessionType"),"group")){a9=J.bF(a8.h(b2,"selectedDate"))
+n=J.o(a8.h(b2,"selectedTime"),0)
+m=A.fU(a9)
+l=A.aC(A.eg(m),A.ez(m),A.ey(m),n.a,n.b,0,0).kY().tR()}else l=A.fU(a8.h(b2,"dateTime")).kY().tR()
+a9=a8.h(b2,"topicId")
+n=a8.h(b2,"eventId")
+k=a8.h(b2,"expertName")
 if(k==null)k="test"
 j=o==null?"":o
-i=a5.h(a9,"minutes")
-h=a5.h(a9,"guests")
+i=a8.h(b2,"minutes")
+h=a8.h(b2,"guests")
 if(h==null)h=A.c([],t.s)
-g=a5.h(a9,"meetingUrl")
+g=a8.h(b2,"meetingUrl")
 if(g==null)g=""
-f=a5.h(a9,"location")
+f=a8.h(b2,"location")
 if(f==null)f=""
-e=a5.h(a9,"name")
-d=a5.h(a9,"description")
+e=a8.h(b2,"name")
+d=a8.h(b2,"description")
 if(d==null)d=""
-c=J.bF(a5.h(a9,"selectedDate"))
-b=a5.h(a9,"rate")
+c=J.bF(a8.h(b2,"selectedDate"))
+b=a8.h(b2,"rate")
 if(b==null)b=0
-a=a5.h(a9,"expertId")
+a=a8.h(b2,"expertId")
 if(a==null)a=""
-a0=a5.h(a9,"sessionType")
-a1=a5.h(a9,"session")
-a2=A.bu4(new A.yX(b2.a,b2.c,"Asia/Calcutta",b2.b,null),j,null,null,null,d,n,e,a,k,null,a5.h(a9,"selectedHours"),null,a5.h(a9,"slotsBooked"),h,null,i,f,null,g,null,null,null,b,null,null,null,null,null,c,a1,a5.h(a9,"sessionId"),a0,l,null,a6)
-a6=p.a
-s=!J.f(a5.h(a9,"sessionType"),"group")?4:6
+a0=a8.h(b2,"sessionType")
+a1=a8.h(b2,"session")
+a2=a8.h(b2,"selectedHours")
+a3=a8.h(b2,"slotsBooked")
+a4=a8.h(b2,"sessionId")
+a5=A.bu4(new A.yX(b5.a,b5.c,"Asia/Calcutta",b5.b,null),j,null,null,null,d,n,e,a,k,null,a2,null,a3,h,null,a8.h(b2,"institutionId"),i,f,null,g,null,null,null,b,null,null,null,null,null,c,a1,a4,a0,l,null,a9)
+a9=p.a
+s=!J.f(a8.h(b2,"sessionType"),"group")?4:6
 break
 case 4:s=9
-return A.h(a6.JW(a2),$async$xX)
-case 9:a8=b4 instanceof A.dY
-if(a8){s=7
-break}else b4=a8
+return A.h(a9.JW(a5),$async$xX)
+case 9:b1=b7 instanceof A.dY
+if(b1){s=7
+break}else b7=b1
 s=8
 break
 case 7:s=10
-return A.h(a6.De(a2),$async$xX)
-case 10:case 8:a3=b4
+return A.h(a9.De(a5),$async$xX)
+case 10:case 8:a6=b7
 s=5
 break
 case 6:s=11
-return A.h(a6.De(a2),$async$xX)
-case 11:a3=b4
-if(a3){a4=J.aw6(a5.h(a9,"groupSlotLeft"),a5.h(a9,"slotsBooked"))
-a6.b.Sq(a5.h(a9,"sessionId"),a4)}case 5:if(a3){n=a2.ch
+return A.h(a9.De(a5),$async$xX)
+case 11:a6=b7
+if(a6){a7=J.aw6(a8.h(b2,"groupSlotLeft"),a8.h(b2,"slotsBooked"))
+a9.b.Sq(a8.h(b2,"sessionId"),a7)}case 5:if(a6){n=a5.ch
 n.toString
-k=a2.cy
+k=a5.cy
 k.toString
-j=a2.cx
+j=a5.cx
 j.toString
-i=a5.h(a9,"paymentId")
+i=a8.h(b2,"paymentId")
 if(i==null)i=""
-a5=a5.h(a9,"orderId")
-a6.Di(n,k,j,b0,b1,i,a5==null?"":a5)
-a6.a47(b1,k,j)
-a6.K6(a2)
-a6.d.wE(A.I(["event","new-booking","sender",a2.z.a,"receiver",a2.a,"date",a2.e],t.N,t.A))}q=a3
+a8=a8.h(b2,"orderId")
+a9.Di(n,k,j,b3,b4,i,a8==null?"":a8)
+a9.a47(b4,k,j)
+a9.K6(a5)
+a9.d.wE(A.I(["event","new-booking","sender",a5.z.a,"receiver",a5.a,"date",a5.e],t.N,t.A))}q=a6
 s=1
 break
 case 1:return A.k(q,r)}})
@@ -156305,13 +156372,81 @@ for(;;)switch(s){case 0:m=q.fr.gm(0)
 m.toString
 p=t.N
 o=t.z
-switch(b){case"videoMeet":n=A.I(["name",d.b,"topicId",d.c,"expertName",m.b,"expertId",d.a,"description",d.e,"rate",d.f,"currencySymbol",d.cy,"minutes",m.e,"sessionId",d.r,"session","online","sessionType","oneToOne","meetingUrl",c.w,"eventId",c.b],p,o)
+switch(b){case"videoMeet":p=A.B(p,o)
+p.l(0,"name",d.b)
+p.l(0,"topicId",d.c)
+p.l(0,"expertName",m.b)
+p.l(0,"expertId",d.a)
+p.l(0,"description",d.e)
+p.l(0,"rate",d.f)
+p.l(0,"currencySymbol",d.cy)
+p.l(0,"minutes",m.e)
+p.l(0,"sessionId",d.r)
+p.l(0,"session","online")
+p.l(0,"sessionType","oneToOne")
+p.l(0,"meetingUrl",c.w)
+p.l(0,"eventId",c.b)
+m=d.go
+if(m!=null&&m.length!==0)p.l(0,"institutionId",m)
+n=p
 break
-case"onsiteMeet":n=A.I(["name",d.b,"topicId",d.c,"expertName",m.b,"expertId",d.a,"description",d.e,"rate",d.f,"currencySymbol",d.cy,"minutes",m.e,"sessionId",d.r,"location",q.cy.x,"session","onsite","sessionType","oneToOne","eventId",c.b],p,o)
+case"onsiteMeet":p=A.B(p,o)
+p.l(0,"name",d.b)
+p.l(0,"topicId",d.c)
+p.l(0,"expertName",m.b)
+p.l(0,"expertId",d.a)
+p.l(0,"description",d.e)
+p.l(0,"rate",d.f)
+p.l(0,"currencySymbol",d.cy)
+p.l(0,"minutes",m.e)
+p.l(0,"sessionId",d.r)
+p.l(0,"location",q.cy.x)
+p.l(0,"session","onsite")
+p.l(0,"sessionType","oneToOne")
+p.l(0,"eventId",c.b)
+m=d.go
+if(m!=null&&m.length!==0)p.l(0,"institutionId",m)
+n=p
 break
-case"webinar":n=A.I(["name",d.b,"topicId",d.c,"expertName",m.b,"expertId",d.a,"description",d.e,"rate",d.f,"currencySymbol",d.cy,"minutes",m.e,"sessionId",d.r,"session","online","sessionType","group","meetingUrl",c.w,"dateTime",c.Q,"selectedHours",c.as,"groupSlotLeft",c.r],p,o)
+case"webinar":p=A.B(p,o)
+p.l(0,"name",d.b)
+p.l(0,"topicId",d.c)
+p.l(0,"expertName",m.b)
+p.l(0,"expertId",d.a)
+p.l(0,"description",d.e)
+p.l(0,"rate",d.f)
+p.l(0,"currencySymbol",d.cy)
+p.l(0,"minutes",m.e)
+p.l(0,"sessionId",d.r)
+p.l(0,"session","online")
+p.l(0,"sessionType","group")
+p.l(0,"meetingUrl",c.w)
+p.l(0,"dateTime",c.Q)
+p.l(0,"selectedHours",c.as)
+p.l(0,"groupSlotLeft",c.r)
+m=d.go
+if(m!=null&&m.length!==0)p.l(0,"institutionId",m)
+n=p
 break
-case"seminar":n=A.I(["name",d.b,"topicId",d.c,"expertName",m.b,"expertId",d.a,"description",d.e,"rate",d.f,"currencySymbol",d.cy,"minutes",m.e,"sessionId",d.r,"session","onsite","sessionType","group","location",c.x,"dateTime",c.Q,"selectedHours",c.as,"groupSlotLeft",c.r],p,o)
+case"seminar":p=A.B(p,o)
+p.l(0,"name",d.b)
+p.l(0,"topicId",d.c)
+p.l(0,"expertName",m.b)
+p.l(0,"expertId",d.a)
+p.l(0,"description",d.e)
+p.l(0,"rate",d.f)
+p.l(0,"currencySymbol",d.cy)
+p.l(0,"minutes",m.e)
+p.l(0,"sessionId",d.r)
+p.l(0,"session","onsite")
+p.l(0,"sessionType","group")
+p.l(0,"location",c.x)
+p.l(0,"dateTime",c.Q)
+p.l(0,"selectedHours",c.as)
+p.l(0,"groupSlotLeft",c.r)
+m=d.go
+if(m!=null&&m.length!==0)p.l(0,"institutionId",m)
+n=p
 break
 case"request":n=A.B(p,o)
 break
