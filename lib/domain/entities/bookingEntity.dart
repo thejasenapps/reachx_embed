@@ -35,6 +35,7 @@ class BookingEntity {
   bool? notificationSentInOneHour;
   double? reviewRating;
   Set? groupIds;
+  String? institutionId;
 
   BookingEntity({
     required this.start,
@@ -72,7 +73,8 @@ class BookingEntity {
     this.notificationSent,
     this.reviewRating,
     this.groupIds,
-    this.notificationSentInOneHour
+    this.notificationSentInOneHour,
+    this.institutionId,
   });
 }
 

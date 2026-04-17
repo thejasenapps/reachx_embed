@@ -12,7 +12,7 @@ class EmailNotificationService {
      final formData = FormData.fromMap(data);
 
      final response = await _dio.post(
-        emailUrl,
+        "https://app.reachx.pro/api/email-sender.php",
        data: formData,
        options: Options(
          contentType: 'multipart/form-data',

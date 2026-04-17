@@ -51,7 +51,8 @@ class BookingUseCase {
         session: bookingDetails["session"],
         groupHours: bookingDetails["selectedHours"],
         groupSlots: bookingDetails["slotsBooked"],
-        sessionId: bookingDetails["sessionId"]
+        sessionId: bookingDetails["sessionId"],
+        institutionId: bookingDetails["institutionId"],
     );
 
     if(bookingDetails["sessionType"] != "group") {

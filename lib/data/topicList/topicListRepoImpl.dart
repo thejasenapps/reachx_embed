@@ -99,7 +99,8 @@ class TopicListRepoImpl implements TopicListRepo{
             currencySymbol: topic.currencySymbol,
             meetingUrl: topic.meetingUrl,
             momentsIds: topic.momentsIds,
-              availability: topic.availability
+              availability: topic.availability,
+            institutionId: topic.institutionId,
           );
       }).toList();
 

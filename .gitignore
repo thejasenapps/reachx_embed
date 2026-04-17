@@ -46,3 +46,7 @@ app.*.map.json
 
 
 .env.prod
+
+# Firebase Functions
+ /functions/node_modules/
+/functions/node_modules/

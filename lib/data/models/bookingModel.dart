@@ -144,7 +144,8 @@ class OnlineOneToOneStorageModel extends BookingEntity {
     super.reviewRating,
     super.session,
     super.sessionId,
-    super.notificationSent
+    super.notificationSent,
+    super.institutionId,
   });
 
 
@@ -179,7 +180,8 @@ class OnlineOneToOneStorageModel extends BookingEntity {
     "session": session ?? '',
     "sessionId": sessionId ?? '',
     "notificationSent": notificationSent ?? false,
-    "notificationSentInOneHour": notificationSentInOneHour ?? false
+    "notificationSentInOneHour": notificationSentInOneHour ?? false,
+    if (institutionId != null) "institutionId": institutionId,
   };
 }
 
@@ -210,6 +212,7 @@ class OnlineGroupStorageModel extends BookingEntity {
     super.session,
     super.sessionId,
     super.notificationSent,
+    super.institutionId,
     required super.topicId,
   });
 
@@ -243,7 +246,8 @@ class OnlineGroupStorageModel extends BookingEntity {
     ).toJson(),
     "sessionId": sessionId ?? '',
     "notificationSent": notificationSent ?? false,
-    "notificationSentInOneHour": notificationSentInOneHour ?? false
+    "notificationSentInOneHour": notificationSentInOneHour ?? false,
+    if (institutionId != null) "institutionId": institutionId,
   };
 }
 
@@ -276,7 +280,8 @@ class OfflineOneToOneStorageModel extends BookingEntity {
     super.reviewRating,
     super.session,
     super.sessionId,
-    super.notificationSent
+    super.notificationSent,
+    super.institutionId,
   });
 
 
@@ -311,7 +316,8 @@ class OfflineOneToOneStorageModel extends BookingEntity {
     "session": session ?? '',
     "sessionId": sessionId ?? '',
     "notificationSent": notificationSent ?? false,
-    "notificationSentInOneHour": notificationSentInOneHour ?? false
+    "notificationSentInOneHour": notificationSentInOneHour ?? false,
+    if (institutionId != null) "institutionId": institutionId,
   };
 }
 
@@ -344,6 +350,7 @@ class OfflineGroupStorageModel extends BookingEntity {
     required super.attendee,
     super.sessionId,
     super.notificationSent,
+    super.institutionId,
     required super.topicId,
   });
 
@@ -379,7 +386,8 @@ class OfflineGroupStorageModel extends BookingEntity {
     ).toJson(),
     "sessionId": sessionId ?? '',
     "notificationSent": notificationSent ?? false,
-    "notificationSentInOneHour": notificationSentInOneHour ?? false
+    "notificationSentInOneHour": notificationSentInOneHour ?? false,
+    if (institutionId != null) "institutionId": institutionId,
   };
 }
 

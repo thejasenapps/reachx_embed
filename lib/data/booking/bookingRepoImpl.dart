@@ -67,7 +67,8 @@ class BookingRepoImpl implements BookingRepo {
           session: bookingEntity.session,
           sessionType: bookingEntity.sessionType,
           sessionId: bookingEntity.sessionId,
-          notificationSent: bookingEntity.notificationSent
+          notificationSent: bookingEntity.notificationSent,
+          institutionId: bookingEntity.institutionId,
 
       );
     } else if (bookingEntity.session!.toLowerCase() == "online" &&
@@ -93,7 +94,8 @@ class BookingRepoImpl implements BookingRepo {
           attendeeId: bookingEntity.attendeeId,
           sessionId: bookingEntity.sessionId,
           bookingUniqueId: uuid,
-          notificationSent: bookingEntity.notificationSent
+          notificationSent: bookingEntity.notificationSent,
+          institutionId: bookingEntity.institutionId,
 
       );
     } else if (bookingEntity.session!.toLowerCase() == "onsite" &&
@@ -120,7 +122,8 @@ class BookingRepoImpl implements BookingRepo {
           attendeeId: bookingEntity.attendeeId,
           location: bookingEntity.location,
           sessionId: bookingEntity.sessionId,
-          notificationSent: bookingEntity.notificationSent
+          notificationSent: bookingEntity.notificationSent,
+          institutionId: bookingEntity.institutionId,
 
       );
     } else if (bookingEntity.session!.toLowerCase() == "onsite" &&
@@ -146,7 +149,8 @@ class BookingRepoImpl implements BookingRepo {
           attendee: bookingEntity.attendee,
           sessionId: bookingEntity.sessionId,
           bookingUniqueId: uuid,
-          notificationSent: bookingEntity.notificationSent
+          notificationSent: bookingEntity.notificationSent,
+          institutionId: bookingEntity.institutionId,
 
       );
     }

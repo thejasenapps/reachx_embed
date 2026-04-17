@@ -117,7 +117,9 @@ class ExpertDetailViewModel extends GetxController {
           "session": "online",
           "sessionType": "oneToOne",
           "meetingUrl": sessionDetail!.link,
-          "eventId": sessionDetail.eventId
+          "eventId": sessionDetail.eventId,
+          if (topic.institutionId != null && topic.institutionId!.isNotEmpty)
+            "institutionId": topic.institutionId,
         };
         break;
       case "onsiteMeet":
@@ -134,7 +136,9 @@ class ExpertDetailViewModel extends GetxController {
           "location": sessionEntity!.location,
           "session": "onsite",
           "sessionType" : "oneToOne",
-          "eventId": sessionDetail!.eventId
+          "eventId": sessionDetail!.eventId,
+          if (topic.institutionId != null && topic.institutionId!.isNotEmpty)
+            "institutionId": topic.institutionId,
         };
         break;
       case "webinar":
@@ -153,7 +157,9 @@ class ExpertDetailViewModel extends GetxController {
           "meetingUrl": sessionDetail!.link,
           "dateTime": sessionDetail.dateTime,
           "selectedHours": sessionDetail.selectedHours,
-          "groupSlotLeft": sessionDetail.groupSlotLeft
+          "groupSlotLeft": sessionDetail.groupSlotLeft,
+          if (topic.institutionId != null && topic.institutionId!.isNotEmpty)
+            "institutionId": topic.institutionId,
         };
         break;
       case "seminar":
@@ -172,7 +178,9 @@ class ExpertDetailViewModel extends GetxController {
           "location": sessionDetail!.location,
           "dateTime": sessionDetail.dateTime,
           "selectedHours": sessionDetail.selectedHours,
-          "groupSlotLeft": sessionDetail.groupSlotLeft
+          "groupSlotLeft": sessionDetail.groupSlotLeft,
+          if (topic.institutionId != null && topic.institutionId!.isNotEmpty)
+            "institutionId": topic.institutionId,
         };
         break;
       case "request":
