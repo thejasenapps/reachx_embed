@@ -42,6 +42,9 @@ async function sendEmail(fields) {
 
 exports.onInstitutionApproved = onDocumentWritten(
   "institution_subscription/{docId}",
+  {
+    region: "asia-south1",
+  },
   async (event) => {
     const before = event.data.before?.data();
     const after  = event.data.after?.data();
