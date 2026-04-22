@@ -208,7 +208,7 @@ class HomeScreenViewModel extends GetxController{
 
       if(institutionEntity!.subscriptionStatus) {
         return true;
-      } else if(CheckTrial().trialLimitFunction(institutionEntity!.startDate!, institutionEntity!.trialLimit ?? 7)) {
+      } else if(CheckTrial().trialLimitFunction(institutionEntity!.subscriptionStartDate!, institutionEntity!.trialLimit ?? 7)) {
         return true;
       }
 

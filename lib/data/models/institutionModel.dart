@@ -6,24 +6,38 @@ class InstitutionModel extends InstitutionEntity {
     required super.id,
     required super.name,
     required super.logo,
-    required super.subscriptionId,
     required super.subscriptionStatus,
     required super.domainUrl,
-    super.startDate,
-    super.trialLimit
+    super.subscriptionStartDate,
+    super.subscriptionEndDate,
+    super.subscriptionAmount,
+    super.subscriptionHistory,
+    super.trialLimit,
+    super.origin,
+    super.registeredAt,
   });
 
   factory InstitutionModel.fromJson(Map<String, dynamic> json) {
     return InstitutionModel(
       id: json['id'] ?? '',
       name: json['name'] ?? '',
-      logo: json["logo"] ?? '',
+      logo: json['logo'] ?? '',
       subscriptionStatus: json['subscriptionStatus'] ?? false,
-      subscriptionId: json["subscriptionId"] ?? '',
-      domainUrl: json["domainUrl"] ?? '',
-      trialLimit: json["trialLimit"] ?? 7,
-      startDate: json['startDate'] != null
-          ? (json['startDate'] as Timestamp).toDate()
+      domainUrl: json['domainUrl'] ?? '',
+      trialLimit: json['trialLimit'] ?? 7,
+      subscriptionStartDate: json['subscriptionStartDate'] != null
+          ? (json['subscriptionStartDate'] as Timestamp).toDate()
+          : null,
+      subscriptionEndDate: json['subscriptionEndDate'] != null
+          ? (json['subscriptionEndDate'] as Timestamp).toDate()
+          : null,
+      subscriptionAmount: json['subscriptionAmount'],
+      subscriptionHistory: (json['subscriptionHistory'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      origin: json['origin'],
+      registeredAt: json['registeredAt'] != null
+          ? (json['registeredAt'] as Timestamp).toDate()
           : null,
     );
   }
@@ -34,24 +48,31 @@ class InstitutionModel extends InstitutionEntity {
       'name': name,
       'logo': logo,
       'subscriptionStatus': subscriptionStatus,
-      'subscriptionId': subscriptionId,
-      'startDate': startDate,
       'domainUrl': domainUrl,
-      'trialLimit': trialLimit ?? 7
+      'trialLimit': trialLimit ?? 7,
+      if (subscriptionStartDate != null) 'subscriptionStartDate': subscriptionStartDate,
+      if (subscriptionEndDate != null) 'subscriptionEndDate': subscriptionEndDate,
+      if (subscriptionAmount != null) 'subscriptionAmount': subscriptionAmount,
+      if (subscriptionHistory != null) 'subscriptionHistory': subscriptionHistory,
+      if (origin != null) 'origin': origin,
+      if (registeredAt != null) 'registeredAt': registeredAt,
     };
   }
-
 
   factory InstitutionModel.fromEntity(InstitutionEntity entity) {
     return InstitutionModel(
       id: entity.id,
       name: entity.name,
       logo: entity.logo,
-      subscriptionId: entity.subscriptionId,
       subscriptionStatus: entity.subscriptionStatus,
-      startDate: entity.startDate,
       domainUrl: entity.domainUrl,
-      trialLimit: entity.trialLimit
+      trialLimit: entity.trialLimit,
+      subscriptionStartDate: entity.subscriptionStartDate,
+      subscriptionEndDate: entity.subscriptionEndDate,
+      subscriptionAmount: entity.subscriptionAmount,
+      subscriptionHistory: entity.subscriptionHistory,
+      origin: entity.origin,
+      registeredAt: entity.registeredAt,
     );
   }
 
@@ -60,11 +81,15 @@ class InstitutionModel extends InstitutionEntity {
       id: id,
       name: name,
       logo: logo,
-      subscriptionId: subscriptionId,
       subscriptionStatus: subscriptionStatus,
       domainUrl: domainUrl,
-      startDate: startDate,
-      trialLimit: trialLimit
+      trialLimit: trialLimit,
+      subscriptionStartDate: subscriptionStartDate,
+      subscriptionEndDate: subscriptionEndDate,
+      subscriptionAmount: subscriptionAmount,
+      subscriptionHistory: subscriptionHistory,
+      origin: origin,
+      registeredAt: registeredAt,
     );
   }
 
@@ -74,9 +99,8 @@ class InstitutionModel extends InstitutionEntity {
       name: '',
       logo: '',
       subscriptionStatus: false,
-      subscriptionId: '',
       domainUrl: '',
-      trialLimit: 7
+      trialLimit: 7,
     );
   }
 }

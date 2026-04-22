@@ -250,10 +250,9 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
             id: const Uuid().v4(),
             name: "Free Trial",
             logo: '',
-            subscriptionId: '',
             subscriptionStatus: false,
             domainUrl: domainUrl,
-            startDate: DateTime.now()
+            subscriptionStartDate: DateTime.now()
         );
 
         final result = await _saveInFirestore.saveInstitution(institutionModel);

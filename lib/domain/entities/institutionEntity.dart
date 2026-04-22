@@ -2,20 +2,28 @@ class InstitutionEntity {
   String id;
   String name;
   String logo;
-  String subscriptionId;
   bool subscriptionStatus;
-  DateTime? startDate;
+  DateTime? subscriptionStartDate;
   String domainUrl;
   int? trialLimit;
+  DateTime? subscriptionEndDate;
+  int? subscriptionAmount;
+  List<String>? subscriptionHistory;
+  String? origin;
+  DateTime? registeredAt;
 
   InstitutionEntity({
     required this.id,
     required this.name,
     required this.logo,
     required this.subscriptionStatus,
-    required this.subscriptionId,
     required this.domainUrl,
-    this.startDate,
-    this.trialLimit
+    this.subscriptionStartDate,
+    this.subscriptionHistory,
+    this.subscriptionEndDate,
+    this.subscriptionAmount,
+    this.trialLimit,
+    this.origin,
+    this.registeredAt
   });
 }

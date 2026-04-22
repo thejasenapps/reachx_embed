@@ -38,54 +38,52 @@ async function sendEmail(fields) {
   }
 }
 
+// Resolves a Firestore Timestamp, ISO string, or Date to a JS Date.
+// Returns null if the value is missing or invalid.
+function toDate(value) {
+  if (!value) return null;
+  if (value instanceof admin.firestore.Timestamp) return value.toDate();
+  const d = new Date(value);
+  return isNaN(d.getTime()) ? null : d;
+}
+
 // ─── Institution Approval Trigger ────────────────────────────────────────────
+// Fires when a document in `institutions` is written.
+// If `subscriptionStatus` flips to true, delete any duplicate doc with the
+// same domainUrl and keep only this one.
 
 exports.onInstitutionApproved = onDocumentWritten(
-  "institution_subscription/{docId}",
-  {
-    region: "asia-south1",
-  },
+  "institutions/{docId}",
   async (event) => {
     const before = event.data.before?.data();
     const after  = event.data.after?.data();
 
-    if (!after || after.status !== "approved") return null;
-    if (before?.status === "approved") return null;
+    if (!after) return null;
+    // Only act when subscriptionStatus transitions TO true
+    if (!after.subscriptionStatus) return null;
+    if (before?.subscriptionStatus === true) return null;
 
-    const website = after.website ?? after.domainUrl ?? "";
-    if (!website) {
-      console.warn(`⚠️  institution_subscription/${event.params.docId} has no website/domainUrl, skipping`);
+    const domainUrl = after.domainUrl ?? "";
+    if (!domainUrl) {
+      console.warn(`⚠️  institutions/${event.params.docId} has no domainUrl, skipping dedup`);
       return null;
     }
 
-    console.log(`✅ Institution approved: ${event.params.docId} | website: ${website}`);
+    console.log(`✅ Institution approved: ${event.params.docId} | domainUrl: ${domainUrl}`);
 
-    const institutionsRef = db.collection("institutions");
+    // Delete any OTHER institution doc with the same domainUrl
+    const duplicates = await db.collection("institutions")
+      .where("domainUrl", "==", domainUrl)
+      .get();
 
-    const existing = await institutionsRef.where("domainUrl", "==", website).get();
-    if (!existing.empty) {
-      const deletions = existing.docs.map((doc) => {
-        console.log(`🗑️  Deleting existing institution doc: ${doc.id}`);
+    const deletions = duplicates.docs
+      .filter((doc) => doc.id !== event.params.docId)
+      .map((doc) => {
+        console.log(`�️  Deleting duplicate institution doc: ${doc.id}`);
         return doc.ref.delete();
       });
-      await Promise.all(deletions);
-    }
 
-    const newId = institutionsRef.doc().id;
-    const institutionData = {
-      id: newId,
-      name: after.name ?? "Institution",
-      logo: after.logo ?? "",
-      subscriptionStatus: true,
-      subscriptionId: event.params.docId,
-      domainUrl: website,
-      startDate: after.startDate ?? admin.firestore.FieldValue.serverTimestamp(),
-      trialLimit: after.trialLimit ?? 7,
-    };
-
-    await institutionsRef.doc(newId).set(institutionData);
-    console.log(`🏛️  New institution created: ${newId}`);
-
+    await Promise.all(deletions);
     return null;
   }
 );
@@ -93,70 +91,48 @@ exports.onInstitutionApproved = onDocumentWritten(
 // ─── Trial & Subscription Check (every 12 hours) ─────────────────────────────
 
 exports.checkTrialAndSubscription = onSchedule("every 12 hours", async () => {
-  console.log("🔄 Running free trial check...");
-  await checkFreeTrials();
-  console.log("✅ Free trial check complete.");
-
-  console.log("🔄 Running subscription notification check...");
-  await checkSubscriptions();
-  console.log("✅ Subscription notification check complete.");
+  console.log("🔄 Running trial & subscription check...");
+  await Promise.all([checkFreeTrials(), checkSubscriptions()]);
+  console.log("✅ Check complete.");
 });
 
 // ─── Free Trial Check ─────────────────────────────────────────────────────────
+// Targets institutions where subscriptionStatus === false (still on trial).
+// Uses subscriptionStartDate + trialLimit (days) to compute trial end.
 
 async function checkFreeTrials() {
-  const snapshot = await db.collection("institutions").get();
+  const snapshot = await db.collection("institutions")
+    .where("subscriptionStatus", "==", false)
+    .get();
 
   if (snapshot.empty) {
-    console.log("ℹ️  No institutions found, skipping.");
+    console.log("ℹ️  No trial institutions found, skipping.");
     return;
   }
 
   const now = new Date();
-  const tasks = [];
-  snapshot.forEach((doc) => {
-    if (doc.data().subscriptionStatus === false) tasks.push(handleTrial(doc, now));
-  });
-  await Promise.all(tasks);
+  await Promise.all(snapshot.docs.map((doc) => handleTrial(doc, now)));
 }
 
 async function handleTrial(doc, now) {
   try {
     const data = doc.data();
-    const { startDate, trialLimit } = data;
+    const { subscriptionStartDate: rawStart, trialLimit, email, phone, domainUrl } = data;
 
-    if (!startDate || trialLimit === undefined || trialLimit === null) {
-      console.log(`ℹ️  Skipping ${doc.id} — missing startDate or trialLimit`);
+    if (!rawStart || trialLimit === undefined || trialLimit === null) {
+      console.log(`ℹ️  Skipping ${doc.id} — missing subscriptionStartDate or trialLimit`);
       return;
     }
 
-    const subscriptionId = data.subscriptionId;
-    if (!subscriptionId) {
-      console.warn(`⚠️  No subscriptionId on institution ${doc.id}, skipping`);
-      return;
-    }
-
-    const subSnap = await db.collection("institution_subscription").doc(subscriptionId).get();
-    if (!subSnap.exists) {
-      console.warn(`⚠️  institution_subscription doc "${subscriptionId}" not found for ${doc.id}`);
-      return;
-    }
-
-    const { email, phone } = subSnap.data();
-
-    const start =
-      startDate instanceof admin.firestore.Timestamp
-        ? startDate.toDate()
-        : new Date(startDate);
-
-    if (isNaN(start.getTime())) {
-      console.warn(`⚠️  Invalid startDate for ${doc.id}, skipping`);
+    const start = toDate(rawStart);
+    if (!start) {
+      console.warn(`⚠️  Invalid subscriptionStartDate for ${doc.id}, skipping`);
       return;
     }
 
     const trialDays = Number(trialLimit);
     if (isNaN(trialDays) || trialDays <= 0) {
-      console.warn(`⚠️  Invalid trialLimit value "${trialLimit}" for ${doc.id}, skipping`);
+      console.warn(`⚠️  Invalid trialLimit "${trialLimit}" for ${doc.id}, skipping`);
       return;
     }
 
@@ -165,7 +141,7 @@ async function handleTrial(doc, now) {
     const isExpired = trialEnd <= now;
     const isOneDayAway = hoursUntilEnd > 0 && hoursUntilEnd <= 24;
 
-    const domain = data.domainUrl || "";
+    const domain = domainUrl || "";
     const institutionEmail = email || "";
 
     // ── One day before expiry ────────────────────────────────────────────────
@@ -176,7 +152,7 @@ async function handleTrial(doc, now) {
       if (institutionEmail) {
         promises.push(sendEmail({ event: "embed-expiry", id: doc.id, email: institutionEmail, domain }));
       } else {
-        console.warn(`⚠️  No email for institution ${doc.id}, skipping institution email`);
+        console.warn(`⚠️  No email on institution ${doc.id}, skipping institution email`);
       }
 
       if (phone) {
@@ -185,6 +161,7 @@ async function handleTrial(doc, now) {
         ]));
       }
 
+      // Admin alert — always sent
       promises.push(sendEmail({ event: "embed-expiry", id: doc.id, email: REACHX_ADMIN_EMAIL, domain }));
 
       await Promise.all(promises);
@@ -200,7 +177,7 @@ async function handleTrial(doc, now) {
       if (institutionEmail) {
         promises.push(sendEmail({ event: "embed-expiry", id: doc.id, email: institutionEmail, domain }));
       } else {
-        console.warn(`⚠️  No email for institution ${doc.id}, skipping institution email`);
+        console.warn(`⚠️  No email on institution ${doc.id}, skipping institution email`);
       }
 
       if (phone) {
@@ -222,59 +199,40 @@ async function handleTrial(doc, now) {
 }
 
 // ─── Subscription Check ──────────────────────────────────────────────────────
+// Targets institutions where subscriptionStatus === true.
+// Uses subscriptionEndDate directly from the institution doc.
 
 async function checkSubscriptions() {
-  const snapshot = await db.collection("institutions").get();
+  const snapshot = await db.collection("institutions")
+    .where("subscriptionStatus", "==", true)
+    .get();
 
   if (snapshot.empty) {
-    console.log("ℹ️  No institutions found, skipping subscription check.");
+    console.log("ℹ️  No active subscriptions found, skipping.");
     return;
   }
 
   const now = new Date();
-  const tasks = [];
-  snapshot.forEach((doc) => tasks.push(handleSubscription(doc, now)));
-  await Promise.all(tasks);
+  await Promise.all(snapshot.docs.map((doc) => handleSubscription(doc, now)));
 }
 
-async function handleSubscription(institutionDoc, now) {
+async function handleSubscription(doc, now) {
   try {
-    const data = institutionDoc.data();
+    const data = doc.data();
+    const { subscriptionEndDate: rawEnd, email, phone, domainUrl } = data;
 
-    if (!data.subscriptionStatus) return;
-
-    const subscriptionId = data.subscriptionId;
-    if (!subscriptionId) {
-      console.warn(`⚠️  No subscriptionId on institution ${institutionDoc.id}, skipping`);
+    if (!rawEnd) {
+      console.log(`ℹ️  Skipping ${doc.id} — no subscriptionEndDate`);
       return;
     }
 
-    const subDocRef = db.collection("institution_subscription").doc(subscriptionId);
-    const subDocSnap = await subDocRef.get();
-    if (!subDocSnap.exists) {
-      console.warn(`⚠️  institution_subscription doc "${subscriptionId}" not found for ${institutionDoc.id}`);
+    const endDate = toDate(rawEnd);
+    if (!endDate) {
+      console.warn(`⚠️  Invalid subscriptionEndDate for ${doc.id}, skipping`);
       return;
     }
 
-    const subData = subDocSnap.data();
-    const { email, phone, subscriptionEndDate: rawEndDate } = subData;
-
-    if (!rawEndDate) {
-      console.log(`ℹ️  Skipping ${institutionDoc.id} — no subscriptionEndDate in sub doc`);
-      return;
-    }
-
-    const endDate =
-      rawEndDate instanceof admin.firestore.Timestamp
-        ? rawEndDate.toDate()
-        : new Date(rawEndDate);
-
-    if (isNaN(endDate.getTime())) {
-      console.warn(`⚠️  Invalid subscriptionEndDate for ${institutionDoc.id}, skipping`);
-      return;
-    }
-
-    const domain = data.domainUrl || "";
+    const domain = domainUrl || "";
     const institutionEmail = email || "";
 
     // ── Expiring within 2 days ────────────────────────────────────────────────
@@ -282,13 +240,13 @@ async function handleSubscription(institutionDoc, now) {
     const isTwoDaysAway = endDate > now && endDate <= twoDaysFromNow;
 
     if (isTwoDaysAway && !data.isTwoDaySubSent) {
-      console.log(`⚠️  Subscription ending in 2 days for institution ${institutionDoc.id}`);
+      console.log(`⚠️  Subscription ending in 2 days for institution ${doc.id}`);
       const promises = [];
 
       if (institutionEmail) {
-        promises.push(sendEmail({ event: "embed-expiry", id: institutionDoc.id, email: institutionEmail, domain }));
+        promises.push(sendEmail({ event: "embed-expiry", id: doc.id, email: institutionEmail, domain }));
       } else {
-        console.warn(`⚠️  No email for institution ${institutionDoc.id}, skipping institution email`);
+        console.warn(`⚠️  No email on institution ${doc.id}, skipping institution email`);
       }
 
       if (phone) {
@@ -297,24 +255,24 @@ async function handleSubscription(institutionDoc, now) {
         ]));
       }
 
-      promises.push(sendEmail({ event: "embed-expiry", id: institutionDoc.id, email: REACHX_ADMIN_EMAIL, domain }));
+      promises.push(sendEmail({ event: "embed-expiry", id: doc.id, email: REACHX_ADMIN_EMAIL, domain }));
 
       await Promise.all(promises);
-      await institutionDoc.ref.set({ isTwoDaySubSent: true }, { merge: true });
-      console.log(`✅ Two-day subscription warning sent for ${institutionDoc.id}`);
+      await doc.ref.set({ isTwoDaySubSent: true }, { merge: true });
+      console.log(`✅ Two-day subscription warning sent for ${doc.id}`);
     }
 
     // ── Subscription expired ──────────────────────────────────────────────────
     const isExpired = endDate <= now;
 
     if (isExpired && !data.isSubscriptionEndNot) {
-      console.log(`🚫 Subscription expired for institution ${institutionDoc.id}`);
+      console.log(`🚫 Subscription expired for institution ${doc.id}`);
       const promises = [];
 
       if (institutionEmail) {
-        promises.push(sendEmail({ event: "embed-expiry", id: institutionDoc.id, email: institutionEmail, domain }));
+        promises.push(sendEmail({ event: "embed-expiry", id: doc.id, email: institutionEmail, domain }));
       } else {
-        console.warn(`⚠️  No email for institution ${institutionDoc.id}, skipping institution email`);
+        console.warn(`⚠️  No email on institution ${doc.id}, skipping institution email`);
       }
 
       if (phone) {
@@ -323,37 +281,33 @@ async function handleSubscription(institutionDoc, now) {
         ]));
       }
 
-      promises.push(sendEmail({ event: "embed-expiry", id: institutionDoc.id, email: REACHX_ADMIN_EMAIL, domain }));
+      promises.push(sendEmail({ event: "embed-expiry", id: doc.id, email: REACHX_ADMIN_EMAIL, domain }));
 
       await Promise.all(promises);
 
-      await institutionDoc.ref.set(
-        { subscriptionStatus: false, startDate: "", isSubscriptionEndNot: true },
-        { merge: true }
-      );
-
-      const { subscriptionStartDate, subscriptionAmount, subscriptionEndDate } = subData;
+      // Archive current subscription period into subscriptionHistory
       const historyEntry = [
-        `Start: ${subscriptionStartDate ?? ""}`,
-        `Amount: ${subscriptionAmount ?? ""}`,
-        `End: ${subscriptionEndDate ?? ""}`,
+        `Start: ${data.subscriptionStartDate ?? ""}`,
+        `Amount: ${data.subscriptionAmount ?? ""}`,
+        `End: ${data.subscriptionEndDate ?? ""}`,
       ].join(" | ");
 
-      await subDocRef.set(
+      await doc.ref.set(
         {
+          subscriptionStatus: false,
+          subscriptionStartDate: null,
+          subscriptionEndDate: null,
+          subscriptionAmount: null,
+          isSubscriptionEndNot: true,
           subscriptionHistory: admin.firestore.FieldValue.arrayUnion(historyEntry),
-          subscriptionStartDate: "",
-          subscriptionAmount: "",
-          subscriptionEndDate: "",
         },
         { merge: true }
       );
 
-      console.log(`📦 Archived subscription for ${institutionDoc.id}: "${historyEntry}"`);
-      console.log(`✅ Subscription expired and reset for ${institutionDoc.id}`);
+      console.log(`📦 Archived & reset subscription for ${doc.id}: "${historyEntry}"`);
     }
 
   } catch (err) {
-    console.error(`❌ Error handling subscription for ${institutionDoc.id}:`, err);
+    console.error(`❌ Error handling subscription for ${doc.id}:`, err);
   }
 }
