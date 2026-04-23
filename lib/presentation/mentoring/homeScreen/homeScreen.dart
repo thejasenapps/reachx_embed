@@ -146,15 +146,17 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
               child: Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Column(
-                  spacing: 40,
+                  spacing: 10,
                   children: [
-                    const SizedBox(
-                      height: 1,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: MenuButtonWidget(homeScreenViewModel: homeScreenViewModel)
-                    ),
+                    Obx(() {
+                      return Visibility(
+                        visible: globalUserId.value.isNotEmpty,
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: MenuButtonWidget(homeScreenViewModel: homeScreenViewModel)
+                        ),
+                      );
+                    }),
 
                     Obx(() {
                       return Skeletonizer(
@@ -167,8 +169,8 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
                               children: [
                                 CachedNetworkImage(
                                   imageUrl: homeScreenViewModel.institutionEntity!.logo,
-                                  width: 160,
-                                  height: 160,
+                                  width: 140,
+                                  height: 140,
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) =>  const Center(
                                     child: CustomPlaceHolderImage(),

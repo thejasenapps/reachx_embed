@@ -95,7 +95,7 @@ class HomeScreenRepoImpl implements HomeScreenRepo {
       //   );
       // }).toList();
 
-      if(globalInstitutionId.value.isEmpty) {
+      if(globalInstitutionId.value.isEmpty || globalInstitutionId.value.length != 6) {
         profiles = topicsModel.topics
             .where((topic) =>
         topic.status == "online" && topic.skillType == "professional")
