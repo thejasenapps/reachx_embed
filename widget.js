@@ -30,8 +30,8 @@
         position: fixed;
         bottom: 25px;
         left: 25px;
-        width: 70px;
-        height: 70px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         background: #1976D2;
         color: white;
@@ -147,14 +147,14 @@
 
     // Button — pill shape to accommodate longer text, bottom-right
     btn.style.width = "auto";
-    btn.style.height = "40px";
+    btn.style.height = "70px";
     btn.style.fontSize = "11px";
     btn.style.fontWeight = "600";
     btn.style.borderRadius = "20px";
     btn.style.padding = "0 14px";
     btn.style.bottom = "16px";
-    btn.style.right = "16px";
-    btn.style.left = "auto";
+    btn.style.left = "16px";
+    btn.style.right = "auto";
     btn.style.whiteSpace = "nowrap";
     btn.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
 
