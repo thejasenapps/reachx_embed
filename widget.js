@@ -141,22 +141,23 @@
 
   if (isMobile) {
 
-    // Button — bottom-right, larger touch target
-    btn.style.width = "64px";
-    btn.style.height = "64px";
-    btn.style.fontSize = "14px";
-    btn.style.bottom = "20px";
-    btn.style.right = "20px";
+    // Button — smaller, bottom-right, compact touch target
+    btn.style.width = "48px";
+    btn.style.height = "48px";
+    btn.style.fontSize = "12px";
+    btn.style.bottom = "16px";
+    btn.style.right = "16px";
     btn.style.left = "auto";
+    btn.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
 
-    // Close button
-    close.style.width = "44px";
-    close.style.height = "44px";
-    close.style.fontSize = "22px";
-    close.style.top = "10px";
-    close.style.right = "10px";
+    // Close button — large enough for touch
+    close.style.width = "36px";
+    close.style.height = "36px";
+    close.style.fontSize = "20px";
+    close.style.top = "12px";
+    close.style.right = "12px";
 
-    // Container — true full-screen sheet from bottom
+    // Container — true full-screen, anchored to all four edges
     container.style.position = "fixed";
     container.style.top = "0";
     container.style.left = "0";
@@ -170,10 +171,13 @@
     container.style.minHeight = "unset";
     container.style.borderRadius = "0";
     container.style.boxSizing = "border-box";
+    // Reset desktop positioning that would misalign the container
+    container.style.margin = "0";
+    container.style.padding = "0";
 
-    spinner.style.width = "56px";
-    spinner.style.height = "56px";
-    spinner.style.borderWidth = "5px";
+    spinner.style.width = "48px";
+    spinner.style.height = "48px";
+    spinner.style.borderWidth = "4px";
 
   }
 
@@ -245,4 +249,4 @@
     container.style.display = "none";
   };
 
-})();   //size different
+})();
