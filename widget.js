@@ -51,7 +51,7 @@
 
       #container {
         position: fixed;
-        bottom: 110px;
+        bottom: 140px;
         left: 30px;
         width: 28vw;
         height: 80vh;
