@@ -170,20 +170,34 @@
 
     // Container — starts 20px from top, bottom-sheet appearance
     container.style.position = "fixed";
-    container.style.top = "20px";
+
+    // Use dynamic viewport height (best for mobile browsers)
+    container.style.top =  "calc(env(safe-area-inset-top) + 12px)";
     container.style.left = "0";
     container.style.right = "0";
     container.style.bottom = "0";
+    
+    // Full width always
     container.style.width = "100vw";
-    container.style.height = "calc(100vh - 20px)";
     container.style.maxWidth = "100vw";
-    container.style.maxHeight = "calc(100vh - 20px)";
+    
+    // Use dvh instead of vh (fixes mobile browser UI issues)
+    container.style.height = "calc(100dvh - 12px)";
+    container.style.maxHeight = "100dvh";
+    
+    // Remove hard constraints
     container.style.minWidth = "unset";
     container.style.minHeight = "unset";
+    
+    // Smooth top sheet style
     container.style.borderRadius = "16px 16px 0 0";
+    
+    // Respect notches (iPhone etc)
+    container.style.paddingTop = "env(safe-area-inset-top)";
+    container.style.paddingBottom = "env(safe-area-inset-bottom)";
+    
     container.style.boxSizing = "border-box";
     container.style.margin = "0";
-    container.style.padding = "0";
 
     spinner.style.width = "48px";
     spinner.style.height = "48px";
