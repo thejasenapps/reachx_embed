@@ -145,7 +145,7 @@
 
   if (isMobile) {
 
-    // Button — pill shape to accommodate longer text, bottom-right
+    // Button — pill shape to accommodate longer text, bottom-left
     btn.style.width = "auto";
     btn.style.height = "70px";
     btn.style.fontSize = "11px";
@@ -165,19 +165,20 @@
     close.style.top = "12px";
     close.style.right = "12px";
 
-    // Container — full screen, edge-to-edge in both axes
+    // Container — starts 20px from top, anchored to all other edges,
+    // giving a bottom-sheet appearance with a sliver of page visible at top
     container.style.position = "fixed";
-    container.style.top = "0";
+    container.style.top = "20px";          // 20px gap at top = bottom-sheet feel
     container.style.left = "0";
     container.style.right = "0";
     container.style.bottom = "0";
     container.style.width = "100vw";
-    container.style.height = "100vh";
+    container.style.height = "calc(100vh - 20px)"; // 20px shorter than full screen
     container.style.maxWidth = "100vw";
-    container.style.maxHeight = "100vh";
+    container.style.maxHeight = "calc(100vh - 20px)";
     container.style.minWidth = "unset";
     container.style.minHeight = "unset";
-    container.style.borderRadius = "0";
+    container.style.borderRadius = "16px 16px 0 0";  // rounded only at top corners
     container.style.boxSizing = "border-box";
     container.style.margin = "0";
     container.style.padding = "0";
@@ -203,7 +204,7 @@
     if (!isMobile) return;
 
     const vw = window.innerWidth;
-    const vh = window.innerHeight;
+    const vh = window.innerHeight - 20; // account for the 20px top offset
 
     // Scale flutter content to fill the full viewport width
     const baseWidth = 500;
