@@ -120,7 +120,7 @@
 
     </style>
 
-    // <button id="btn">Talk to Founders</button>
+    <button id="btn">Talk to Founders</button>
 
     <div id="container">
       <button id="close">×</button>
