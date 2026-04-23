@@ -43,6 +43,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
+        line-height: 1.2;
+        padding: 8px;
+        word-break: break-word;
       }
 
       #container {
@@ -116,7 +120,7 @@
 
     </style>
 
-    <button id="btn">Book</button>
+    <button id="btn">Talk to Founders</button>
 
     <div id="container">
       <button id="close">×</button>
@@ -141,13 +145,17 @@
 
   if (isMobile) {
 
-    // Button — smaller, bottom-right, compact touch target
-    btn.style.width = "48px";
-    btn.style.height = "48px";
-    btn.style.fontSize = "12px";
+    // Button — pill shape to accommodate longer text, bottom-right
+    btn.style.width = "auto";
+    btn.style.height = "40px";
+    btn.style.fontSize = "11px";
+    btn.style.fontWeight = "600";
+    btn.style.borderRadius = "20px";
+    btn.style.padding = "0 14px";
     btn.style.bottom = "16px";
     btn.style.right = "16px";
     btn.style.left = "auto";
+    btn.style.whiteSpace = "nowrap";
     btn.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
 
     // Close button — large enough for touch
@@ -157,21 +165,20 @@
     close.style.top = "12px";
     close.style.right = "12px";
 
-    // Container — true full-screen, anchored to all four edges
+    // Container — full screen, edge-to-edge in both axes
     container.style.position = "fixed";
     container.style.top = "0";
     container.style.left = "0";
     container.style.right = "0";
     container.style.bottom = "0";
-    container.style.width = "100%";
-    container.style.height = "100%";
-    container.style.maxWidth = "100%";
-    container.style.maxHeight = "100%";
+    container.style.width = "100vw";
+    container.style.height = "100vh";
+    container.style.maxWidth = "100vw";
+    container.style.maxHeight = "100vh";
     container.style.minWidth = "unset";
     container.style.minHeight = "unset";
     container.style.borderRadius = "0";
     container.style.boxSizing = "border-box";
-    // Reset desktop positioning that would misalign the container
     container.style.margin = "0";
     container.style.padding = "0";
 
@@ -195,13 +202,17 @@
 
     if (!isMobile) return;
 
-    const baseWidth = 500; // typical mobile app width
-    const scale = window.innerWidth / baseWidth;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // Scale flutter content to fill the full viewport width
+    const baseWidth = 500;
+    const scale = vw / baseWidth;
 
     target.style.transform = "scale(" + scale + ")";
     target.style.transformOrigin = "top left";
     target.style.width = baseWidth + "px";
-    target.style.height = (window.innerHeight / scale) + "px";
+    target.style.height = (vh / scale) + "px";
   }
 
   window.addEventListener("resize", scaleFlutter);
