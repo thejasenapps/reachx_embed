@@ -51,7 +51,7 @@
 
       #container {
         position: fixed;
-        bottom: 140px;
+        bottom: 110px;
         left: 30px;
         width: 28vw;
         height: 80vh;
@@ -145,18 +145,21 @@
 
   if (isMobile) {
 
-    // Button — pill shape to accommodate longer text, bottom-left
-    btn.style.width = "auto";
-    btn.style.height = "70px";
-    btn.style.fontSize = "11px";
-    btn.style.fontWeight = "600";
-    btn.style.borderRadius = "20px";
-    btn.style.padding = "0 14px";
-    btn.style.bottom = "16px";
-    btn.style.left = "16px";
+    // Button — large circle with readable wrapped text, bottom-left
+    btn.style.width = "90px";
+    btn.style.height = "90px";
+    btn.style.borderRadius = "50%";
+    btn.style.fontSize = "13px";
+    btn.style.fontWeight = "700";
+    btn.style.lineHeight = "1.3";
+    btn.style.padding = "10px";
+    btn.style.bottom = "20px";
+    btn.style.left = "20px";
     btn.style.right = "auto";
-    btn.style.whiteSpace = "nowrap";
-    btn.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
+    btn.style.whiteSpace = "normal";
+    btn.style.wordBreak = "break-word";
+    btn.style.textAlign = "center";
+    btn.style.boxShadow = "0 6px 16px rgba(0,0,0,0.3)";
 
     // Close button — large enough for touch
     close.style.width = "36px";
@@ -165,20 +168,19 @@
     close.style.top = "12px";
     close.style.right = "12px";
 
-    // Container — starts 20px from top, anchored to all other edges,
-    // giving a bottom-sheet appearance with a sliver of page visible at top
+    // Container — starts 20px from top, bottom-sheet appearance
     container.style.position = "fixed";
-    container.style.top = "20px";          // 20px gap at top = bottom-sheet feel
+    container.style.top = "20px";
     container.style.left = "0";
     container.style.right = "0";
     container.style.bottom = "0";
     container.style.width = "100vw";
-    container.style.height = "calc(100vh - 20px)"; // 20px shorter than full screen
+    container.style.height = "calc(100vh - 20px)";
     container.style.maxWidth = "100vw";
     container.style.maxHeight = "calc(100vh - 20px)";
     container.style.minWidth = "unset";
     container.style.minHeight = "unset";
-    container.style.borderRadius = "16px 16px 0 0";  // rounded only at top corners
+    container.style.borderRadius = "16px 16px 0 0";
     container.style.boxSizing = "border-box";
     container.style.margin = "0";
     container.style.padding = "0";
@@ -204,9 +206,8 @@
     if (!isMobile) return;
 
     const vw = window.innerWidth;
-    const vh = window.innerHeight - 20; // account for the 20px top offset
+    const vh = window.innerHeight - 20;
 
-    // Scale flutter content to fill the full viewport width
     const baseWidth = 500;
     const scale = vw / baseWidth;
 
