@@ -57,7 +57,7 @@ class RazorpayPaymentService {
     _paymentCompleter = Completer<Map<String, dynamic>>();
 
     try {
-      await _waitForRazorpay();
+      // await _waitForRazorpay();
 
       final orderId = await _createRazorpayOrderWeb(amount, currencySymbol);
 
