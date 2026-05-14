@@ -42,12 +42,18 @@ void main() async {
   );
 
 
-  final id =  globalContext['REACHX_INST_ID'];
+  final queryParams = Uri.base.queryParameters;
+  final id = queryParams['institutionId'];
   debugPrint("InstitutionId + $id");
   globalInstitutionId.value = id?.toString() ?? '';
-  debugPrint("InstitutionId after + ${globalInstitutionId.value}");
-  final url = globalContext['DOMAIN_URL'];
+  debugPrint(
+    "InstitutionId after + ${globalInstitutionId.value}",
+  );
+  final url = queryParams['referrerOrigin'];
   domainUrl = url?.toString() ?? '';
+  debugPrint("Domain URL + $domainUrl");
+  final referrerUrl = queryParams['referrerUrl'];
+  debugPrint("Referrer URL + $referrerUrl");
 
 
   if(!kIsWeb) {
