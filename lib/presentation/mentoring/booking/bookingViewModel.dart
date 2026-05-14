@@ -62,7 +62,7 @@ class BookingViewModel extends GetxController{
           // ✅ Log the exact failure reason from Razorpay
           final reason = paymentResponse["message"] ?? "Unknown error";
           Logger().e("❌ Payment failed → $reason");
-          showRedSnackBar("Payment Failed. Try again", context);
+          showRedSnackBar("Payment Failed: $reason", context);
         }
       } else {
         confirmBooking(data, context, userEntity);
