@@ -151083,7 +151083,7 @@ o=t.z
 n=0
 case 2:q=p.Razorpay
 if(!!(q!=null&&typeof q==="function")){s=3
-break}if(n>=5000)throw A.d(A.c_("Razorpay SDK failed to load within 5000ms"))
+break}if(n>=2e4)throw A.d(A.c_("Razorpay SDK failed to load within 20000ms"))
 s=4
 return A.h(A.lE(B.bn,null,o),$async$NA)
 case 4:n+=100
