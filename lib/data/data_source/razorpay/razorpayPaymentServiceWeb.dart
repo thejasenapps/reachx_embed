@@ -36,7 +36,7 @@ class RazorpayPaymentService {
     return rp != null && rp.typeofEquals('function');
   }
 
-  Future<void> _waitForRazorpay({int maxWaitMs = 5000}) async {
+  Future<void> _waitForRazorpay({int maxWaitMs = 20000}) async {
     const interval = 100;
     int waited = 0;
     while (!_isRazorpayLoaded) {
