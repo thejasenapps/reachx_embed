@@ -156151,7 +156151,7 @@ h.l(a,"orderId",J.o(l,"orderId"))
 o.Bc(a,a0,m)}else{d=J.o(l,"message")
 k=d==null?"Unknown error":d
 A.RM().a0O(0,"\u274c Payment failed \u2192 "+A.n(k))
-A.bML("Payment Failed. Try again",a0)}s=8
+A.bML("Payment Failed: "+A.n(k),a0)}s=8
 break
 case 9:o.Bc(a,a0,m)
 case 8:q=1
