@@ -3,6 +3,7 @@ import 'dart:js_interop';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
+import 'dart:js_interop_unsafe';
 
 // Note: Only use razorpay_flutter for mobile logic; it may conflict on web
 import 'package:reachx_embed/core/env_config.dart';
@@ -16,6 +17,7 @@ extension type Razorpay._(JSObject _) implements JSObject {
   external void open();
   external void on(String event, JSFunction callback);
 }
+
 
 extension JSObjectParser on JSObject {
   String? getProperty(String key) {
@@ -36,6 +38,23 @@ class RazorpayPaymentService {
 
   RazorpayPaymentService({required this.context});
 
+  bool get _isRazorpayLoaded {
+    final rp = globalContext['Razorpay'];
+    return rp != null && rp.typeofEquals('function');
+  }
+
+  Future<void> _waitForRazorpay({int maxWaitMs = 5000}) async {
+    const interval = 100;
+    int waited = 0;
+    while (!_isRazorpayLoaded) {
+      if (waited >= maxWaitMs) {
+        throw Exception('Razorpay SDK failed to load within ${maxWaitMs}ms');
+      }
+      await Future.delayed(const Duration(milliseconds: interval));
+      waited += interval;
+    }
+  }
+
   Future<Map<String, dynamic>> startPayment({
     required int amount,
     required String currencySymbol,
@@ -45,6 +64,8 @@ class RazorpayPaymentService {
     _paymentCompleter = Completer<Map<String, dynamic>>();
 
     try {
+      await _waitForRazorpay();
+
       final orderId = await _createRazorpayOrderWeb(amount, currencySymbol);
 
       if (orderId == null) {
