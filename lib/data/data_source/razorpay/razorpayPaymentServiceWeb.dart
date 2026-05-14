@@ -9,14 +9,7 @@ import 'dart:js_interop_unsafe';
 import 'package:reachx_embed/core/env_config.dart';
 import 'package:reachx_embed/core/helper/getCurrencyCode.dart';
 
-// --- JS Interop Definitions ---
 
-@JS('Razorpay')
-extension type Razorpay._(JSObject _) implements JSObject {
-  external Razorpay(JSObject options);
-  external void open();
-  external void on(String event, JSFunction callback);
-}
 
 
 extension JSObjectParser on JSObject {
@@ -132,14 +125,33 @@ class RazorpayPaymentService {
         if (paymentId != null) {
           onSuccess(paymentId, signature ?? "");
         } else {
-          onFailure("Payment ID missing");
+          onFailure("Payment ID missing in handler response");
         }
       }.toJS,
       'theme': {'color': '#3399cc'},
     }.jsify() as JSObject;
 
-    final razorpay = Razorpay(options);
-    razorpay.open();
+    final ctor = globalContext['Razorpay'] as JSFunction;
+    final razorpay = ctor.callAsConstructor<JSObject>(options);
+
+    // ✅ Listen for failure event with detailed reason
+    razorpay.callMethod(
+      'on'.toJS,
+      'payment.failed'.toJS,
+          (JSObject failureResponse) {
+        final error = failureResponse['error'] as JSObject?;
+        final code = error?.getProperty('code') ?? 'UNKNOWN';
+        final description = error?.getProperty('description') ?? 'No description';
+        final reason = error?.getProperty('reason') ?? 'No reason';
+        final step = error?.getProperty('step') ?? 'No step';
+
+        final message = 'Code: $code | Reason: $reason | Step: $step | Description: $description';
+        Logger().e("🔴 Razorpay payment.failed → $message");
+        onFailure(message);
+      }.toJS,
+    );
+
+    razorpay.callMethod('open'.toJS);
   }
 
   Future<String?> _createRazorpayOrderWeb(int amount, String currencySymbol) async {

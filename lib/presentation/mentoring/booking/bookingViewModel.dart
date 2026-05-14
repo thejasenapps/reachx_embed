@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:reachx_embed/core/constants/navId.dart';
 import 'package:reachx_embed/core/global_variables.dart';
 import 'package:reachx_embed/presentation/commonWidgets/customItems/customAnimatedAlertBox.dart';
@@ -31,42 +32,47 @@ class BookingViewModel extends GetxController{
 
   void paymentFlow(Map<String, dynamic> data, BuildContext context) async {
     try {
-      final RazorpayPaymentService razorpayPaymentService = RazorpayPaymentService(context: context);
+      final RazorpayPaymentService razorpayPaymentService =
+      RazorpayPaymentService(context: context);
       isLoading.value = true;
       final UserEntity userEntity = await _bookingUseCase.getUserDetails();
       isLoading.value = false;
 
-      if(paidByWallet.value == true) {
+      if (paidByWallet.value == true) {
         data['rate'] = finalBalance.toInt();
       }
 
-      if(data["rate"] > 0) {
-        Map<String, dynamic> paymentResponse = await razorpayPaymentService.startPayment(
-            amount: data["rate"],
-            currencySymbol: data["currencySymbol"],
-            phoneNumber: userEntity.phoneNo,
-            email: userEntity.email
+      if (data["rate"] > 0) {
+        Map<String, dynamic> paymentResponse =
+        await razorpayPaymentService.startPayment(
+          amount: data["rate"],
+          currencySymbol: data["currencySymbol"],
+          phoneNumber: userEntity.phoneNo,
+          email: userEntity.email,
         );
 
+        // ✅ Always log the full response for debugging
+        Logger().d("💳 Razorpay response → $paymentResponse");
 
-        if(paymentResponse["status"] == "success") {
-
+        if (paymentResponse["status"] == "success") {
           data["paymentId"] = paymentResponse["paymentId"];
           data["orderId"] = paymentResponse["orderId"];
-
           confirmBooking(data, context, userEntity);
         } else {
-          showRedSnackBar("Payment Failed, try again", context);
+          // ✅ Log the exact failure reason from Razorpay
+          final reason = paymentResponse["message"] ?? "Unknown error";
+          Logger().e("❌ Payment failed → $reason");
+          showRedSnackBar("Payment Failed. Try again", context);
         }
       } else {
         confirmBooking(data, context, userEntity);
       }
-    } catch(e) {
-      print(e);
+    } catch (e, st) {
+      // ✅ Log stack trace too
+      Logger().e("💥 paymentFlow crashed", error: e, stackTrace: st);
       showRedSnackBar("Error, Try later", context);
     }
   }
-
 
   // Confirms the booking by passing details to the use case
   void confirmBooking(Map<String, dynamic> bookingDetails, BuildContext context, UserEntity userEntity) async {
