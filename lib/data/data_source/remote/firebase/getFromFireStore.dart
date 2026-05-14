@@ -764,16 +764,27 @@ class GetFromFirestore {
   }
 
   Future<Results> fetchInstitutionByUrl(String url) async {
-    CollectionReference collection =
-    FirebaseFirestore.instance.collection(FirebaseCollection.institutions.name);
+    CollectionReference collection = FirebaseFirestore.instance
+        .collection(FirebaseCollection.institutions.name);
+
     try {
-      QuerySnapshot querySnapshot;
-      querySnapshot =
-      await collection.where("domainUrl", isEqualTo: url).get();
-      if (querySnapshot.docs.isNotEmpty) {
-        return Results.success(InstitutionModel.fromJson(querySnapshot.docs.first.data() as Map<String, dynamic>));
-      }
-      return Results.error("Empty");
+      QuerySnapshot querySnapshot = await collection.get();
+
+      final doc = querySnapshot.docs.firstWhere(
+            (doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          final domainUrl = data["domainUrl"]?.toString().toLowerCase() ?? "";
+
+          return domainUrl.contains(url.toLowerCase());
+        },
+        orElse: () => throw Exception("Empty"),
+      );
+
+      return Results.success(
+        InstitutionModel.fromJson(
+          doc.data() as Map<String, dynamic>,
+        ),
+      );
     } catch (e) {
       debugPrint("failed, $e");
       return Results.error("Failed to fetch");
