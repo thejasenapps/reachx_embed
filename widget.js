@@ -31,28 +31,52 @@
    *   https://enapp.in       → https://enapp.in      (unchanged — no www)
    */
   function normaliseOrigin(origin) {
+    console.group("[ReachX] normaliseOrigin()");
+    console.log("  ↳ Input origin         :", origin);
     try {
       const url = new URL(origin);
+      console.log("  ↳ Parsed hostname      :", url.hostname);
+
       if (url.hostname.startsWith("www.")) {
         url.hostname = url.hostname.slice(4); // drop "www."
+        console.log("  ↳ www. detected        : YES — stripped");
+        console.log("  ↳ Normalised hostname  :", url.hostname);
+      } else {
+        console.log("  ↳ www. detected        : NO  — hostname unchanged");
       }
-      // Return origin only (scheme + hostname + port), no trailing slash
-      return url.origin;
-    } catch (_) {
-      // If parsing fails for any reason, return the original value as-is
+
+      const result = url.origin;
+      console.log("  ↳ Final origin returned:", result);
+      console.groupEnd();
+      return result;
+    } catch (err) {
+      console.warn("  ↳ Failed to parse origin — returning as-is.", err);
+      console.groupEnd();
       return origin;
     }
   }
 
   function buildIframeSrc() {
+    console.group("[ReachX] buildIframeSrc()");
+    console.log("  ↳ Raw window.location.origin :", window.location.origin);
+    console.log("  ↳ Raw window.location.href   :", window.location.href);
+    console.log("  ↳ INSTITUTION_ID             :", INSTITUTION_ID || "(none)");
+
+    const normalisedOrigin = normaliseOrigin(window.location.origin);
+
     const params = new URLSearchParams({
       institutionId  : INSTITUTION_ID,
       referrerUrl    : window.location.href,
-      referrerOrigin : normaliseOrigin(window.location.origin),
+      referrerOrigin : normalisedOrigin,
     });
-    // Append to base URL (handle trailing-slash gracefully)
+
     const base = GITHUB_URL.replace(/\/?$/, "/");
-    return base + "?" + params.toString();
+    const finalSrc = base + "?" + params.toString();
+
+    console.log("  ↳ referrerOrigin passed      :", normalisedOrigin);
+    console.log("  ↳ Final iframe src           :", finalSrc);
+    console.groupEnd();
+    return finalSrc;
   }
 
   /* ─────────────────────────────────────────────
@@ -316,9 +340,10 @@
      IFRAME LOAD EVENT  — hide loader when ready
   ───────────────────────────────────────────── */
   iframe.addEventListener("load", () => {
-    // Small extra delay so Flutter's first frame has time to paint
+    console.log("[ReachX] iframe 'load' event fired — waiting 800ms for Flutter first frame…");
     setTimeout(() => {
       loader.classList.add("hidden");
+      console.log("[ReachX] Loader hidden — Flutter should be visible now.");
     }, 800);
   });
 
@@ -329,26 +354,35 @@
   let iframeInitialised = false;
 
   function ensureIframeLoaded() {
-    if (iframeInitialised) return;
+    if (iframeInitialised) {
+      console.log("[ReachX] ensureIframeLoaded() → already initialised, skipping.");
+      return;
+    }
     iframeInitialised = true;
-    loader.classList.remove("hidden");   // show loader
-    iframe.src = buildIframeSrc();       // triggers network request
+    console.group("[ReachX] ensureIframeLoaded() → first open");
+    loader.classList.remove("hidden");
+    const src = buildIframeSrc();
+    iframe.src = src;
+    console.log("  ↳ iframe.src set to:", src);
+    console.groupEnd();
   }
 
   /* ─────────────────────────────────────────────
      OPEN / CLOSE
   ───────────────────────────────────────────── */
   function openChat() {
+    console.log("[ReachX] openChat() called");
     ensureIframeLoaded();
     container.style.display = "block";
-    // Trigger animation on next frame so display:block has taken effect
     requestAnimationFrame(() => {
       container.classList.add("opening");
     });
     btn.setAttribute("aria-expanded", "true");
+    console.log("[ReachX] Chat container opened.");
   }
 
   function closeChat() {
+    console.log("[ReachX] closeChat() called — container hidden.");
     container.style.display = "none";
     container.classList.remove("opening");
     btn.setAttribute("aria-expanded", "false");
@@ -382,15 +416,18 @@
     const data = event.data;
     if (!data || typeof data !== "object") return;
 
+    console.log("[ReachX] postMessage received from iframe:", data);
     switch (data.type) {
       case "reachx:close":
+        console.log("[ReachX]   ↳ type: reachx:close — closing chat.");
         closeChat();
         break;
       case "reachx:ready":
-        // Flutter app signalled it's fully rendered — hide loader immediately
+        console.log("[ReachX]   ↳ type: reachx:ready — Flutter signalled render complete, hiding loader.");
         loader.classList.add("hidden");
         break;
       default:
+        console.log("[ReachX]   ↳ Unhandled message type:", data.type);
         break;
     }
   });
