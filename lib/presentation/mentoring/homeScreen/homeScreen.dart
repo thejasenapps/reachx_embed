@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
                   children: [
                     Obx(() {
                       return Visibility(
-                        visible: globalUserId.value.isNotEmpty,
+                        visible: globalLoggedIn.value,
                         child: Align(
                             alignment: Alignment.centerRight,
                             child: MenuButtonWidget(homeScreenViewModel: homeScreenViewModel)

@@ -26,6 +26,8 @@ import 'package:image_picker_android/image_picker_android.dart';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
+import 'package:web/web.dart' as web;
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,6 +56,11 @@ void main() async {
   debugPrint("Domain URL + $domainUrl");
   final referrerUrl = queryParams['referrerUrl'];
   debugPrint("Referrer URL + $referrerUrl");
+
+  identifyOrigins();
+
+  debugPrint("DEBUG: Hostname is ${web.window.location.hostname}");
+
 
 
   if(!kIsWeb) {
@@ -142,4 +149,16 @@ class _ReachExState extends State<ReachEx> {
       ),
     );
   }
+}
+
+void identifyOrigins() {
+  // The hostname of the iframe itself
+  final String currentHost = web.window.location.hostname;
+
+  // The hostname of the parent site (the one embedding you)
+  // Note: This may be empty or restricted if Cross-Origin policies are strict
+  final String parentHost = web.window.document.referrer;
+
+  debugPrint("Iframe Host: $currentHost");
+  debugPrint("Parent Site/Referrer: $parentHost");
 }
